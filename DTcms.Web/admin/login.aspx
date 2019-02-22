@@ -11,7 +11,7 @@
 <script type="text/javascript" src="../scripts/jquery/jquery-1.11.2.min.js"></script>
 <script type="text/javascript">
     $(function () {
-        //检测IEhglhgkfsg fds ds
+        //检测IEkhl
         if ('undefined' == typeof (document.body.style.maxHeight)) {
             window.location.href = 'ie6update.html';
         }
