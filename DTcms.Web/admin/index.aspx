@@ -17,7 +17,7 @@
     <script type="text/javascript">
         //页面加载完成时
         $(function () {
-            //检测IE
+            //检测IEsg fs d
             if ('undefined' == typeof (document.body.style.maxHeight)) {
                 window.location.href = 'ie6update.html';
             }
