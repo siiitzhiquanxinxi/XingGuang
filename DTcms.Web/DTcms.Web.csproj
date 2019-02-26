@@ -67,7 +67,6 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="321.html" />
     <Content Include="admin\article\article_edit.aspx" />
     <Content Include="admin\article\article_list.aspx" />
     <Content Include="admin\article\category_edit.aspx" />
@@ -1145,6 +1144,7 @@
     <Content Include="xmlconfig\urls.config" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="admin\SystemSetting\" />
     <Folder Include="html\" />
     <Folder Include="plugins\" />
     <Folder Include="upload\" />

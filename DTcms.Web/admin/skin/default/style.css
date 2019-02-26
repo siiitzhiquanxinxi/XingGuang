@@ -115,7 +115,7 @@ a:active, a:hover{ color:#0065D9; text-decoration:underline; }
 	.nlist-2 ul{ padding:0 0 10px 20px; }
 	.nlist-2 ul:after{ clear:both;content:".";display:block;height:0;visibility:hidden; }
 	.nlist-2 ul li{ float:left; margin-right:10px; width:32%; overflow:hidden; white-space:nowrap; text-overflow:ellipsis; }
-.nlist-3{ float:left; width:350px; overflow:hidden; }
+.nlist-3{ float:left; width:100%; overflow:hidden; }
 	.nlist-3 ul{ float:left; width:344px; }
 	.nlist-3 ul:after{ clear:both;content:".";display:block;height:0;visibility:hidden; }
 	.nlist-3 ul li{ display:inline; float:left; margin-right:20px; height:108px; }
