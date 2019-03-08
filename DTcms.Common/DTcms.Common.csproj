@@ -52,6 +52,7 @@
     <Compile Include="DTMail.cs" />
     <Compile Include="DTRequest.cs" />
     <Compile Include="JsonHelper.cs" />
+    <Compile Include="MessageBox.cs" />
     <Compile Include="PageTemplate.cs" />
     <Compile Include="PagingHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -6,7 +6,7 @@ using System.Data.SqlClient;
 using System.Configuration;
 using System.Data.Common;
 using System.Collections.Generic;
-
+using System.Text;
 namespace DTcms.DBUtility
 {
     public abstract class DbHelperSQL
@@ -1155,5 +1155,45 @@ namespace DTcms.DBUtility
         }
         #endregion
 
+        /// <summary>
+        /// DataTable批量添加
+        /// </summary>
+        /// <param name="SQLString">SQL语句</param>
+        /// <returns>影响的记录数</returns>
+        public static int ExecuteAddDataTable(DataTable dt)
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+
+                try
+                {
+                    connection.Open();
+                    SqlCommand cmd = new SqlCommand();
+                    cmd.Connection = connection;
+                    cmd.CommandText = GenerateSimpleSelectSql(dt);
+                    SqlDataAdapter da = new SqlDataAdapter(cmd);
+                    SqlCommandBuilder builder = new SqlCommandBuilder(da);
+                    da.InsertCommand = builder.GetInsertCommand();
+                    da.UpdateCommand = builder.GetUpdateCommand();
+                    da.DeleteCommand = builder.GetDeleteCommand();
+                    int rows = da.Update(dt.GetChanges());
+                    dt.AcceptChanges();
+                    return rows;
+                }
+                catch (System.Data.SqlClient.SqlException e)
+                {
+                    connection.Close();
+                    throw e;
+                }
+
+            }
+        }
+        internal static string GenerateSimpleSelectSql(DataTable table)
+        {
+            string[] columns = new string[table.Columns.Count];
+            for (int i = 0; i < columns.Length; i++)
+                columns[i] = table.Columns[i].ColumnName;
+            return new StringBuilder("SELECT ").Append(string.Join(",", columns)).Append(" FROM ").Append(table.TableName).ToString();
+        }
     }
 }

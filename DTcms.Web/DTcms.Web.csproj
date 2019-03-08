@@ -100,6 +100,11 @@
     <Content Include="admin\manager\manager_pwd.aspx" />
     <Content Include="admin\manager\role_edit.aspx" />
     <Content Include="admin\manager\role_list.aspx" />
+    <Content Include="admin\MaterialSetting\chooseMaterial.aspx" />
+    <Content Include="admin\MaterialSetting\MaterialEdit.aspx" />
+    <Content Include="admin\MaterialSetting\MaterialList.aspx" />
+    <Content Include="admin\MaterialSetting\MaterialTypeEdit.aspx" />
+    <Content Include="admin\MaterialSetting\MaterialTypeList.aspx" />
     <Content Include="admin\order\express_edit.aspx" />
     <Content Include="admin\order\express_list.aspx" />
     <Content Include="admin\order\order_config.aspx" />
@@ -472,6 +477,103 @@
     <Content Include="scripts\jquery\jquery.pagination.js" />
     <Content Include="scripts\jquery\PCASClass.js" />
     <Content Include="scripts\jquery\Validform_v5.3.2_min.js" />
+    <Content Include="scripts\lhgdialog\lhgdialog.js" />
+    <Content Include="scripts\lhgdialog\skins\blue.css" />
+    <Content Include="scripts\lhgdialog\skins\blue\blue_s.png" />
+    <Content Include="scripts\lhgdialog\skins\blue\blue_s2.png" />
+    <Content Include="scripts\lhgdialog\skins\blue\ie6\blue_titbtn.gif" />
+    <Content Include="scripts\lhgdialog\skins\blue\ie6\ui_b.png" />
+    <Content Include="scripts\lhgdialog\skins\blue\ie6\ui_l.png" />
+    <Content Include="scripts\lhgdialog\skins\blue\ie6\ui_lb.png" />
+    <Content Include="scripts\lhgdialog\skins\blue\ie6\ui_lt.png" />
+    <Content Include="scripts\lhgdialog\skins\blue\ie6\ui_lt2.png" />
+    <Content Include="scripts\lhgdialog\skins\blue\ie6\ui_r.png" />
+    <Content Include="scripts\lhgdialog\skins\blue\ie6\ui_rb.png" />
+    <Content Include="scripts\lhgdialog\skins\blue\ie6\ui_rt.png" />
+    <Content Include="scripts\lhgdialog\skins\blue\ie6\ui_rt2.png" />
+    <Content Include="scripts\lhgdialog\skins\blue\ie6\ui_t.png" />
+    <Content Include="scripts\lhgdialog\skins\blue\ie6\ui_t2.png" />
+    <Content Include="scripts\lhgdialog\skins\chrome.css" />
+    <Content Include="scripts\lhgdialog\skins\chrome\chrome_s.gif" />
+    <Content Include="scripts\lhgdialog\skins\chrome\chrome_s2.gif" />
+    <Content Include="scripts\lhgdialog\skins\chrome\chrome_s3.gif" />
+    <Content Include="scripts\lhgdialog\skins\default.css" />
+    <Content Include="scripts\lhgdialog\skins\discuz.css" />
+    <Content Include="scripts\lhgdialog\skins\iblack.css" />
+    <Content Include="scripts\lhgdialog\skins\iblack\iblack_s.png" />
+    <Content Include="scripts\lhgdialog\skins\iblack\iblack_s2.png" />
+    <Content Include="scripts\lhgdialog\skins\iblack\ie6\ui_b.png" />
+    <Content Include="scripts\lhgdialog\skins\iblack\ie6\ui_l.png" />
+    <Content Include="scripts\lhgdialog\skins\iblack\ie6\ui_lb.png" />
+    <Content Include="scripts\lhgdialog\skins\iblack\ie6\ui_lt.png" />
+    <Content Include="scripts\lhgdialog\skins\iblack\ie6\ui_lt2.png" />
+    <Content Include="scripts\lhgdialog\skins\iblack\ie6\ui_r.png" />
+    <Content Include="scripts\lhgdialog\skins\iblack\ie6\ui_rb.png" />
+    <Content Include="scripts\lhgdialog\skins\iblack\ie6\ui_rt.png" />
+    <Content Include="scripts\lhgdialog\skins\iblack\ie6\ui_rt2.png" />
+    <Content Include="scripts\lhgdialog\skins\iblack\ie6\ui_t.png" />
+    <Content Include="scripts\lhgdialog\skins\iblack\ie6\ui_t2.png" />
+    <Content Include="scripts\lhgdialog\skins\iblue.css" />
+    <Content Include="scripts\lhgdialog\skins\iblue\iblue_s.png" />
+    <Content Include="scripts\lhgdialog\skins\iblue\iblue_s2.png" />
+    <Content Include="scripts\lhgdialog\skins\iblue\ie6\ui_b.png" />
+    <Content Include="scripts\lhgdialog\skins\iblue\ie6\ui_l.png" />
+    <Content Include="scripts\lhgdialog\skins\iblue\ie6\ui_lb.png" />
+    <Content Include="scripts\lhgdialog\skins\iblue\ie6\ui_lt.png" />
+    <Content Include="scripts\lhgdialog\skins\iblue\ie6\ui_lt2.png" />
+    <Content Include="scripts\lhgdialog\skins\iblue\ie6\ui_r.png" />
+    <Content Include="scripts\lhgdialog\skins\iblue\ie6\ui_rb.png" />
+    <Content Include="scripts\lhgdialog\skins\iblue\ie6\ui_rt.png" />
+    <Content Include="scripts\lhgdialog\skins\iblue\ie6\ui_rt2.png" />
+    <Content Include="scripts\lhgdialog\skins\iblue\ie6\ui_t.png" />
+    <Content Include="scripts\lhgdialog\skins\iblue\ie6\ui_t2.png" />
+    <Content Include="scripts\lhgdialog\skins\icons\32X32\fail.png" />
+    <Content Include="scripts\lhgdialog\skins\icons\32X32\hits.png" />
+    <Content Include="scripts\lhgdialog\skins\icons\32X32\i.png" />
+    <Content Include="scripts\lhgdialog\skins\icons\32X32\succ.png" />
+    <Content Include="scripts\lhgdialog\skins\icons\alert.gif" />
+    <Content Include="scripts\lhgdialog\skins\icons\confirm.gif" />
+    <Content Include="scripts\lhgdialog\skins\icons\discuz_bg.gif" />
+    <Content Include="scripts\lhgdialog\skins\icons\error.gif" />
+    <Content Include="scripts\lhgdialog\skins\icons\face-sad.png" />
+    <Content Include="scripts\lhgdialog\skins\icons\face-smile.png" />
+    <Content Include="scripts\lhgdialog\skins\icons\gb_tip_layer.png" />
+    <Content Include="scripts\lhgdialog\skins\icons\gb_tip_layer_ie6.png" />
+    <Content Include="scripts\lhgdialog\skins\icons\lhgcore.gif" />
+    <Content Include="scripts\lhgdialog\skins\icons\loading.gif" />
+    <Content Include="scripts\lhgdialog\skins\icons\prompt.gif" />
+    <Content Include="scripts\lhgdialog\skins\icons\success.gif" />
+    <Content Include="scripts\lhgdialog\skins\icons\tips.gif" />
+    <Content Include="scripts\lhgdialog\skins\idialog.css" />
+    <Content Include="scripts\lhgdialog\skins\idialog\idialog_s.png" />
+    <Content Include="scripts\lhgdialog\skins\idialog\idialog_s2.png" />
+    <Content Include="scripts\lhgdialog\skins\idialog\ie6\ui_b.png" />
+    <Content Include="scripts\lhgdialog\skins\idialog\ie6\ui_close.hover.png" />
+    <Content Include="scripts\lhgdialog\skins\idialog\ie6\ui_close.png" />
+    <Content Include="scripts\lhgdialog\skins\idialog\ie6\ui_l.png" />
+    <Content Include="scripts\lhgdialog\skins\idialog\ie6\ui_lb.png" />
+    <Content Include="scripts\lhgdialog\skins\idialog\ie6\ui_lt.png" />
+    <Content Include="scripts\lhgdialog\skins\idialog\ie6\ui_r.png" />
+    <Content Include="scripts\lhgdialog\skins\idialog\ie6\ui_rb.png" />
+    <Content Include="scripts\lhgdialog\skins\idialog\ie6\ui_rt.png" />
+    <Content Include="scripts\lhgdialog\skins\idialog\ie6\ui_t.png" />
+    <Content Include="scripts\lhgdialog\skins\igreen.css" />
+    <Content Include="scripts\lhgdialog\skins\igreen\ie6\ui_b.png" />
+    <Content Include="scripts\lhgdialog\skins\igreen\ie6\ui_l.png" />
+    <Content Include="scripts\lhgdialog\skins\igreen\ie6\ui_lb.png" />
+    <Content Include="scripts\lhgdialog\skins\igreen\ie6\ui_lt.png" />
+    <Content Include="scripts\lhgdialog\skins\igreen\ie6\ui_r.png" />
+    <Content Include="scripts\lhgdialog\skins\igreen\ie6\ui_rb.png" />
+    <Content Include="scripts\lhgdialog\skins\igreen\ie6\ui_rt.png" />
+    <Content Include="scripts\lhgdialog\skins\igreen\ie6\ui_t.png" />
+    <Content Include="scripts\lhgdialog\skins\igreen\igreen_s.png" />
+    <Content Include="scripts\lhgdialog\skins\igreen\igreen_s2.png" />
+    <Content Include="scripts\lhgdialog\skins\jtop.css" />
+    <Content Include="scripts\lhgdialog\skins\mac.css" />
+    <Content Include="scripts\swfupload\swfupload.handlers.js" />
+    <Content Include="scripts\swfupload\swfupload.js" />
+    <Content Include="scripts\swfupload\swfupload.queue.js" />
+    <Content Include="scripts\swfupload\swfupload.swf" />
     <Content Include="scripts\webuploader\uploader.swf" />
     <Content Include="scripts\webuploader\webuploader.min.js" />
     <Content Include="templates\main\about.png" />
@@ -733,6 +835,41 @@
     </Compile>
     <Compile Include="admin\manager\role_list.aspx.designer.cs">
       <DependentUpon>role_list.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="admin\MaterialSetting\chooseMaterial.aspx.cs">
+      <DependentUpon>chooseMaterial.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="admin\MaterialSetting\chooseMaterial.aspx.designer.cs">
+      <DependentUpon>chooseMaterial.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="admin\MaterialSetting\MaterialEdit.aspx.cs">
+      <DependentUpon>MaterialEdit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="admin\MaterialSetting\MaterialEdit.aspx.designer.cs">
+      <DependentUpon>MaterialEdit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="admin\MaterialSetting\MaterialList.aspx.cs">
+      <DependentUpon>MaterialList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="admin\MaterialSetting\MaterialList.aspx.designer.cs">
+      <DependentUpon>MaterialList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="admin\MaterialSetting\MaterialTypeEdit.aspx.cs">
+      <DependentUpon>MaterialTypeEdit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="admin\MaterialSetting\MaterialTypeEdit.aspx.designer.cs">
+      <DependentUpon>MaterialTypeEdit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="admin\MaterialSetting\MaterialTypeList.aspx.cs">
+      <DependentUpon>MaterialTypeList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="admin\MaterialSetting\MaterialTypeList.aspx.designer.cs">
+      <DependentUpon>MaterialTypeList.aspx</DependentUpon>
     </Compile>
     <Compile Include="admin\order\express_edit.aspx.cs">
       <DependentUpon>express_edit.aspx</DependentUpon>
