@@ -70,6 +70,9 @@ namespace DTcms.Web.admin.MaterialSetting
             txtUnitPrice.Text = material.UnitPrice.ToString();
             //txtCostPrice.Text = material.CostPrice.ToString();
             txtLaborCost.Text = material.LaborCost.ToString();
+            txtInstallationFee.Text = material.InstallationFee.ToString();
+            txtCommissioningFee.Text = material.CommissioningFee.ToString();
+            txtManagementFee.Text = material.ManagementFee.ToString();
             txtPhoto.Text = material.Photo;
             txtMaterialID.Text = material.MaterialID;
             txtMaterialName.Text = material.MaterialName;
@@ -110,6 +113,18 @@ namespace DTcms.Web.admin.MaterialSetting
             {
                 this.txtLaborCost.Text = "0";
             }
+            if (this.txtInstallationFee.Text.Trim() == "")
+            {
+                this.txtInstallationFee.Text = "0";
+            }
+            if (this.txtCommissioningFee.Text.Trim() == "")
+            {
+                this.txtCommissioningFee.Text = "0";
+            }
+            if (this.txtManagementFee.Text.Trim() == "")
+            {
+                this.txtManagementFee.Text = "0";
+            }
             return true;
         }
 
@@ -128,6 +143,9 @@ namespace DTcms.Web.admin.MaterialSetting
             material.UnitPrice = Convert.ToDecimal(txtUnitPrice.Text.Trim());
             material.CostPrice = 0;
             material.LaborCost = Convert.ToDecimal(txtLaborCost.Text.Trim());
+            material.InstallationFee = Convert.ToDecimal(txtInstallationFee.Text.Trim());
+            material.CommissioningFee = Convert.ToDecimal(txtCommissioningFee.Text.Trim());
+            material.ManagementFee = Convert.ToDecimal(txtManagementFee.Text.Trim());
             material.Photo = txtPhoto.Text.Trim();
             material.MaterialID = txtMaterialID.Text.Trim();
             material.MaterialName = txtMaterialName.Text.Trim();

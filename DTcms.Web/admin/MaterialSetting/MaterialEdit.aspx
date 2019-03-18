@@ -117,7 +117,7 @@
         <dl>
             <dt>产品描述及备注：</dt>
             <dd>
-                <asp:TextBox ID="txtDescription" runat="server" CssClass="input normal" sucmsg=" "></asp:TextBox>
+                <asp:TextBox ID="txtDescription" runat="server" CssClass="input" Style="height: 200px;" TextMode="MultiLine" sucmsg=" "></asp:TextBox>
                 <span class="Validform_checktip"></span>
             </dd>
         </dl>
@@ -137,11 +137,35 @@
             </dd>
         </dl>
         <dl>
-            <dt>人工费：</dt>
+            <dt>弱电布线费：</dt>
             <dd>
                 <asp:TextBox ID="txtLaborCost" runat="server" CssClass="input normal" sucmsg=" " minlength="1"
                     MaxLength="100"></asp:TextBox>
-                <span class="Validform_checktip">*</span>
+
+            </dd>
+        </dl>
+        <dl>
+            <dt>器材安装费：</dt>
+            <dd>
+                <asp:TextBox ID="txtInstallationFee" runat="server" CssClass="input normal" sucmsg=" " minlength="1"
+                    MaxLength="100"></asp:TextBox>
+
+            </dd>
+        </dl>
+        <dl>
+            <dt>系统调试费：</dt>
+            <dd>
+                <asp:TextBox ID="txtCommissioningFee" runat="server" CssClass="input normal" sucmsg=" " minlength="1"
+                    MaxLength="100"></asp:TextBox>
+    
+            </dd>
+        </dl>
+        <dl>
+            <dt>项目管理费：</dt>
+            <dd>
+                <asp:TextBox ID="txtManagementFee" runat="server" CssClass="input normal" sucmsg=" " minlength="1"
+                    MaxLength="100"></asp:TextBox>
+
             </dd>
         </dl>
         <dl>
@@ -162,9 +186,11 @@
             <dt>标注：</dt>
             <dd>
                 <asp:DropDownList ID="ddlTag" runat="server">
+                    <asp:ListItem></asp:ListItem>
                     <asp:ListItem>热卖</asp:ListItem>
                     <asp:ListItem>滞销</asp:ListItem>
                     <asp:ListItem>赚钱</asp:ListItem>
+                    <asp:ListItem>活动</asp:ListItem>
                 </asp:DropDownList>
             </dd>
         </dl>
