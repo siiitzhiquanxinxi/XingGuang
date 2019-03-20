@@ -113,6 +113,10 @@
     <Content Include="admin\order\order_list.aspx" />
     <Content Include="admin\order\payment_edit.aspx" />
     <Content Include="admin\order\payment_list.aspx" />
+    <Content Include="admin\Quotation\buildTemplate.aspx" />
+    <Content Include="admin\Quotation\chooseMaterial.aspx" />
+    <Content Include="admin\Quotation\QuotationTemplateEdit.aspx" />
+    <Content Include="admin\Quotation\QuotationTemplateList.aspx" />
     <Content Include="admin\settings\builder_html.aspx" />
     <Content Include="admin\settings\nav_edit.aspx" />
     <Content Include="admin\settings\nav_list.aspx" />
@@ -927,6 +931,34 @@
     <Compile Include="admin\order\payment_list.aspx.designer.cs">
       <DependentUpon>payment_list.aspx</DependentUpon>
     </Compile>
+    <Compile Include="admin\Quotation\buildTemplate.aspx.cs">
+      <DependentUpon>buildTemplate.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="admin\Quotation\buildTemplate.aspx.designer.cs">
+      <DependentUpon>buildTemplate.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="admin\Quotation\chooseMaterial.aspx.cs">
+      <DependentUpon>chooseMaterial.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="admin\Quotation\chooseMaterial.aspx.designer.cs">
+      <DependentUpon>chooseMaterial.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="admin\Quotation\QuotationTemplateEdit.aspx.cs">
+      <DependentUpon>QuotationTemplateEdit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="admin\Quotation\QuotationTemplateEdit.aspx.designer.cs">
+      <DependentUpon>QuotationTemplateEdit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="admin\Quotation\QuotationTemplateList.aspx.cs">
+      <DependentUpon>QuotationTemplateList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="admin\Quotation\QuotationTemplateList.aspx.designer.cs">
+      <DependentUpon>QuotationTemplateList.aspx</DependentUpon>
+    </Compile>
     <Compile Include="admin\settings\builder_html.aspx.cs">
       <DependentUpon>builder_html.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1237,6 +1269,7 @@
       <DependentUpon>return_url.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="DbHelperSQL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="tools\admin_ajax.ashx.cs">
       <DependentUpon>admin_ajax.ashx</DependentUpon>
