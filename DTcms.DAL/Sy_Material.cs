@@ -445,7 +445,20 @@ namespace DTcms.DAL
 			parameters[6].Value = strWhere;	
 			return DbHelperSQL.RunProcedure("UP_GetRecordByPage",parameters,"ds");
 		}*/
-
+        /// <summary>
+        /// 获得查询分页数据
+        /// </summary>
+        public DataSet GetList(Int32 pageSize, Int32 pageIndex, string strWhere, string filedOrder, out Int32 recordCount)
+        {
+            StringBuilder strSql = new StringBuilder();
+            strSql.Append("select * from Sy_Material ");
+            if (strWhere.Trim() != "")
+            {
+                strSql.Append(" where  " + strWhere);
+            }
+            recordCount = Convert.ToInt32(DbHelperSQL.GetSingle(PagingHelper.CreateCountingSql(strSql.ToString())));
+            return DbHelperSQL.Query(PagingHelper.CreatePagingSql(recordCount, pageSize, pageIndex, strSql.ToString(), filedOrder));
+        }
         #endregion  BasicMethod
         #region  ExtensionMethod
 

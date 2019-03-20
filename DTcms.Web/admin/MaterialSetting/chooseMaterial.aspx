@@ -13,10 +13,9 @@
     <script type="text/javascript" charset="utf-8" src="../js/laymain.js"></script>
     <script type="text/javascript" charset="utf-8" src="../js/common.js"></script>
     <script type="text/javascript">
-        function ok(txt, value) {
+        function ok(value) {
             var api = frameElement.api, W = api.opener;
-            if (W.document.getElementById('<%=Request.QueryString["txtTarget"] %>') || false)
-                W.document.getElementById('<%=Request.QueryString["txtTarget"] %>').value = txt;
+            
             if (W.document.getElementById('<%=Request.QueryString["idTarget"] %>') || false)
                 W.document.getElementById('<%=Request.QueryString["idTarget"] %>').value = value;
             api.close();
@@ -36,7 +35,7 @@
             </div>
         </div>
     </div>
-    <div class="table-container">
+    <div class="table-container" overflow="scroll" style="height:550px;overflow-y:scroll;">
         <asp:Repeater ID="rptList" runat="server">
             <HeaderTemplate>
                 <table width="100%" border="0" cellspacing="0" cellpadding="0" class="ltable">
@@ -64,7 +63,8 @@
             <ItemTemplate>
                 <tr>
                     <td align="center">
-                        <asp:CheckBox ID="chkId" CssClass="checkall" runat="server" Style="vertical-align: middle;" />
+                        <%--<asp:CheckBox ID="chkId" CssClass="checkall" runat="server" Style="vertical-align: middle;" />--%>
+                        <asp:RadioButton ID="chkId" runat="server" GroupName="aa" Style="vertical-align: middle;" />
                         <asp:HiddenField ID="hidId" Value='<%#Eval("ID")%>' runat="server" />
                         <asp:HiddenField ID="hfdName" Value='<%#Eval("Name")%>' runat="server" />
                     </td>
@@ -97,7 +97,7 @@
     </div>
     <div class="pagelist" style="display: none;">
         <div class="l-btns">
-            <span>显示</span><asp:TextBox ID="txtPageNum" runat="server" CssClass="pagenum" onkeydown="return checkNumber(event);"
+            <span>显示</span><asp:TextBox ID="txtPageNum" runat="server" CssClass="pagenum"  onkeydown="return checkNumber(event);"
                 AutoPostBack="True"></asp:TextBox><span>条/页</span>
         </div>
         <div id="PageContent" runat="server" class="default">

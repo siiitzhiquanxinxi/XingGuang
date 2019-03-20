@@ -61,6 +61,7 @@ namespace DTcms.Web.admin.MaterialSetting
             DTcms.Model.Sy_Material material = MaterialBll.GetModel(Convert.ToInt32(id));
 
             hidID.Value = material.ID.ToString();
+            ddlMaterialType.SelectedValue = material.MaterialTypeID.ToString();
             txtBrand.Text = material.Brand;
             txtBrandImg.Text = material.BrandImg;
             txtMode.Text = material.Mode;
@@ -176,6 +177,7 @@ namespace DTcms.Web.admin.MaterialSetting
             }
             else
             {
+                material.ID = Convert.ToInt32(hidID.Value);
                 MaterialBll.Update(material);
                 if (dtdatail.Rows.Count > 0)
                 {
@@ -206,23 +208,63 @@ namespace DTcms.Web.admin.MaterialSetting
             }
             if (hidMaterialID.Value != "")
             {
-                
+
                 DTcms.Model.Sy_Material material = MaterialBll.GetModel(Convert.ToInt32(hidMaterialID.Value));
-                DataRow dr=dtdatail.NewRow();
-                dr["InnerID"] = Guid.NewGuid();
-                dr["ForInnerID"] = 0;
-                dr["ID"] = material.ID;
-                dr["Brand"] = material.Brand;
-                dr["Mode"] = material.Mode;
-                dr["Name"] = material.Name;
-                dr["Description"] = material.Description;
-                dr["Unit"] = material.Unit;
-                dtdatail.Rows.Add(dr);
-                this.rptList.DataSource = dtdatail;
-                rptList.DataBind();
-                hidMaterialID.Value = "";
+                txtMBrand.Text= material.Brand;
+                txtMMode.Text = material.Mode;
+                txtMName.Text = material.Name;
+                txtMDescription.Text = material.Description;
+                txtMUnit.Text = material.Unit;
+                //DataRow dr = dtdatail.NewRow();
+                //dr["InnerID"] = Guid.NewGuid();
+                //dr["ForInnerID"] = 0;
+                //dr["ID"] = material.ID;
+                //dr["Brand"] = material.Brand;
+                //dr["Mode"] = material.Mode;
+                //dr["Name"] = material.Name;
+                //dr["Description"] = material.Description;
+                //dr["Unit"] = material.Unit;
+                //dtdatail.Rows.Add(dr);
+                //this.rptList.DataSource = dtdatail;
+                //rptList.DataBind();
+                //hidMaterialID.Value = "";
             }
         }
+
+        protected void btnAdd_Click(object sender, EventArgs e)
+        {
+            
+            DataRow dr = dtdatail.NewRow();
+            dr["InnerID"] = Guid.NewGuid();
+            dr["ForInnerID"] = hidID.Value;
+            dr["ID"] = hidMaterialID.Value;
+            dr["Brand"] = txtMBrand.Text;
+            dr["Mode"] = txtMMode.Text;
+            dr["Name"] = txtMName.Text;
+            dr["Description"] = txtMDescription.Text;
+            dr["Unit"] = txtMUnit.Text;
+            if (this.txtMNum.Text.Trim() == "")
+            {
+                this.txtMNum.Text = "0";
+            }
+            else
+            {
+                try
+                {
+                    decimal num = Convert.ToDecimal(txtMNum.Text.Trim());
+                    dr["Num"] = num;
+                }
+                catch
+                {
+                    MessageBox.Show(this, "数量应为数字类型！");
+                }
+            }
+            dtdatail.Rows.Add(dr);
+            this.rptList.DataSource = dtdatail;
+            rptList.DataBind();
+            hidMaterialID.Value = "";
+        }
+
 
     }
 }

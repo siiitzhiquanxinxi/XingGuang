@@ -29,7 +29,6 @@ namespace DTcms.Web.admin.MaterialSetting
         }
         private void RptBind(string _strWhere, string _orderby)
         {
-            //Model.wx_userweixin weixin = GetWeiXinCode();
             _strWhere = " 1=1 " + _strWhere;
             this.page = DTRequest.GetQueryInt("page", 1);
             txtKeywords.Text = this.keywords;

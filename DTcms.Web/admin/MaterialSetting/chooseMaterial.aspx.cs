@@ -63,16 +63,20 @@ namespace DTcms.Web.admin.MaterialSetting
             string txt = "", value = "";
             foreach (RepeaterItem item in rptList.Items)
             {
-                CheckBox ckbid = item.FindControl("chkId") as CheckBox;
+                RadioButton ckbid = item.FindControl("chkId") as RadioButton;
                 if (ckbid.Checked)
                 {
                     HiddenField hfdid = item.FindControl("hidId") as HiddenField;
-                    value += hfdid.Value + "|";
+                    value = hfdid.Value ;
                     HiddenField hfdname = item.FindControl("hfdName") as HiddenField;
-                    txt += hfdname.Value + ",";
+                    txt = hfdname.Value ;
                 }
             }
-            ScriptManager.RegisterStartupScript(this, this.GetType(), "1", "ok('" + txt.Trim(',') + "','" + value.Trim('|') + "')", true);
+            string where = "id='"+ value + "'";
+            DTcms.BLL.Sy_Material bll = new DTcms.BLL.Sy_Material();
+            DataTable dt = bll.GetList(where).Tables[0];
+            if (dt.Rows.Count > 0)
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "a", "ok('" + value + "')", true);
         }
     }
 }

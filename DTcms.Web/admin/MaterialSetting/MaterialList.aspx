@@ -29,9 +29,68 @@
             });
         });
     </script>
+    <style type="text/css">
+    .textarea{
+        width: 99%; 
+        min-height: 20px; 
+        _height: 120px; 
+        margin-left: auto; 
+        margin-right: auto; 
+        padding: 3px; 
+        outline: 0; 
+        border: 1px solid #a0b3d6; 
+        font-size: 12px; 
+        line-height: 24px;
+        padding: 2px;
+        word-wrap: break-word;
+        overflow-x: hidden;
+        overflow-y: auto;
+        border:none;
+        BORDER-BOTTOM: 0px solid; BORDER-LEFT: 0px solid; BORDER-RIGHT: 0px solid; BORDER-TOP: 0px solid;
+    }
+    </style>
+<script type="text/javascript">
+var observe;
+if (window.attachEvent) {
+    observe = function (element, event, handler) {
+        element.attachEvent('on'+event, handler);
+    };
+}
+else {
+    observe = function (element, event, handler) {
+        element.addEventListener(event, handler, false);
+    };
+}
+function init () {
+    var text = document.getElementById('text');
+    function resize() {
+        text.style.width = '350px';
+        text.style.height = 'auto';
+        var vHeight= text.scrollHeight + 2;
+        text.style.height = vHeight + 'px';
+        text.readOnly = true;
+        
+    }
+    /* 0-timeout to get the already changed text */
+    function delayedResize () {
+        window.setTimeout(resize, 0);
+    }
+    observe(text, 'change',  resize);
+    observe(text, 'cut',     delayedResize);
+    observe(text, 'paste',   delayedResize);
+    observe(text, 'drop',    delayedResize);
+    observe(text, 'keydown', delayedResize);
+
+    text.focus();
+    text.select();
+    resize();
+}
+
+</script>
+
 </head>
 
-<body class="mainbody">
+<body class="mainbody" >
     <form id="form1" runat="server">
         <!--导航栏-->
         <div class="location">
@@ -87,7 +146,7 @@
                             <th align="left">描述</th>
                             <th align="left">单位</th>
                             <th align="left">单价</th>
-                            <th align="left">成本价</th>
+ 
                             <th align="center">图片</th>
                             <th width="10%">操作</th>
                         </tr>
@@ -104,10 +163,11 @@
                             <asp:Image ID="imgBrand" runat="server" ImageUrl='<%#Eval("BrandImg") %>' Height="75" /></td>
                         <td><%#Eval("Mode") %></td>
                         <td><%#Eval("Name") %></td>
-                        <td><%#Eval("Description") %></td>
+                        <td><%#Eval("Description").ToString().Replace("\n","<br />") %></td>
+                        <%--<td>
+                            <asp:TextBox ID="TextBox1" runat="server" TextMode="MultiLine" Text='<%#Eval("Description") %>' BorderStyle="None" Width="350px" Height="80px" ReadOnly="true"></asp:TextBox></td>--%>
                         <td><%#Eval("Unit") %></td>
                         <td><%#Eval("UnitPrice") %></td>
-                        <td><%#Eval("CostPrice") %></td>
                         <td align="center">
                             <asp:Image ID="imgMaterial" runat="server" ImageUrl='<%#Eval("Photo") %>' Height="75" /></td>
                         <td align="center">
@@ -128,8 +188,8 @@
         <div class="line20"></div>
         <div class="pagelist">
             <div class="l-btns">
-                <span>显示</span><asp:TextBox ID="txtPageNum" runat="server" CssClass="pagenum" onkeydown="return checkNumber(event);"
-                    OnTextChanged="txtPageNum_TextChanged" AutoPostBack="True"></asp:TextBox><span>条/页</span>
+                <span>显示<asp:TextBox ID="txtPageNum" runat="server" CssClass="pagenum" onkeydown="return checkNumber(event);"
+                    OnTextChanged="txtPageNum_TextChanged" AutoPostBack="True"></asp:TextBox>条/页</span>
             </div>
             <div id="PageContent" runat="server" class="default"></div>
         </div>
