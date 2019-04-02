@@ -29,6 +29,8 @@ namespace DTcms.Model
         private decimal? _installationfee;
         private decimal? _commissioningfee;
         private decimal? _managementfee;
+        private decimal? _indoorinstallationfee;
+        private decimal? _indoorlaborcost;
         private string _photo;
         private string _materialid;
         private string _materialname;
@@ -153,6 +155,22 @@ namespace DTcms.Model
         {
             set { _managementfee = value; }
             get { return _managementfee; }
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        public decimal? IndoorInstallationFee
+        {
+            set { _indoorinstallationfee = value; }
+            get { return _indoorinstallationfee; }
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        public decimal? IndoorLaborCost
+        {
+            set { _indoorlaborcost = value; }
+            get { return _indoorlaborcost; }
         }
         /// <summary>
         /// 

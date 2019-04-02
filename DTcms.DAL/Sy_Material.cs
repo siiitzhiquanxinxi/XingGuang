@@ -40,9 +40,9 @@ namespace DTcms.DAL
         {
             StringBuilder strSql = new StringBuilder();
             strSql.Append("insert into Sy_Material(");
-            strSql.Append("MaterialTypeID,MaterialType,Brand,BrandImg,Mode,Name,Description,Unit,UnitPrice,CostPrice,LaborCost,InstallationFee,CommissioningFee,ManagementFee,Photo,MaterialID,MaterialName,Tag,State)");
+            strSql.Append("MaterialTypeID,MaterialType,Brand,BrandImg,Mode,Name,Description,Unit,UnitPrice,CostPrice,LaborCost,InstallationFee,CommissioningFee,ManagementFee,IndoorInstallationFee,IndoorLaborCost,Photo,MaterialID,MaterialName,Tag,State)");
             strSql.Append(" values (");
-            strSql.Append("@MaterialTypeID,@MaterialType,@Brand,@BrandImg,@Mode,@Name,@Description,@Unit,@UnitPrice,@CostPrice,@LaborCost,@InstallationFee,@CommissioningFee,@ManagementFee,@Photo,@MaterialID,@MaterialName,@Tag,@State)");
+            strSql.Append("@MaterialTypeID,@MaterialType,@Brand,@BrandImg,@Mode,@Name,@Description,@Unit,@UnitPrice,@CostPrice,@LaborCost,@InstallationFee,@CommissioningFee,@ManagementFee,@IndoorInstallationFee,@IndoorLaborCost,@Photo,@MaterialID,@MaterialName,@Tag,@State)");
             strSql.Append(";select @@IDENTITY");
             SqlParameter[] parameters = {
                     new SqlParameter("@MaterialTypeID", SqlDbType.Int,4),
@@ -59,6 +59,8 @@ namespace DTcms.DAL
                     new SqlParameter("@InstallationFee", SqlDbType.Decimal,9),
                     new SqlParameter("@CommissioningFee", SqlDbType.Decimal,9),
                     new SqlParameter("@ManagementFee", SqlDbType.Decimal,9),
+                    new SqlParameter("@IndoorInstallationFee", SqlDbType.Decimal,9),
+                    new SqlParameter("@IndoorLaborCost", SqlDbType.Decimal,9),
                     new SqlParameter("@Photo", SqlDbType.NVarChar,50),
                     new SqlParameter("@MaterialID", SqlDbType.NVarChar,50),
                     new SqlParameter("@MaterialName", SqlDbType.NVarChar,50),
@@ -78,11 +80,13 @@ namespace DTcms.DAL
             parameters[11].Value = model.InstallationFee;
             parameters[12].Value = model.CommissioningFee;
             parameters[13].Value = model.ManagementFee;
-            parameters[14].Value = model.Photo;
-            parameters[15].Value = model.MaterialID;
-            parameters[16].Value = model.MaterialName;
-            parameters[17].Value = model.Tag;
-            parameters[18].Value = model.State;
+            parameters[14].Value = model.IndoorInstallationFee;
+            parameters[15].Value = model.IndoorLaborCost;
+            parameters[16].Value = model.Photo;
+            parameters[17].Value = model.MaterialID;
+            parameters[18].Value = model.MaterialName;
+            parameters[19].Value = model.Tag;
+            parameters[20].Value = model.State;
 
             object obj = DbHelperSQL.GetSingle(strSql.ToString(), parameters);
             if (obj == null)
@@ -116,6 +120,8 @@ namespace DTcms.DAL
             strSql.Append("InstallationFee=@InstallationFee,");
             strSql.Append("CommissioningFee=@CommissioningFee,");
             strSql.Append("ManagementFee=@ManagementFee,");
+            strSql.Append("IndoorInstallationFee=@IndoorInstallationFee,");
+            strSql.Append("IndoorLaborCost=@IndoorLaborCost,");
             strSql.Append("Photo=@Photo,");
             strSql.Append("MaterialID=@MaterialID,");
             strSql.Append("MaterialName=@MaterialName,");
@@ -137,6 +143,8 @@ namespace DTcms.DAL
                     new SqlParameter("@InstallationFee", SqlDbType.Decimal,9),
                     new SqlParameter("@CommissioningFee", SqlDbType.Decimal,9),
                     new SqlParameter("@ManagementFee", SqlDbType.Decimal,9),
+                    new SqlParameter("@IndoorInstallationFee", SqlDbType.Decimal,9),
+                    new SqlParameter("@IndoorLaborCost", SqlDbType.Decimal,9),
                     new SqlParameter("@Photo", SqlDbType.NVarChar,50),
                     new SqlParameter("@MaterialID", SqlDbType.NVarChar,50),
                     new SqlParameter("@MaterialName", SqlDbType.NVarChar,50),
@@ -157,12 +165,14 @@ namespace DTcms.DAL
             parameters[11].Value = model.InstallationFee;
             parameters[12].Value = model.CommissioningFee;
             parameters[13].Value = model.ManagementFee;
-            parameters[14].Value = model.Photo;
-            parameters[15].Value = model.MaterialID;
-            parameters[16].Value = model.MaterialName;
-            parameters[17].Value = model.Tag;
-            parameters[18].Value = model.State;
-            parameters[19].Value = model.ID;
+            parameters[14].Value = model.IndoorInstallationFee;
+            parameters[15].Value = model.IndoorLaborCost;
+            parameters[16].Value = model.Photo;
+            parameters[17].Value = model.MaterialID;
+            parameters[18].Value = model.MaterialName;
+            parameters[19].Value = model.Tag;
+            parameters[20].Value = model.State;
+            parameters[21].Value = model.ID;
 
             int rows = DbHelperSQL.ExecuteSql(strSql.ToString(), parameters);
             if (rows > 0)
@@ -226,7 +236,7 @@ namespace DTcms.DAL
         {
 
             StringBuilder strSql = new StringBuilder();
-            strSql.Append("select  top 1 ID,MaterialTypeID,MaterialType,Brand,BrandImg,Mode,Name,Description,Unit,UnitPrice,CostPrice,LaborCost,InstallationFee,CommissioningFee,ManagementFee,Photo,MaterialID,MaterialName,Tag,State from Sy_Material ");
+            strSql.Append("select  top 1 ID,MaterialTypeID,MaterialType,Brand,BrandImg,Mode,Name,Description,Unit,UnitPrice,CostPrice,LaborCost,InstallationFee,CommissioningFee,ManagementFee,IndoorInstallationFee,IndoorLaborCost,Photo,MaterialID,MaterialName,Tag,State from Sy_Material ");
             strSql.Append(" where ID=@ID");
             SqlParameter[] parameters = {
                     new SqlParameter("@ID", SqlDbType.Int,4)
@@ -314,6 +324,14 @@ namespace DTcms.DAL
                 {
                     model.ManagementFee = decimal.Parse(row["ManagementFee"].ToString());
                 }
+                if (row["IndoorInstallationFee"] != null && row["IndoorInstallationFee"].ToString() != "")
+                {
+                    model.IndoorInstallationFee = decimal.Parse(row["IndoorInstallationFee"].ToString());
+                }
+                if (row["IndoorLaborCost"] != null && row["IndoorLaborCost"].ToString() != "")
+                {
+                    model.IndoorLaborCost = decimal.Parse(row["IndoorLaborCost"].ToString());
+                }
                 if (row["Photo"] != null)
                 {
                     model.Photo = row["Photo"].ToString();
@@ -344,7 +362,7 @@ namespace DTcms.DAL
         public DataSet GetList(string strWhere)
         {
             StringBuilder strSql = new StringBuilder();
-            strSql.Append("select ID,MaterialTypeID,MaterialType,Brand,BrandImg,Mode,Name,Description,Unit,UnitPrice,CostPrice,LaborCost,InstallationFee,CommissioningFee,ManagementFee,Photo,MaterialID,MaterialName,Tag,State ");
+            strSql.Append("select ID,MaterialTypeID,MaterialType,Brand,BrandImg,Mode,Name,Description,Unit,UnitPrice,CostPrice,LaborCost,InstallationFee,CommissioningFee,ManagementFee,IndoorInstallationFee,IndoorLaborCost,Photo,MaterialID,MaterialName,Tag,State ");
             strSql.Append(" FROM Sy_Material ");
             if (strWhere.Trim() != "")
             {
@@ -354,9 +372,9 @@ namespace DTcms.DAL
         }
 
         /// <summary>
-        /// 获得前几行数据
-        /// </summary>
-        public DataSet GetList(int Top, string strWhere, string filedOrder)
+		/// 获得前几行数据
+		/// </summary>
+		public DataSet GetList(int Top, string strWhere, string filedOrder)
         {
             StringBuilder strSql = new StringBuilder();
             strSql.Append("select ");
@@ -364,7 +382,7 @@ namespace DTcms.DAL
             {
                 strSql.Append(" top " + Top.ToString());
             }
-            strSql.Append(" ID,MaterialTypeID,MaterialType,Brand,BrandImg,Mode,Name,Description,Unit,UnitPrice,CostPrice,LaborCost,InstallationFee,CommissioningFee,ManagementFee,Photo,MaterialID,MaterialName,Tag,State ");
+            strSql.Append(" ID,MaterialTypeID,MaterialType,Brand,BrandImg,Mode,Name,Description,Unit,UnitPrice,CostPrice,LaborCost,InstallationFee,CommissioningFee,ManagementFee,IndoorInstallationFee,IndoorLaborCost,Photo,MaterialID,MaterialName,Tag,State ");
             strSql.Append(" FROM Sy_Material ");
             if (strWhere.Trim() != "")
             {
