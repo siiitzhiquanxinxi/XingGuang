@@ -106,6 +106,7 @@
     <Content Include="admin\manager\role_list.aspx" />
     <Content Include="admin\MaterialSetting\chooseMaterial.aspx" />
     <Content Include="admin\MaterialSetting\MaterialEdit.aspx" />
+    <Content Include="admin\MaterialSetting\MaterialImport.aspx" />
     <Content Include="admin\MaterialSetting\MaterialList.aspx" />
     <Content Include="admin\MaterialSetting\MaterialTypeEdit.aspx" />
     <Content Include="admin\MaterialSetting\MaterialTypeList.aspx" />
@@ -859,6 +860,13 @@
     <Compile Include="admin\MaterialSetting\MaterialEdit.aspx.designer.cs">
       <DependentUpon>MaterialEdit.aspx</DependentUpon>
     </Compile>
+    <Compile Include="admin\MaterialSetting\MaterialImport.aspx.cs">
+      <DependentUpon>MaterialImport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="admin\MaterialSetting\MaterialImport.aspx.designer.cs">
+      <DependentUpon>MaterialImport.aspx</DependentUpon>
+    </Compile>
     <Compile Include="admin\MaterialSetting\MaterialList.aspx.cs">
       <DependentUpon>MaterialList.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1350,6 +1358,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="xmlconfig\alipaypc.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="admin\MaterialSetting\导入模板.xlsx" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
