@@ -1,5 +1,6 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="QuotationTemplateList.aspx.cs" Inherits="DTcms.Web.admin.Quotation.QuotationTemplateList" %>
 
+<%@ Register Assembly="AspNetPager" Namespace="Wuqi.Webdiyer" TagPrefix="webdiyer" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -77,10 +78,12 @@
                     <table width="100%" border="0" cellspacing="0" cellpadding="0" class="ltable">
                         <tr>
                             <th width="6%">选择</th>
-                            <th align="left">模板分类</th>
-                            <th align="left">标签</th>
+                            <th align="left">系统分类</th>
                             <th align="left">模板名称</th>
-                            <th align="left">模板描述</th>
+                            <th align="left">主要品牌</th>
+                            <th align="left">系统描述</th>
+                            <th align="left">使用场景</th>
+                            <th align="left">系统搭配注意事项</th>
                             <th width="10%">操作</th>
                         </tr>
                 </HeaderTemplate>
@@ -91,11 +94,13 @@
                             <asp:CheckBox ID="chkId" CssClass="checkall" runat="server" Style="vertical-align: middle;" />
                         </td>
                         <td><%#Eval("QuotationTemplateType") %></td>
-                        <td><%#Eval("QuotationTemplateTag") %></td>
                         <td><%#Eval("QuotationTemplateName") %></td>
+                        <td><%#Eval("QuotationTemplateMainBrand") %></td>
                         <td><%#Eval("QuotationTemplateDescription") %></td>
+                        <td><%#Eval("QuotationTemplateScenario") %></td>
+                        <td><%#Eval("QuotationTemplateNotes") %></td>
                         <td align="center">
-                            <a href='<%#Eval("QuotationTemplateId") %>'>编辑</a>
+                            <a href='QuotationTemplateEdit.aspx?action=edit&id=<%#Eval("QuotationTemplateId") %>'>编辑</a>
                         </td>
                     </tr>
                 </ItemTemplate>
@@ -107,16 +112,15 @@
             <!--/文字列表-->
         </div>
         <!--/列表-->
-
+        
         <!--内容底部-->
         <div class="line20"></div>
-        <div class="pagelist">
-            <div class="l-btns">
-                <span>显示</span><asp:TextBox ID="txtPageNum" runat="server" CssClass="pagenum" onkeydown="return checkNumber(event);"
-                    OnTextChanged="txtPageNum_TextChanged" AutoPostBack="True"></asp:TextBox><span>条/页</span>
-            </div>
-            <div id="PageContent" runat="server" class="default"></div>
-        </div>
+        <webdiyer:AspNetPager ID="AspNetPager1" runat="server" CustomInfoHTML="当前页:%CurrentPageIndex%/%PageCount% 共有%RecordCount%条记录 %PageCount%/页"
+            FirstPageText="首页" HorizontalAlign="Center" InvalidPageIndexErrorMessage="页索引不是有效的数值！"
+            LastPageText="末页" NextPageText="下一页" PageIndexOutOfRangeErrorMessage="页索引超出范围！"
+            PageSize="10" PrevPageText="上一页" ShowCustomInfoSection="Left" ShowInputBox="Always"
+            Width="100%" OnPageChanged="AspNetPager1_PageChanged" NumericButtonCount="5">
+        </webdiyer:AspNetPager>
         <!--/内容底部-->
 
     </form>

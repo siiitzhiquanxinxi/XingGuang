@@ -12,20 +12,20 @@ namespace DTcms.Web.admin.MaterialSetting
 {
     public partial class MaterialList : System.Web.UI.Page
     {
-        protected int totalCount;
-        protected int page;
-        protected int pageSize;
+        //protected int totalCount;
+        //protected int page;
+        //protected int pageSize;
         protected string keywords = string.Empty;
         protected void Page_Load(object sender, EventArgs e)
         {
-           
+
             if (!IsPostBack)
             {
                 BindCkb();
-                //BindData();
+                BindData();
                 keywords = this.txtKeywords.Text.Trim();
-                this.pageSize = GetPageSize(10);
-                RptBind(CombSqlTxt(keywords), "ID desc");
+                //this.pageSize = GetPageSize(5);
+                //RptBind(CombSqlTxt(keywords), "ID desc");
             }
         }
 
@@ -68,21 +68,21 @@ namespace DTcms.Web.admin.MaterialSetting
             }
             return strTemp.ToString();
         }
-        private void RptBind(string _strWhere, string _orderby)
-        {
-            _strWhere = " 1=1 " + _strWhere;
-            this.page = DTRequest.GetQueryInt("page", 1);
-            txtKeywords.Text = this.keywords;
-            DTcms.BLL.Sy_Material hdBll = new DTcms.BLL.Sy_Material();
-            DataSet ds = hdBll.GetList(this.pageSize, this.page, _strWhere, _orderby, out this.totalCount);
-            this.rptList1.DataSource = ds;
-            this.rptList1.DataBind();
+        //private void RptBind(string _strWhere, string _orderby)
+        //{
+        //    _strWhere = " 1=1 " + _strWhere;
+        //    this.page = DTRequest.GetQueryInt("page", 1);
+        //    txtKeywords.Text = this.keywords;
+        //    DTcms.BLL.Sy_Material hdBll = new DTcms.BLL.Sy_Material();
+        //    DataSet ds = hdBll.GetList(this.pageSize, this.page, _strWhere, _orderby, out this.totalCount);
+        //    this.rptList1.DataSource = ds;
+        //    this.rptList1.DataBind();
 
-            //绑定页码
-            txtPageNum.Text = this.pageSize.ToString();
-            string pageUrl = Utils.CombUrlTxt("MaterialList.aspx", "keywords={0}&page={1}", this.keywords, "__id__");
-            PageContent.InnerHtml = Utils.OutPageList(this.pageSize, this.page, this.totalCount, pageUrl, 8);
-        }
+        //    //绑定页码
+        //    //txtPageNum.Text = this.pageSize.ToString();
+        //    //string pageUrl = Utils.CombUrlTxt("MaterialList.aspx", "keywords={0}&page={1}", this.keywords, "__id__");
+        //    //PageContent.InnerHtml = Utils.OutPageList(this.pageSize, this.page, this.totalCount, pageUrl, 8);
+        //}
         private void BindData()
         {
             BLL.Sy_Material bll = new BLL.Sy_Material();
@@ -111,9 +111,20 @@ namespace DTcms.Web.admin.MaterialSetting
             {
                 where += ")";
             }
-            DataTable dt = bll.GetListByPage(where, "MaterialType", 0, 100).Tables[0];
-            rptList1.DataSource = dt;
+
+            //DataTable dt = bll.GetListByPage(where, "MaterialType", 0, 100).Tables[0];
+            DataTable dt = bll.GetList(where).Tables[0];
+            PagedDataSource pds = new PagedDataSource();
+            pds.AllowPaging = true;
+            pds.PageSize = AspNetPager1.PageSize;
+            
+            pds.CurrentPageIndex = AspNetPager1.CurrentPageIndex - 1;
+            pds.DataSource = dt.DefaultView;
+
+            rptList1.DataSource = pds;
             rptList1.DataBind();
+
+            AspNetPager1.RecordCount = dt.Rows.Count;
         }
 
         protected void btnDelete_Click(object sender, EventArgs e)
@@ -130,7 +141,7 @@ namespace DTcms.Web.admin.MaterialSetting
                 {
                     if (bll.Delete(Convert.ToInt32(OrderNo)))
                     {
-                        if(blldetail.DeletebyWhere("ForInnerID='"+ OrderNo + "'"))
+                        if (blldetail.DeletebyWhere("ForInnerID='" + OrderNo + "'"))
                         {
                             sucCount += 1;
                         }
@@ -141,39 +152,47 @@ namespace DTcms.Web.admin.MaterialSetting
                     }
                 }
             }
-            Response.Redirect("MaterialList.aspx");
+            BindData();
+            //Response.Redirect("MaterialList.aspx");
         }
 
         protected void btnSearch_Click(object sender, EventArgs e)
         {
-            //BindData();
-            keywords = this.txtKeywords.Text.Trim();
-            this.pageSize = GetPageSize(10);
-            RptBind(CombSqlTxt(keywords), "ID desc");
+            BindData();
+            //keywords = this.txtKeywords.Text.Trim();
+            //this.pageSize = GetPageSize(10);
+            //RptBind(CombSqlTxt(keywords), "ID desc");
         }
 
-        protected void txtPageNum_TextChanged(object sender, EventArgs e)
-        {
-            int _pagesize;
-            if (int.TryParse(txtPageNum.Text.Trim(), out _pagesize))
-            {
-                if (_pagesize > 0)
-                {
-                    Utils.WriteCookie("MaterialList", _pagesize.ToString(), 14400);
-                }
-            }
-            Response.Redirect(Utils.CombUrlTxt("MaterialList.aspx", "keywords={0}", this.keywords));
-        }
+        //protected void txtPageNum_TextChanged(object sender, EventArgs e)
+        //{
+        //    int _pagesize;
+        //    if (int.TryParse(txtPageNum.Text.Trim(), out _pagesize))
+        //    {
+        //        if (_pagesize > 0)
+        //        {
+        //            Utils.WriteCookie("MaterialList", _pagesize.ToString(), 14400);
+        //        }
+        //    }
+        //    Response.Redirect(Utils.CombUrlTxt("MaterialList.aspx", "keywords={0}", this.keywords));
+        //}
 
         protected void cblMType_SelectedIndexChanged(object sender, EventArgs e)
         {
-            this.pageSize = GetPageSize(100);
+            AspNetPager1.CurrentPageIndex = 1;
+            //this.pageSize = GetPageSize(100);
             BindData();
             //绑定页码
-            txtPageNum.Text = this.pageSize.ToString();
-            string pageUrl = Utils.CombUrlTxt("MaterialList.aspx", "keywords={0}&page={1}", this.keywords, "__id__");
-            PageContent.InnerHtml = Utils.OutPageList(this.pageSize, this.page, this.totalCount, pageUrl, 8);
+            //txtPageNum.Text = this.pageSize.ToString();
+            //string pageUrl = Utils.CombUrlTxt("MaterialList.aspx", "keywords={0}&page={1}", this.keywords, "__id__");
+            //PageContent.InnerHtml = Utils.OutPageList(this.pageSize, this.page, this.totalCount, pageUrl, 8);
         }
+
+        protected void AspNetPager1_PageChanged(object sender, EventArgs e)
+        {
+            BindData();
+        }
+
         private int GetPageSize(int _default_size)
         {
             int _pagesize;

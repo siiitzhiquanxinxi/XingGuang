@@ -40,10 +40,9 @@
                 </div>
             </div>
         </div>
-
         <div class="tab-content">
             <dl>
-                <dt>模板分类</dt>
+                <dt>系统分类</dt>
                 <dd>
                     <div class="rule-single-select">
                         <asp:DropDownList ID="ddlQuotationTemplateType" runat="server" datatype="*" sucmsg=" " AppendDataBoundItems="true">
@@ -60,16 +59,27 @@
                 </dd>
             </dl>
             <dl>
-                <dt>模板标签</dt>
+                <dt>主要品牌</dt>
                 <dd>
-                    <asp:TextBox ID="txtTag" runat="server" CssClass="input normal" datatype="*2-100" sucmsg=" " />
-                    <span class="Validform_checktip">*</span>
+                    <asp:TextBox ID="txtMainBrand" runat="server" CssClass="input normal" datatype="*2-100" sucmsg=" " />
                 </dd>
             </dl>
             <dl>
-                <dt>描述</dt>
+                <dt>系统描述</dt>
                 <dd>
                     <asp:TextBox ID="txtDes" runat="server" CssClass="input normal" datatype="*2-100" sucmsg=" " />
+                </dd>
+            </dl>
+            <dl>
+                <dt>使用场景</dt>
+                <dd>
+                    <asp:TextBox ID="txtScenario" runat="server" CssClass="input normal" datatype="*2-100" sucmsg=" " />
+                </dd>
+            </dl>
+            <dl>
+                <dt>系统搭配注意事项</dt>
+                <dd>
+                    <asp:TextBox ID="txtNotes" runat="server" CssClass="input normal" datatype="*2-100" sucmsg=" " />
                 </dd>
             </dl>
         </div>

@@ -29,7 +29,7 @@ namespace DTcms.Web.admin.MaterialSetting
                         return;
                     }
                 }
-                
+
             }
             if (!IsPostBack)
             {
@@ -78,8 +78,8 @@ namespace DTcms.Web.admin.MaterialSetting
             txtMaterialID.Text = material.MaterialID;
             txtMaterialName.Text = material.MaterialName;
             ddlTag.SelectedItem.Text = material.Tag;
-            if(material.State!=null)
-            state = Convert.ToInt32(material.State);
+            if (material.State != null)
+                state = Convert.ToInt32(material.State);
             dtdatail = MaterialDetailBll.GetList("ForInnerID='" + material.ID + "'").Tables[0];
             this.rptList.DataSource = dtdatail;
             rptList.DataBind();
@@ -133,7 +133,7 @@ namespace DTcms.Web.admin.MaterialSetting
         {
             if (!IsCheck()) return;
             DTcms.Model.Sy_Material material = new DTcms.Model.Sy_Material();
-            material.MaterialTypeID = Convert.ToInt32( ddlMaterialType.SelectedValue);
+            material.MaterialTypeID = Convert.ToInt32(ddlMaterialType.SelectedValue);
             material.MaterialType = ddlMaterialType.SelectedItem.Text;
             material.Brand = txtBrand.Text.Trim();
             material.BrandImg = txtBrandImg.Text.Trim();
@@ -154,7 +154,7 @@ namespace DTcms.Web.admin.MaterialSetting
             material.State = 0;
             if (action == DTEnums.ActionEnum.Add.ToString())
             {  //新增
-                int id=MaterialBll.Add(material);
+                int id = MaterialBll.Add(material);
                 if (dtdatail != null)
                 {
                     if (dtdatail.Rows.Count > 0)
@@ -210,7 +210,7 @@ namespace DTcms.Web.admin.MaterialSetting
             {
 
                 DTcms.Model.Sy_Material material = MaterialBll.GetModel(Convert.ToInt32(hidMaterialID.Value));
-                txtMBrand.Text= material.Brand;
+                txtMBrand.Text = material.Brand;
                 txtMMode.Text = material.Mode;
                 txtMName.Text = material.Name;
                 txtMDescription.Text = material.Description;
@@ -233,7 +233,7 @@ namespace DTcms.Web.admin.MaterialSetting
 
         protected void btnAdd_Click(object sender, EventArgs e)
         {
-            
+
             DataRow dr = dtdatail.NewRow();
             dr["InnerID"] = Guid.NewGuid();
             dr["ForInnerID"] = hidID.Value;

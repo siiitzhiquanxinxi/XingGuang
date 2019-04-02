@@ -14,17 +14,16 @@ namespace DTcms.Web.admin.MaterialSetting
         {
             if (!IsPostBack)
             {
-                
                 BindData();
             }
         }
         private void BindData()
         {
             string where = "";
-                where = " 1=1 order by ID";
+            where = " 1=1 and MaterialType like '%线材%' order by ID";
             DTcms.BLL.Sy_Material bll = new DTcms.BLL.Sy_Material();
             DataTable dt = bll.GetList(where).Tables[0];
-            rptList.DataSource = DtSelectTop(10, dt);
+            rptList.DataSource = DtSelectTop(30, dt);
             rptList.DataBind();
 
         }
@@ -67,12 +66,12 @@ namespace DTcms.Web.admin.MaterialSetting
                 if (ckbid.Checked)
                 {
                     HiddenField hfdid = item.FindControl("hidId") as HiddenField;
-                    value = hfdid.Value ;
+                    value = hfdid.Value;
                     HiddenField hfdname = item.FindControl("hfdName") as HiddenField;
-                    txt = hfdname.Value ;
+                    txt = hfdname.Value;
                 }
             }
-            string where = "id='"+ value + "'";
+            string where = "id='" + value + "'";
             DTcms.BLL.Sy_Material bll = new DTcms.BLL.Sy_Material();
             DataTable dt = bll.GetList(where).Tables[0];
             if (dt.Rows.Count > 0)

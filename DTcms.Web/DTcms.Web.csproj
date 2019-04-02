@@ -44,6 +44,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AspNetPager, Version=7.2.0.0, Culture=neutral, PublicKeyToken=fb0a0fe055d40fd4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\AspNetPager.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.JScript" />
     <Reference Include="Senparc.Weixin.MP, Version=4.11.2.31351, Culture=neutral, processorArchitecture=MSIL">
@@ -221,6 +225,7 @@
     <Content Include="aspx\main\video_show.aspx" />
     <Content Include="aspx\plugin\feedback.aspx" />
     <Content Include="aspx\plugin\link.aspx" />
+    <Content Include="bin\AspNetPager.dll" />
     <Content Include="crossdomain.xml" />
     <Content Include="css\image1.gif" />
     <Content Include="css\image2.gif" />

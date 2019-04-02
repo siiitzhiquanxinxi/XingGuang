@@ -21,12 +21,20 @@
     <script type="text/javascript" charset="utf-8" src="../js/common.js"></script>
     <script type="text/javascript" src="../../scripts/lhgdialog/lhgdialog.js?skin=idialog"></script>
     <script type="text/javascript">
-
-
         function SelectMaterial() {
+            var mtype = document.getElementById("hfdMtype").value;
             $.dialog({
                 title: '选择商品', width: 1024, heght: 600,
-                content: 'url:Quotation/chooseMaterial.aspx?idTarget=hfdTempId',
+                content: 'url:Quotation/chooseMaterial.aspx?mtype=' + mtype + '&idTarget=hfdTempId',
+                lock: true
+            });
+        }
+        function InsertMaterial(obj) {
+            var mtype = document.getElementById("hfdMtype").value;
+            document.getElementById("hfdInsertIndex").value = $(obj).parent().parent().find("input[type=hidden]").get(0).value;
+            $.dialog({
+                title: '选择商品', width: 1024, heght: 600,
+                content: 'url:Quotation/chooseMaterial.aspx?mtype=' + mtype + '&idTarget=hfdTempId',
                 lock: true
             });
         }
@@ -38,6 +46,8 @@
 <body class="mainbody">
     <form id="form1" runat="server">
         <asp:HiddenField ID="hfdTempId" runat="server" />
+        <asp:HiddenField ID="hfdMtype" runat="server" />
+        <asp:HiddenField ID="hfdInsertIndex" runat="server" />
         <!--导航栏-->
         <div class="location">
             <a href="#" class="home"><i></i><span>首页</span></a>
@@ -46,20 +56,21 @@
         </div>
         <div class="line10"></div>
         <!--/导航栏-->
-
         <!--内容-->
         <div id="floatHead" class="content-tab-wrap">
             <div class="content-tab">
                 <div class="content-tab-ul-wrap">
                     <ul>
-                        <li><a class="selected" href="javascript:;">模板明细</a></li>
+                        <li><a class="selected" href="javascript:;">商品明细</a></li>
                         <li><a href="javascript:;">模板信息</a></li>
+                        <li><a href="javascript:;">线材明细</a></li>
+                        <li><a href="javascript:;">人工费用明细</a></li>
                     </ul>
                 </div>
             </div>
         </div>
         <div class="tab-content" id="divContent">
-            <input id="b33" type="button" value="添加商品" class="btn green" onclick="SelectMaterial()" style="margin-bottom: 8px;" />
+            <input id="b1" type="button" value="添加商品" class="btn green" onclick="SelectMaterial()" style="margin-bottom: 8px;" />
             <asp:Button ID="btnBind" runat="server" Text="绑定" OnClick="btnBind_Click" Style="display: none;" />
             <asp:Repeater ID="rptList1" runat="server">
                 <HeaderTemplate>
@@ -90,7 +101,7 @@
                         <td>
                             <asp:Label ID="lblName" runat="server" Text='<%#Eval("Name") %>'></asp:Label></td>
                         <td>
-                            <asp:Label ID="lblDescription" runat="server" Text='<%#Eval("Description") %>'></asp:Label></td>
+                            <asp:Label ID="lblDescription" runat="server" Text='<%#Eval("Description").ToString().Replace("\n","<br />") %>'></asp:Label></td>
                         <td>
                             <asp:Label ID="lblUnit" runat="server" Text='<%#Eval("Unit") %>'></asp:Label></td>
                         <td>
@@ -104,8 +115,7 @@
                             <asp:LinkButton ID="lbtnDel" runat="server" OnClick="lbtnDel_Click">删除</asp:LinkButton>
                             <asp:LinkButton ID="lbtnMoveUp" runat="server" OnClick="lbtnMoveUp_Click">上移</asp:LinkButton>
                             <asp:LinkButton ID="lbtnMoveDown" runat="server" OnClick="lbtnMoveDown_Click">下移</asp:LinkButton>
-                            
-                            <a href="#">插入</a>
+                            <a href="javascript:;" onclick="InsertMaterial(this);">插入</a>
                         </td>
                     </tr>
                 </ItemTemplate>
@@ -117,7 +127,7 @@
         </div>
         <div class="tab-content" style="display: none">
             <dl>
-                <dt>模板分类</dt>
+                <dt>系统分类</dt>
                 <dd>
                     <asp:TextBox ID="txtType" runat="server" CssClass="input normal" datatype="*2-100" sucmsg=" " />
                     <span class="Validform_checktip">*</span>
@@ -131,23 +141,131 @@
                 </dd>
             </dl>
             <dl>
-                <dt>模板标签</dt>
+                <dt>主要品牌</dt>
                 <dd>
-                    <asp:TextBox ID="txtTag" runat="server" CssClass="input normal" datatype="*2-100" sucmsg=" " />
-                    <span class="Validform_checktip">*</span>
+                    <asp:TextBox ID="txtMainBrand" runat="server" CssClass="input normal" datatype="*2-100" sucmsg=" " />
                 </dd>
             </dl>
             <dl>
-                <dt>描述</dt>
+                <dt>系统描述</dt>
                 <dd>
                     <asp:TextBox ID="txtDes" runat="server" CssClass="input normal" datatype="*2-100" sucmsg=" " />
                 </dd>
             </dl>
+            <dl>
+                <dt>使用场景</dt>
+                <dd>
+                    <asp:TextBox ID="txtScenario" runat="server" CssClass="input normal" datatype="*2-100" sucmsg=" " />
+                </dd>
+            </dl>
+            <dl>
+                <dt>系统搭配注意事项</dt>
+                <dd>
+                    <asp:TextBox ID="txtNotes" runat="server" CssClass="input normal" datatype="*2-100" sucmsg=" " />
+                </dd>
+            </dl>
         </div>
+        <div class="tab-content" style="display: none">
+            <asp:Button ID="btnUpdateLine" runat="server" CssClass="btn green" Style="margin-bottom: 8px;" Text="更新线材明细" OnClick="btnUpdateLine_Click" />
+            <asp:Repeater ID="rptLine" runat="server">
+                <HeaderTemplate>
+                    <table width="100%" border="0" cellspacing="0" cellpadding="0" class="ltable">
+                        <tr>
+                            <th align="center">品牌</th>
+                            <th align="center">LOGO</th>
+                            <th align="left">型号</th>
+                            <th align="left">商品名称</th>
+                            <th align="left" style="width: 280px">描述</th>
+                            <th align="left">单位</th>
+                            <th align="center">图片</th>
+                            <th align="left">数量</th>
+                            <th align="left">单价</th>
+                            <th align="left">小计</th>
+                        </tr>
+                </HeaderTemplate>
+                <ItemTemplate>
+                    <tr>
+                        <td align="center">
+                            <asp:HiddenField ID="hfdMaterialId" runat="server" Value='<%#Eval("ID") %>' />
+                            <asp:Label ID="lblBrand" runat="server" Text='<%#Eval("Brand") %>'></asp:Label></td>
+                        <td align="center">
+                            <asp:Image ID="imgBrand" runat="server" ImageUrl='<%#Eval("BrandImg") %>' Height="75" /></td>
+                        <td>
+                            <asp:Label ID="lblMode" runat="server" Text='<%#Eval("Mode") %>'></asp:Label></td>
+                        <td>
+                            <asp:Label ID="lblName" runat="server" Text='<%#Eval("Name") %>'></asp:Label></td>
+                        <td>
+                            <asp:Label ID="lblDescription" runat="server" Text='<%#Eval("Description").ToString().Replace("\n","<br />") %>'></asp:Label>
+                        </td>
+                        <td>
+                            <asp:Label ID="lblUnit" runat="server" Text='<%#Eval("Unit") %>'></asp:Label></td>
+                        <td align="center">
+                            <asp:Image ID="imgMaterial" runat="server" ImageUrl='<%#Eval("Photo") %>' Height="75" /></td>
+                        <td>
+                            <asp:Label ID="lblQuantity" runat="server" Text='<%#Eval("totalcount") %>'></asp:Label>
+                        <td>
+                            <asp:Label ID="lblUnitPrice" runat="server" Text='<%#Eval("UnitPrice") %>'></asp:Label></td>
+                        <td>
+                            <asp:Label ID="lblTotalAmount" runat="server" Text='<%#Eval("totalamount") %>'></asp:Label></td>
+                    </tr>
+                </ItemTemplate>
+                <FooterTemplate>
+                    <%#rptList1.Items.Count == 0 ? "<tr><td align=\"center\" colspan=\"7\">暂无数据</td></tr>" : ""%>
+  </table>
+                </FooterTemplate>
+            </asp:Repeater>
 
-
+        </div>
+        <div class="tab-content" style="display: none">
+            <asp:Button ID="btnUpdateLaborFee" runat="server" CssClass="btn green" Style="margin-bottom: 8px;" Text="更新人工费用" OnClick="btnUpdateLaborFee_Click" />
+            <table width="100%" border="0" cellspacing="0" cellpadding="0" class="ltable">
+                <tr>
+                    <th align="left">&nbsp;&nbsp;</th>
+                    <th align="left">项目</th>
+                    <th align="left" style="width: 280px">描述</th>
+                    <th align="left">单位</th>
+                    <th align="left">数量</th>
+                    <th align="left">价格</th>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>弱电布线费</td>
+                    <td></td>
+                    <td>项目</td>
+                    <td>1</td>
+                    <td>
+                        <asp:TextBox ID="txtRuodiananzhuangFee" runat="server"></asp:TextBox></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>器材安装费</td>
+                    <td></td>
+                    <td>项目</td>
+                    <td>1</td>
+                    <td>
+                        <asp:TextBox ID="txtQicaianzhuangFee" runat="server"></asp:TextBox></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>系统调试费</td>
+                    <td></td>
+                    <td>项目</td>
+                    <td>1</td>
+                    <td>
+                        <asp:TextBox ID="txtXitongtiaoshiFee" runat="server"></asp:TextBox></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>项目管理费</td>
+                    <td></td>
+                    <td>项目</td>
+                    <td>1</td>
+                    <td>
+                        <asp:TextBox ID="txtXiangmuguanliFee" runat="server"></asp:TextBox></td>
+                </tr>
+            </table>
+        </div>
         <!--/内容-->
-
         <!--工具栏-->
         <div class="page-footer">
             <div class="btn-wrap">

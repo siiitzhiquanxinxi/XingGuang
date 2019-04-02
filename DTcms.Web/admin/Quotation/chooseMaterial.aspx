@@ -1,5 +1,6 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="chooseMaterial.aspx.cs" Inherits="DTcms.Web.admin.Quotation.chooseMaterial" %>
 
+<%@ Register Assembly="AspNetPager" Namespace="Wuqi.Webdiyer" TagPrefix="webdiyer" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -84,7 +85,7 @@
                             <asp:Image ID="imgBrand" runat="server" ImageUrl='<%#Eval("BrandImg") %>' Height="75" /></td>--%>
                         <td><%#Eval("Mode") %></td>
                         <td><%#Eval("Name") %></td>
-                        <td><%#Eval("Description") %></td>
+                        <td><%#Eval("Description").ToString().Replace("\n","<br />") %></td>
                         <td align="center"><%#Eval("Unit") %></td>
                         <td align="right"><%#Eval("UnitPrice") %></td>
                         <%--<td align="center">
@@ -102,16 +103,15 @@
             <!--/文字列表-->
         </div>
         <!--/列表-->
-
+        
         <!--内容底部-->
         <div class="line20"></div>
-        <div class="pagelist">
-            <div class="l-btns">
-                <span>显示</span><asp:TextBox ID="txtPageNum" runat="server" CssClass="pagenum" onkeydown="return checkNumber(event);"
-                    OnTextChanged="txtPageNum_TextChanged" AutoPostBack="True"></asp:TextBox><span>条/页</span>
-            </div>
-            <div id="PageContent" runat="server" class="default"></div>
-        </div>
+        <webdiyer:AspNetPager ID="AspNetPager1" runat="server" CustomInfoHTML="当前页:%CurrentPageIndex%/%PageCount% 共有%RecordCount%条记录 %PageCount%/页"
+            FirstPageText="首页" HorizontalAlign="Center" InvalidPageIndexErrorMessage="页索引不是有效的数值！"
+            LastPageText="末页" NextPageText="下一页" PageIndexOutOfRangeErrorMessage="页索引超出范围！"
+            PageSize="5" PrevPageText="上一页" ShowCustomInfoSection="Left" ShowInputBox="Always"
+            Width="100%" OnPageChanged="AspNetPager1_PageChanged" NumericButtonCount="5">
+        </webdiyer:AspNetPager>
         <!--/内容底部-->
 
     </form>

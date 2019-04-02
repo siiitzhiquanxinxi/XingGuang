@@ -11,9 +11,9 @@ namespace DTcms.DBUtility
 {
     public abstract class DbHelperSQL
     {
-         //数据库连接字符串(web.config来配置)，可以动态更改connectionString支持多数据库.		
+        //数据库连接字符串(web.config来配置)，可以动态更改connectionString支持多数据库.		
         public static string connectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
-        public DbHelperSQL(){ }
+        public DbHelperSQL() { }
 
         #region 公用方法
         /// <summary>
@@ -1176,8 +1176,12 @@ namespace DTcms.DBUtility
                     da.InsertCommand = builder.GetInsertCommand();
                     da.UpdateCommand = builder.GetUpdateCommand();
                     da.DeleteCommand = builder.GetDeleteCommand();
-                    int rows = da.Update(dt.GetChanges());
-                    dt.AcceptChanges();
+                    int rows = 0;
+                    if (dt.GetChanges() != null)
+                    {
+                        rows = da.Update(dt.GetChanges());
+                        dt.AcceptChanges();
+                    }
                     return rows;
                 }
                 catch (System.Data.SqlClient.SqlException e)
