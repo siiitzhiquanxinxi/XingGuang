@@ -114,7 +114,7 @@ function init () {
                             <li>
                                 <asp:LinkButton ID="btnDelete" runat="server" CssClass="del" OnClientClick="return ExePostBack('btnDelete');" OnClick="btnDelete_Click"><i></i><span>删除</span></asp:LinkButton></li>
                             <li>
-                                <asp:LinkButton ID="LinkButton1" runat="server" CssClass="del">LinkButton</asp:LinkButton></li>
+                                <a class="add" href='MaterialImport.aspx'><i></i><span>导入</span></a></li>
                         </ul>
                         <div class="menu-list">
                             <div class="rule-multi-checkbox">

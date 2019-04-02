@@ -182,7 +182,6 @@
             <dd>
                 <asp:TextBox ID="txtIndoorInstallationFee" runat="server" CssClass="input normal" sucmsg=" " minlength="1"
                     MaxLength="100"></asp:TextBox>
-
             </dd>
         </dl>
         <dl>
