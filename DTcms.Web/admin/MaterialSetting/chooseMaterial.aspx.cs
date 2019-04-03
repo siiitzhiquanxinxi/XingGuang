@@ -6,6 +6,8 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using DTcms.Common;
 using System.Data;
+using System.Web.UI.HtmlControls;
+
 namespace DTcms.Web.admin.MaterialSetting
 {
     public partial class chooseMaterial : System.Web.UI.Page
@@ -60,9 +62,11 @@ namespace DTcms.Web.admin.MaterialSetting
         protected void btnSubmit_Click(object sender, EventArgs e)
         {
             string txt = "", value = "";
+            int a = 0;
             foreach (RepeaterItem item in rptList.Items)
             {
-                RadioButton ckbid = item.FindControl("chkId") as RadioButton;
+                a++;
+                HtmlInputRadioButton ckbid = item.FindControl("chkId") as HtmlInputRadioButton;
                 if (ckbid.Checked)
                 {
                     HiddenField hfdid = item.FindControl("hidId") as HiddenField;
@@ -77,5 +81,8 @@ namespace DTcms.Web.admin.MaterialSetting
             if (dt.Rows.Count > 0)
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "a", "ok('" + value + "')", true);
         }
+
+       
+
     }
 }

@@ -21,6 +21,23 @@
             api.close();
         }
     </script>
+    <script type="text/javascript">
+        function selectSingleRadio(rbtn1, GroupName) {
+
+            $("input[type=radio]").each(function (i) {
+
+                if (this.name.substring(this.name.length - GroupName.length) == GroupName) {
+
+                    this.checked = false;
+
+                }
+
+            })
+
+            rbtn1.checked = true;
+
+        }
+</script>
 </head>
 <body>
     <form id="form1" runat="server">
@@ -64,7 +81,8 @@
                 <tr>
                     <td align="center">
                         <%--<asp:CheckBox ID="chkId" CssClass="checkall" runat="server" Style="vertical-align: middle;" />--%>
-                        <asp:RadioButton ID="chkId" runat="server" GroupName="aa" Style="vertical-align: middle;" />
+                        <%--<asp:RadioButton ID="chkId" runat="server" GroupName="aa" Style="vertical-align: middle;"/>--%>
+                        <input type="radio" id="chkId" name ="FlowCode" runat="server" onclick="selectSingleRadio(this,'FlowCode');" />
                         <asp:HiddenField ID="hidId" Value='<%#Eval("ID")%>' runat="server" />
                         <asp:HiddenField ID="hfdName" Value='<%#Eval("Name")%>' runat="server" />
                     </td>
