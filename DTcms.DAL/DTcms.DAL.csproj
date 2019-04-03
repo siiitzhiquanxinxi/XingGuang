@@ -59,6 +59,10 @@
     <Compile Include="payment.cs" />
     <Compile Include="plugin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Q_QuotationDetailGoods.cs" />
+    <Compile Include="Q_QuotationDetailLines.cs" />
+    <Compile Include="Q_QuotationDetailType.cs" />
+    <Compile Include="Q_QuotationList.cs" />
     <Compile Include="sms_template.cs" />
     <Compile Include="sys_config.cs" />
     <Compile Include="Sy_Material.cs" />

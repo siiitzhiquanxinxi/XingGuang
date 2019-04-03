@@ -118,7 +118,10 @@
     <Content Include="admin\order\order_list.aspx" />
     <Content Include="admin\order\payment_edit.aspx" />
     <Content Include="admin\order\payment_list.aspx" />
+    <Content Include="admin\Quotation\buildQuotaionBlank.aspx" />
+    <Content Include="admin\Quotation\buildQuotaionTemp.aspx" />
     <Content Include="admin\Quotation\buildTemplate.aspx" />
+    <Content Include="admin\Quotation\chooseGoodsType.aspx" />
     <Content Include="admin\Quotation\chooseMaterial.aspx" />
     <Content Include="admin\Quotation\QuotationTemplateEdit.aspx" />
     <Content Include="admin\Quotation\QuotationTemplateList.aspx" />
@@ -944,12 +947,33 @@
     <Compile Include="admin\order\payment_list.aspx.designer.cs">
       <DependentUpon>payment_list.aspx</DependentUpon>
     </Compile>
+    <Compile Include="admin\Quotation\buildQuotaionBlank.aspx.cs">
+      <DependentUpon>buildQuotaionBlank.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="admin\Quotation\buildQuotaionBlank.aspx.designer.cs">
+      <DependentUpon>buildQuotaionBlank.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="admin\Quotation\buildQuotaionTemp.aspx.cs">
+      <DependentUpon>buildQuotaionTemp.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="admin\Quotation\buildQuotaionTemp.aspx.designer.cs">
+      <DependentUpon>buildQuotaionTemp.aspx</DependentUpon>
+    </Compile>
     <Compile Include="admin\Quotation\buildTemplate.aspx.cs">
       <DependentUpon>buildTemplate.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="admin\Quotation\buildTemplate.aspx.designer.cs">
       <DependentUpon>buildTemplate.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="admin\Quotation\chooseGoodsType.aspx.cs">
+      <DependentUpon>chooseGoodsType.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="admin\Quotation\chooseGoodsType.aspx.designer.cs">
+      <DependentUpon>chooseGoodsType.aspx</DependentUpon>
     </Compile>
     <Compile Include="admin\Quotation\chooseMaterial.aspx.cs">
       <DependentUpon>chooseMaterial.aspx</DependentUpon>
