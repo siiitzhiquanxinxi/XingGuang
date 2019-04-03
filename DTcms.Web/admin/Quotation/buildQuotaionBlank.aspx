@@ -76,7 +76,7 @@
             <dl>
                 <dt>报价单号</dt>
                 <dd>
-                    <asp:TextBox ID="txtQuotationListNum" runat="server"></asp:TextBox>
+                    <asp:TextBox ID="txtQuotationListNum" runat="server" CssClass="input normal" Width="200"></asp:TextBox>
                 </dd>
             </dl>
             <dl>
@@ -110,7 +110,7 @@
         <div class="tab-content" id="divContent">
             <input id="b1" type="button" value="添加商品" class="btn green" onclick="SelectMaterial()" style="margin-bottom: 8px;" />
             <asp:Button ID="btnBind" runat="server" Text="绑定" OnClick="btnBind_Click" Style="display: none;" />
-            <asp:Button ID="btnBind2" runat="server" Text="绑定" OnClick="btnBind2_Click" Style="display: none;" />
+            <asp:Button ID="btnBind2" runat="server" Text="绑定2" OnClick="btnBind2_Click" Style="display: none;" />
             <asp:Repeater ID="rptList1" runat="server">
                 <HeaderTemplate>
                     <table width="100%" border="0" cellspacing="0" cellpadding="0" class="ltable">
@@ -130,8 +130,8 @@
                 <ItemTemplate>
                     <tr>
                         <td align="center">
-                            <asp:HiddenField ID="hfdOrderIndex" runat="server" Value='<%#Eval("OrderIndex") %>' />
-                            <asp:HiddenField ID="hfdMaterialId" runat="server" Value='<%#Eval("MaterialID") %>' />
+                            <asp:HiddenField ID="hfdOrderIndex" runat="server" Value='<%#Eval("DetailOrder") %>' />
+                            <asp:HiddenField ID="hfdMaterialId" runat="server" Value='<%#Eval("FK_materialID") %>' />
                             <asp:Label ID="lblBrand" runat="server" Text='<%#Eval("Brand") %>'></asp:Label></td>
                         <td align="center">
                             <asp:Image ID="imgBrand" runat="server" ImageUrl='<%#Eval("BrandImg") %>' Height="75" /></td>
@@ -148,7 +148,7 @@
                         <td align="center">
                             <asp:Image ID="imgMaterial" runat="server" ImageUrl='<%#Eval("Photo") %>' Height="75" /></td>
                         <td>
-                            <asp:TextBox ID="txtQuantity" runat="server" Text='<%#Eval("Quantity") %>' onkeyup="if(isNaN(value))execCommand('undo')" onafterpaste="if(isNaN(value))execCommand('undo')"></asp:TextBox></td>
+                            <asp:TextBox ID="txtQuantity" runat="server" Text='<%#Eval("GoodsQuantity") %>' onkeyup="if(isNaN(value))execCommand('undo')" onafterpaste="if(isNaN(value))execCommand('undo')"></asp:TextBox></td>
                         <td align="center">
                             <asp:HiddenField ID="hfdIsDel" runat="server" Value="0" />
                             <asp:LinkButton ID="lbtnDel" runat="server" OnClick="lbtnDel_Click">删除</asp:LinkButton>
@@ -173,7 +173,7 @@
                             <th align="center">品牌</th>
                             <th align="center">LOGO</th>
                             <th align="left">型号</th>
-                            <th align="left">商品名称</th>
+                            <th align="left">线材名称</th>
                             <th align="left" style="width: 280px">描述</th>
                             <th align="left">单位</th>
                             <th align="center">图片</th>
@@ -185,27 +185,27 @@
                 <ItemTemplate>
                     <tr>
                         <td align="center">
-                            <asp:HiddenField ID="hfdMaterialId" runat="server" Value='<%#Eval("ID") %>' />
-                            <asp:Label ID="lblBrand" runat="server" Text='<%#Eval("Brand") %>'></asp:Label></td>
+                            <asp:HiddenField ID="hfdMaterialId" runat="server" Value='<%#Eval("FK_LineId") %>' />
+                            <asp:Label ID="lblBrand" runat="server" Text='<%#Eval("LineBrand") %>'></asp:Label></td>
                         <td align="center">
-                            <asp:Image ID="imgBrand" runat="server" ImageUrl='<%#Eval("BrandImg") %>' Height="75" /></td>
+                            <asp:Image ID="imgBrand" runat="server" ImageUrl='<%#Eval("LineBrandImg") %>' Height="75" /></td>
                         <td>
-                            <asp:Label ID="lblMode" runat="server" Text='<%#Eval("Mode") %>'></asp:Label></td>
+                            <asp:Label ID="lblMode" runat="server" Text='<%#Eval("LineMode") %>'></asp:Label></td>
                         <td>
-                            <asp:Label ID="lblName" runat="server" Text='<%#Eval("Name") %>'></asp:Label></td>
+                            <asp:Label ID="lblName" runat="server" Text='<%#Eval("LineName") %>'></asp:Label></td>
                         <td>
-                            <asp:Label ID="lblDescription" runat="server" Text='<%#Eval("Description").ToString().Replace("\n","<br />") %>'></asp:Label>
+                            <asp:Label ID="lblDescription" runat="server" Text='<%#Eval("LineDescription").ToString().Replace("\n","<br />") %>'></asp:Label>
                         </td>
                         <td>
-                            <asp:Label ID="lblUnit" runat="server" Text='<%#Eval("Unit") %>'></asp:Label></td>
+                            <asp:Label ID="lblUnit" runat="server" Text='<%#Eval("LineUnit") %>'></asp:Label></td>
                         <td align="center">
-                            <asp:Image ID="imgMaterial" runat="server" ImageUrl='<%#Eval("Photo") %>' Height="75" /></td>
+                            <asp:Image ID="imgMaterial" runat="server" ImageUrl='<%#Eval("LinePhoto") %>' Height="75" /></td>
                         <td>
-                            <asp:Label ID="lblQuantity" runat="server" Text='<%#Eval("totalcount") %>'></asp:Label>
+                            <asp:Label ID="lblQuantity" runat="server" Text='<%#Eval("LineTotalcount") %>'></asp:Label>
                         <td>
-                            <asp:Label ID="lblUnitPrice" runat="server" Text='<%#Eval("UnitPrice") %>'></asp:Label></td>
+                            <asp:Label ID="lblUnitPrice" runat="server" Text='<%#Eval("LineUnitPrice") %>'></asp:Label></td>
                         <td>
-                            <asp:Label ID="lblTotalAmount" runat="server" Text='<%#Eval("totalamount") %>'></asp:Label></td>
+                            <asp:Label ID="lblTotalAmount" runat="server" Text='<%#Eval("LineTotalamount") %>'></asp:Label></td>
                     </tr>
                 </ItemTemplate>
                 <FooterTemplate>

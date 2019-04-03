@@ -33,7 +33,7 @@ namespace DTcms.Web.admin.Quotation
                 txtNotes.Text = dt.Rows[0]["QuotationTemplateNotes"].ToString();
                 sql = "select DetailOrder as OrderIndex,FK_materialID as MaterialID, Brand,BrandImg,Mode,Name,Description,Unit,UnitPrice,Photo,TemplateDetailQuantity as Quantity from Q_QuotationTemplateDetail as QT inner join Sy_Material as M on M.ID = QT.FK_materialID where TemplateParentID = " + Request.QueryString["id"];
                 DataTable dtDetail = DbHelperSQL.Query(sql).Tables[0];
-                for (int i = 0; i < dt.Rows.Count; i++)
+                for (int i = 0; i < dtDetail.Rows.Count; i++)
                 {
                     dtDetail.Rows[i]["OrderIndex"] = i;
                 }
@@ -298,7 +298,7 @@ namespace DTcms.Web.admin.Quotation
                 rptList1.DataBind();
             }
         }
-
+        
         /// <summary>
         /// 更新线材信息
         /// </summary>
@@ -306,7 +306,7 @@ namespace DTcms.Web.admin.Quotation
         /// <param name="e"></param>
         protected void btnUpdateLine_Click(object sender, EventArgs e)
         {
-            Dictionary<string, int> dic = new Dictionary<string, int>();
+            //Dictionary<string, int> dic = new Dictionary<string, int>();
             string s = "select ID,Brand,BrandImg,Mode,Name,Description,Unit,UnitPrice,Photo,'' as totalcount,'' as totalamount from Sy_Material where 1=2";
             DataTable d = DbHelperSQL.Query(s).Tables[0];
             for (int i = 0; i < rptList1.Items.Count; i++)

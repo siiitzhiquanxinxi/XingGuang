@@ -123,6 +123,8 @@
     <Content Include="admin\Quotation\buildTemplate.aspx" />
     <Content Include="admin\Quotation\chooseGoodsType.aspx" />
     <Content Include="admin\Quotation\chooseMaterial.aspx" />
+    <Content Include="admin\Quotation\chooseTemp.aspx" />
+    <Content Include="admin\Quotation\QuotationListQuery.aspx" />
     <Content Include="admin\Quotation\QuotationTemplateEdit.aspx" />
     <Content Include="admin\Quotation\QuotationTemplateList.aspx" />
     <Content Include="admin\settings\builder_html.aspx" />
@@ -440,7 +442,6 @@
     <Content Include="editor\themes\qq\qq.css" />
     <Content Include="editor\themes\simple\simple.css" />
     <Content Include="favicon.ico" />
-    <Content Include="HtmlPage1.html" />
     <Content Include="images\oauth\feixin.png" />
     <Content Include="images\oauth\kaixin.png" />
     <Content Include="images\oauth\qq.png" />
@@ -981,6 +982,20 @@
     </Compile>
     <Compile Include="admin\Quotation\chooseMaterial.aspx.designer.cs">
       <DependentUpon>chooseMaterial.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="admin\Quotation\chooseTemp.aspx.cs">
+      <DependentUpon>chooseTemp.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="admin\Quotation\chooseTemp.aspx.designer.cs">
+      <DependentUpon>chooseTemp.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="admin\Quotation\QuotationListQuery.aspx.cs">
+      <DependentUpon>QuotationListQuery.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="admin\Quotation\QuotationListQuery.aspx.designer.cs">
+      <DependentUpon>QuotationListQuery.aspx</DependentUpon>
     </Compile>
     <Compile Include="admin\Quotation\QuotationTemplateEdit.aspx.cs">
       <DependentUpon>QuotationTemplateEdit.aspx</DependentUpon>

@@ -20,15 +20,15 @@ namespace DTcms.DAL
         /// <summary>
         /// 是否存在该记录
         /// </summary>
-        public bool Exists(int Q_QuotationDetailGoods)
+        public bool Exists(int Q_QuotationDetailGoodsID)
         {
             StringBuilder strSql = new StringBuilder();
             strSql.Append("select count(1) from Q_QuotationDetailGoods");
-            strSql.Append(" where Q_QuotationDetailGoods=@Q_QuotationDetailGoods");
+            strSql.Append(" where Q_QuotationDetailGoodsID=@Q_QuotationDetailGoodsID");
             SqlParameter[] parameters = {
-                    new SqlParameter("@Q_QuotationDetailGoods", SqlDbType.Int,4)
+                    new SqlParameter("@Q_QuotationDetailGoodsID", SqlDbType.Int,4)
             };
-            parameters[0].Value = Q_QuotationDetailGoods;
+            parameters[0].Value = Q_QuotationDetailGoodsID;
 
             return DbHelperSQL.Exists(strSql.ToString(), parameters);
         }
@@ -121,7 +121,7 @@ namespace DTcms.DAL
             strSql.Append("IndoorInstallationFee=@IndoorInstallationFee,");
             strSql.Append("IndoorLaborCost=@IndoorLaborCost,");
             strSql.Append("Photo=@Photo");
-            strSql.Append(" where Q_QuotationDetailGoods=@Q_QuotationDetailGoods");
+            strSql.Append(" where Q_QuotationDetailGoodsID=@Q_QuotationDetailGoodsID");
             SqlParameter[] parameters = {
                     new SqlParameter("@FK_QuotationDetailTypeId", SqlDbType.Int,4),
                     new SqlParameter("@FK_materialID", SqlDbType.Int,4),
@@ -142,7 +142,7 @@ namespace DTcms.DAL
                     new SqlParameter("@IndoorInstallationFee", SqlDbType.Decimal,9),
                     new SqlParameter("@IndoorLaborCost", SqlDbType.Decimal,9),
                     new SqlParameter("@Photo", SqlDbType.NVarChar,50),
-                    new SqlParameter("@Q_QuotationDetailGoods", SqlDbType.Int,4)};
+                    new SqlParameter("@Q_QuotationDetailGoodsID", SqlDbType.Int,4)};
             parameters[0].Value = model.FK_QuotationDetailTypeId;
             parameters[1].Value = model.FK_materialID;
             parameters[2].Value = model.DetailOrder;
@@ -202,11 +202,11 @@ namespace DTcms.DAL
         /// <summary>
         /// 批量删除数据
         /// </summary>
-        public bool DeleteList(string Q_QuotationDetailGoodslist)
+        public bool DeleteList(string Q_QuotationDetailGoodsIDlist)
         {
             StringBuilder strSql = new StringBuilder();
             strSql.Append("delete from Q_QuotationDetailGoods ");
-            strSql.Append(" where Q_QuotationDetailGoodsID in (" + Q_QuotationDetailGoodslist + ")  ");
+            strSql.Append(" where Q_QuotationDetailGoodsID in (" + Q_QuotationDetailGoodsIDlist + ")  ");
             int rows = DbHelperSQL.ExecuteSql(strSql.ToString());
             if (rows > 0)
             {
@@ -436,7 +436,7 @@ namespace DTcms.DAL
 					new SqlParameter("@OrderType", SqlDbType.Bit),
 					new SqlParameter("@strWhere", SqlDbType.VarChar,1000),
 					};
-			parameters[0].Value = "Q_QuotationDetailGoodsID";
+			parameters[0].Value = "Q_QuotationDetailGoods";
 			parameters[1].Value = "Q_QuotationDetailGoodsID";
 			parameters[2].Value = PageSize;
 			parameters[3].Value = PageIndex;

@@ -10,7 +10,7 @@
 namespace DTcms.Web.admin.Quotation {
     
     
-    public partial class buildQuotaionTemp {
+    public partial class chooseTemp {
         
         /// <summary>
         /// form1 控件。
@@ -22,22 +22,31 @@ namespace DTcms.Web.admin.Quotation {
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
         
         /// <summary>
-        /// hfdTempId 控件。
+        /// cblMType 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField hfdTempId;
+        protected global::System.Web.UI.WebControls.CheckBoxList cblMType;
         
         /// <summary>
-        /// btnBind 控件。
+        /// txtKeywords 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnBind;
+        protected global::System.Web.UI.WebControls.TextBox txtKeywords;
+        
+        /// <summary>
+        /// lbtnSearch 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lbtnSearch;
         
         /// <summary>
         /// rptList1 控件。
@@ -49,12 +58,12 @@ namespace DTcms.Web.admin.Quotation {
         protected global::System.Web.UI.WebControls.Repeater rptList1;
         
         /// <summary>
-        /// btnCreate 控件。
+        /// AspNetPager1 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnCreate;
+        protected global::Wuqi.Webdiyer.AspNetPager AspNetPager1;
     }
 }

@@ -11,7 +11,7 @@
 <script type="text/javascript" src="../scripts/jquery/jquery-1.11.2.min.js"></script>
 <script type="text/javascript">
     $(function () {
-        //检测IEkhljjj
+        //检测IE
         if ('undefined' == typeof (document.body.style.maxHeight)) {
             window.location.href = 'ie6update.html';
         }
@@ -41,7 +41,7 @@
 </div>
 
 <div class="copy-right">
-  <p>版权所有 深圳市动力启航软件有限公司 Copyright © 2009 - 2015 dtsoft.net Inc. All Rights Reserved.</p>
+  <p>版权所有 Copyright © 2009 - 2019 dtsoft.net Inc. All Rights Reserved.</p>
 </div>
 </form>
 </body>
