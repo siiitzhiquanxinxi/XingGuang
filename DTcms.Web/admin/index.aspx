@@ -13,11 +13,11 @@
     <script type="text/javascript" charset="utf-8" src="../scripts/jquery/jquery.nicescroll.js"></script>
     <script type="text/javascript" charset="utf-8" src="../scripts/artdialog/dialog-plus-min.js"></script>
     <script type="text/javascript" charset="utf-8" src="js/layindex.js"></script>
-    <script type="text/javascript" charset="utf-8" src="js/common.js"></script>
+    <%--<script type="text/javascript" charset="utf-8" src="js/common.js"></script>--%>
     <script type="text/javascript">
         //页面加载完成时
         $(function () {
-            //检测IEsg fs d
+            //检测IE
             if ('undefined' == typeof (document.body.style.maxHeight)) {
                 window.location.href = 'ie6update.html';
             }

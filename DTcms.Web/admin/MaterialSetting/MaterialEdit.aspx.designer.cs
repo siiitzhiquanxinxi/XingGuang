@@ -58,13 +58,13 @@ namespace DTcms.Web.admin.MaterialSetting {
         protected global::System.Web.UI.WebControls.TextBox txtBrand;
         
         /// <summary>
-        /// txtBrandImg 控件。
+        /// FileUpload1 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtBrandImg;
+        protected global::System.Web.UI.WebControls.FileUpload FileUpload1;
         
         /// <summary>
         /// ScriptManager1 控件。
@@ -220,13 +220,13 @@ namespace DTcms.Web.admin.MaterialSetting {
         protected global::System.Web.UI.WebControls.DropDownList ddlTag;
         
         /// <summary>
-        /// txtPhoto 控件。
+        /// FileUpload2 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtPhoto;
+        protected global::System.Web.UI.WebControls.FileUpload FileUpload2;
         
         /// <summary>
         /// UpdatePanel1 控件。

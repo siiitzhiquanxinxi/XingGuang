@@ -7,6 +7,8 @@ using System.Web.UI.WebControls;
 using System.Data;
 using DTcms.Common;
 using DTcms.BLL;
+using System.IO;
+
 namespace DTcms.Web.admin.MaterialSetting
 {
     public partial class MaterialEdit : DTcms.Web.UI.ManagePage
@@ -63,7 +65,7 @@ namespace DTcms.Web.admin.MaterialSetting
             hidID.Value = material.ID.ToString();
             ddlMaterialType.SelectedValue = material.MaterialTypeID.ToString();
             txtBrand.Text = material.Brand;
-            txtBrandImg.Text = material.BrandImg;
+            //txtBrandImg.Text = material.BrandImg;
             txtMode.Text = material.Mode;
             txtName.Text = material.Name;
             txtDescription.Text = material.Description;
@@ -76,7 +78,7 @@ namespace DTcms.Web.admin.MaterialSetting
             txtManagementFee.Text = material.ManagementFee.ToString();
             txtIndoorInstallationFee.Text = material.IndoorInstallationFee.ToString();
             txtIndoorLaborCost.Text = material.IndoorLaborCost.ToString();
-            txtPhoto.Text = material.Photo;
+            //txtPhoto.Text = material.Photo;
             txtMaterialID.Text = material.MaterialID;
             txtMaterialName.Text = material.MaterialName;
             ddlTag.SelectedItem.Text = material.Tag;
@@ -146,7 +148,23 @@ namespace DTcms.Web.admin.MaterialSetting
             material.MaterialTypeID = Convert.ToInt32(ddlMaterialType.SelectedValue);
             material.MaterialType = ddlMaterialType.SelectedItem.Text;
             material.Brand = txtBrand.Text.Trim();
-            material.BrandImg = txtBrandImg.Text.Trim();
+            if (FileUpload1.HasFile)
+            {
+                string fileurl = "";
+                string path = "/upload/" + DateTime.Now.ToString("yyyyMMddHHmmss") + "_brandimg";
+                if (!Directory.Exists(Server.MapPath(path)))
+                {
+                    Directory.CreateDirectory(Server.MapPath(path));
+                }
+                fileurl = "../.." + path + "/" + FileUpload1.FileName;
+                FileUpload1.SaveAs(Server.MapPath(fileurl));
+                material.BrandImg = path + "/" + FileUpload1.FileName;
+            }
+            else if (action == DTEnums.ActionEnum.Edit.ToString() && !FileUpload1.HasFile)
+            {
+                material.BrandImg = new BLL.Sy_Material().GetModel(Convert.ToInt32(hidID.Value)).BrandImg;
+            }
+            //material.BrandImg = txtBrandImg.Text.Trim();
             material.Mode = txtMode.Text.Trim();
             material.Name = txtName.Text.Trim();
             material.Description = txtDescription.Text.Trim();
@@ -159,7 +177,23 @@ namespace DTcms.Web.admin.MaterialSetting
             material.ManagementFee = Convert.ToDecimal(txtManagementFee.Text.Trim());
             material.IndoorInstallationFee = Convert.ToDecimal(txtIndoorInstallationFee.Text.Trim());
             material.IndoorLaborCost = Convert.ToDecimal(txtIndoorLaborCost.Text.Trim());
-            material.Photo = txtPhoto.Text.Trim();
+            if (FileUpload2.HasFile)
+            {
+                string fileurl = "";
+                string path = "/upload/" + DateTime.Now.ToString("yyyyMMddHHmmss") + "_photoimg";
+                if (!Directory.Exists(Server.MapPath(path)))
+                {
+                    Directory.CreateDirectory(Server.MapPath(path));
+                }
+                fileurl = "../.." + path + "/" + FileUpload2.FileName;
+                FileUpload2.SaveAs(Server.MapPath(fileurl));
+                material.Photo = path + "/" + FileUpload2.FileName;
+            }
+            else if (action == DTEnums.ActionEnum.Edit.ToString() && !FileUpload2.HasFile)
+            {
+                material.Photo = new BLL.Sy_Material().GetModel(Convert.ToInt32(hidID.Value)).Photo;
+            }
+            //material.Photo = txtPhoto.Text.Trim();
             material.MaterialID = txtMaterialID.Text.Trim();
             material.MaterialName = txtMaterialName.Text.Trim();
             material.Tag = ddlTag.SelectedItem.Text;
@@ -185,7 +219,9 @@ namespace DTcms.Web.admin.MaterialSetting
                         MaterialDetailBll.Add(dtdatail);
                     }
                 }
-                MessageBox.Show(this, "添加成功！");
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "1", "alert('添加成功！');window.location.href='MaterialList.aspx';", true);
+                //MessageBox.Show(this, "添加成功！");
+                //Response.Redirect("MaterialList.aspx");
             }
             else
             {
@@ -196,7 +232,9 @@ namespace DTcms.Web.admin.MaterialSetting
                     dtdatail.TableName = "Sy_Material_Detail";
                     MaterialDetailBll.Add(dtdatail);
                 }
-                MessageBox.Show(this, "修改成功！");
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "1", "alert('修改成功！');window.location.href='MaterialList.aspx';", true);
+                //MessageBox.Show(this, "修改成功！");
+                //Response.Redirect("MaterialList.aspx");
             }
         }
         protected void lbtnDel_Click(object sender, EventArgs e)
@@ -210,14 +248,14 @@ namespace DTcms.Web.admin.MaterialSetting
         }
         protected void Timer1_Tick(object sender, EventArgs e)
         {
-            if (txtPhoto.Text.Trim() != "")
-            {
-                this.imgbeginPic.ImageUrl = txtPhoto.Text.Trim();
-            }
-            if (txtBrandImg.Text.Trim() != "")
-            {
-                this.Image1.ImageUrl = txtBrandImg.Text.Trim();
-            }
+            //if (txtPhoto.Text.Trim() != "")
+            //{
+            //    this.imgbeginPic.ImageUrl = txtPhoto.Text.Trim();
+            //}
+            //if (txtBrandImg.Text.Trim() != "")
+            //{
+            //    this.Image1.ImageUrl = txtBrandImg.Text.Trim();
+            //}
             if (hidMaterialID.Value != "")
             {
 

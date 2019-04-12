@@ -23,7 +23,7 @@ namespace DTcms.Web.admin.MaterialSetting
             keywords = this.txtKeywords.Text.Trim();
             //if (!IsPostBack)
             //{
-            this.pageSize = GetPageSize(10); //每页数量
+            this.pageSize = GetPageSize(50); //每页数量
             RptBind(CombSqlTxt(keywords), "ID desc");
             //}
         }

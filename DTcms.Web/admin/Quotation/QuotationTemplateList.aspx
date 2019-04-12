@@ -56,7 +56,7 @@
                         </ul>
                         <div class="menu-list">
                             <div class="rule-multi-checkbox">
-                                <asp:CheckBoxList ID="cblMType" runat="server" RepeatDirection="Horizontal" RepeatLayout="Flow" AutoPostBack="True" OnSelectedIndexChanged="cblMType_SelectedIndexChanged">
+                                <asp:CheckBoxList ID="cblSType" runat="server" RepeatDirection="Horizontal" RepeatLayout="Flow" AutoPostBack="True" OnSelectedIndexChanged="cblMType_SelectedIndexChanged">
                                 </asp:CheckBoxList>
                             </div>
                         </div>

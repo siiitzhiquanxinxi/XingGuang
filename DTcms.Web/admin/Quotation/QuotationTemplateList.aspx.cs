@@ -15,9 +15,9 @@ namespace DTcms.Web.admin.Quotation
             if (!IsPostBack)
             {
                 BindCkb();
-                if (cblMType.Items.Count > 0)
+                if (cblSType.Items.Count > 0)
                 {
-                    cblMType.Items[0].Selected = true;
+                    cblSType.Items[0].Selected = true;
                     BindData();
                 }
             }
@@ -25,12 +25,12 @@ namespace DTcms.Web.admin.Quotation
 
         private void BindCkb()
         {
-            BLL.Sy_MaterialType bll = new BLL.Sy_MaterialType();
-            DataTable dt = bll.GetAllList().Tables[0];
-            cblMType.DataSource = dt;
-            cblMType.DataTextField = "MaterialType";
-            cblMType.DataValueField = "ID";
-            cblMType.DataBind();
+            string sql = "select * from Sy_SystemType where 1=1";
+            DataTable dt = DbHelperSQL.Query(sql).Tables[0];
+            cblSType.DataSource = dt;
+            cblSType.DataTextField = "SystemTypeName";
+            cblSType.DataValueField = "SystemTypeID";
+            cblSType.DataBind();
         }
 
         private void BindData()
@@ -39,17 +39,17 @@ namespace DTcms.Web.admin.Quotation
             string where = "";
 
             int checkindex = 0;
-            for (int i = 0; i < cblMType.Items.Count; i++)
+            for (int i = 0; i < cblSType.Items.Count; i++)
             {
-                if (cblMType.Items[i].Selected == true)
+                if (cblSType.Items[i].Selected == true)
                 {
                     if (checkindex == 0)
                     {
-                        where += " and (QuotationTemplateTypeId = '" + cblMType.Items[i].Value + "'";
+                        where += " and (QuotationTemplateTypeId = '" + cblSType.Items[i].Value + "'";
                     }
                     if (checkindex > 0)
                     {
-                        where += " or QuotationTemplateTypeId = '" + cblMType.Items[i].Value + "'";
+                        where += " or QuotationTemplateTypeId = '" + cblSType.Items[i].Value + "'";
                     }
                     checkindex++;
                 }
@@ -58,6 +58,7 @@ namespace DTcms.Web.admin.Quotation
             {
                 where += ")";
             }
+            where += " order by QuotationTemplateTypeId";
             sql += where;
             DataTable dt = DbHelperSQL.Query(sql).Tables[0];
             PagedDataSource pds = new PagedDataSource();

@@ -31,67 +31,68 @@
         });
     </script>
     <style type="text/css">
-    .textarea{
-        width: 99%; 
-        min-height: 20px; 
-        _height: 120px; 
-        margin-left: auto; 
-        margin-right: auto; 
-        padding: 3px; 
-        outline: 0; 
-        border: 1px solid #a0b3d6; 
-        font-size: 12px; 
-        line-height: 24px;
-        padding: 2px;
-        word-wrap: break-word;
-        overflow-x: hidden;
-        overflow-y: auto;
-        border:none;
-        BORDER-BOTTOM: 0px solid; BORDER-LEFT: 0px solid; BORDER-RIGHT: 0px solid; BORDER-TOP: 0px solid;
-    }
+        .textarea {
+            width: 99%;
+            min-height: 20px;
+            _height: 120px;
+            margin-left: auto;
+            margin-right: auto;
+            padding: 3px;
+            outline: 0;
+            border: 1px solid #a0b3d6;
+            font-size: 12px;
+            line-height: 24px;
+            padding: 2px;
+            word-wrap: break-word;
+            overflow-x: hidden;
+            overflow-y: auto;
+            border: none;
+            BORDER-BOTTOM: 0px solid;
+            BORDER-LEFT: 0px solid;
+            BORDER-RIGHT: 0px solid;
+            BORDER-TOP: 0px solid;
+        }
     </style>
-<script type="text/javascript">
-var observe;
-if (window.attachEvent) {
-    observe = function (element, event, handler) {
-        element.attachEvent('on'+event, handler);
-    };
-}
-else {
-    observe = function (element, event, handler) {
-        element.addEventListener(event, handler, false);
-    };
-}
-function init () {
-    var text = document.getElementById('text');
-    function resize() {
-        text.style.width = '350px';
-        text.style.height = 'auto';
-        var vHeight= text.scrollHeight + 2;
-        text.style.height = vHeight + 'px';
-        text.readOnly = true;
-        
-    }
-    /* 0-timeout to get the already changed text */
-    function delayedResize () {
-        window.setTimeout(resize, 0);
-    }
-    observe(text, 'change',  resize);
-    observe(text, 'cut',     delayedResize);
-    observe(text, 'paste',   delayedResize);
-    observe(text, 'drop',    delayedResize);
-    observe(text, 'keydown', delayedResize);
+    <script type="text/javascript">
+        var observe;
+        if (window.attachEvent) {
+            observe = function (element, event, handler) {
+                element.attachEvent('on' + event, handler);
+            };
+        }
+        else {
+            observe = function (element, event, handler) {
+                element.addEventListener(event, handler, false);
+            };
+        }
+        function init() {
+            var text = document.getElementById('text');
+            function resize() {
+                text.style.width = '350px';
+                text.style.height = 'auto';
+                var vHeight = text.scrollHeight + 2;
+                text.style.height = vHeight + 'px';
+                text.readOnly = true;
 
-    text.focus();
-    text.select();
-    resize();
-}
+            }
+            /* 0-timeout to get the already changed text */
+            function delayedResize() {
+                window.setTimeout(resize, 0);
+            }
+            observe(text, 'change', resize);
+            observe(text, 'cut', delayedResize);
+            observe(text, 'paste', delayedResize);
+            observe(text, 'drop', delayedResize);
+            observe(text, 'keydown', delayedResize);
 
-</script>
-
+            text.focus();
+            text.select();
+            resize();
+        }
+    </script>
 </head>
 
-<body class="mainbody" >
+<body class="mainbody">
     <form id="form1" runat="server">
         <!--导航栏-->
         <div class="location">
@@ -117,11 +118,13 @@ function init () {
                                 <a class="add" href='MaterialImport.aspx'><i></i><span>导入</span></a></li>
                         </ul>
                         <div class="menu-list">
-                            <div class="rule-multi-checkbox">
+                            <div class="rule-multi-radio">
+                                <asp:RadioButtonList ID="rblType" runat="server" RepeatDirection="Vertical" RepeatLayout="Flow" AutoPostBack="true" OnSelectedIndexChanged="rblType_SelectedIndexChanged"></asp:RadioButtonList>
+                            </div>
+                            <%--<div class="rule-multi-checkbox">
                                 <asp:CheckBoxList ID="cblMType" runat="server" RepeatDirection="Horizontal" RepeatLayout="Flow" AutoPostBack="True" OnSelectedIndexChanged="cblMType_SelectedIndexChanged">
                                 </asp:CheckBoxList>
-                            </div>
-
+                            </div>--%>
                         </div>
                     </div>
                     <div class="r-list">
@@ -149,7 +152,6 @@ function init () {
                             <th align="left">描述</th>
                             <th align="left">单位</th>
                             <th align="left">单价</th>
- 
                             <th align="center">图片</th>
                             <th width="10%">操作</th>
                         </tr>
@@ -163,7 +165,7 @@ function init () {
                         <td><%#Eval("MaterialType") %></td>
                         <td><%#Eval("Brand") %></td>
                         <td align="center">
-                            <asp:Image ID="imgBrand" runat="server" ImageUrl='<%#Eval("BrandImg") %>' Height="75" /></td>
+                            <asp:Image ID="imgBrand" runat="server" ImageUrl='<%#Eval("BrandImg") %>' /></td>
                         <td><%#Eval("Mode") %></td>
                         <td><%#Eval("Name") %></td>
                         <td><%#Eval("Description").ToString().Replace("\n","<br />") %></td>
@@ -172,7 +174,7 @@ function init () {
                         <td><%#Eval("Unit") %></td>
                         <td><%#Eval("UnitPrice") %></td>
                         <td align="center">
-                            <asp:Image ID="imgMaterial" runat="server" ImageUrl='<%#Eval("Photo") %>' Height="75" /></td>
+                            <asp:Image ID="imgMaterial" runat="server" ImageUrl='<%#Eval("Photo") %>' Height="50" /></td>
                         <td align="center">
                             <a href='MaterialEdit.aspx?action=Edit&id=<%#Eval("ID") %>'>编辑</a>
                         </td>
@@ -192,7 +194,7 @@ function init () {
         <webdiyer:AspNetPager ID="AspNetPager1" runat="server" CustomInfoHTML="当前页:%CurrentPageIndex%/%PageCount% 共有%RecordCount%条记录 %PageCount%/页"
             FirstPageText="首页" HorizontalAlign="Center" InvalidPageIndexErrorMessage="页索引不是有效的数值！"
             LastPageText="末页" NextPageText="下一页" PageIndexOutOfRangeErrorMessage="页索引超出范围！"
-            PageSize="5" PrevPageText="上一页" ShowCustomInfoSection="Left" ShowInputBox="Always"
+            PageSize="50" PrevPageText="上一页" ShowCustomInfoSection="Left" ShowInputBox="Always"
             Width="100%" OnPageChanged="AspNetPager1_PageChanged" NumericButtonCount="5">
         </webdiyer:AspNetPager>
         <!--/内容底部-->

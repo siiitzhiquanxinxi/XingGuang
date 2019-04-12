@@ -25,11 +25,13 @@ namespace DTcms.Web.admin.Quotation
 
         private void BindCkb()
         {
-            BLL.Sy_MaterialType bll = new BLL.Sy_MaterialType();
-            DataTable dt = bll.GetAllList().Tables[0];
+            string sql = "select * from Sy_SystemType where 1=1";
+            DataTable dt = DbHelperSQL.Query(sql).Tables[0];
+            //BLL.Sy_MaterialType bll = new BLL.Sy_MaterialType();
+            //DataTable dt = bll.GetAllList().Tables[0];
             cblMType.DataSource = dt;
-            cblMType.DataTextField = "MaterialType";
-            cblMType.DataValueField = "ID";
+            cblMType.DataTextField = "SystemTypeName";
+            cblMType.DataValueField = "SystemTypeID";
             cblMType.DataBind();
         }
 
@@ -59,6 +61,7 @@ namespace DTcms.Web.admin.Quotation
                 where += ")";
             }
             sql += where;
+            sql += " order by QuotationTemplateTypeId";
             DataTable dt = DbHelperSQL.Query(sql).Tables[0];
             PagedDataSource pds = new PagedDataSource();
             pds.AllowPaging = true;

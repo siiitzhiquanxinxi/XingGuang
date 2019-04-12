@@ -34,6 +34,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -47,6 +48,10 @@
     <Reference Include="AspNetPager, Version=7.2.0.0, Culture=neutral, PublicKeyToken=fb0a0fe055d40fd4, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>bin\AspNetPager.dll</HintPath>
+    </Reference>
+    <Reference Include="Aspose.Cells, Version=4.7.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Aspose.Cells.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.JScript" />
@@ -123,10 +128,15 @@
     <Content Include="admin\Quotation\buildTemplate.aspx" />
     <Content Include="admin\Quotation\chooseGoodsType.aspx" />
     <Content Include="admin\Quotation\chooseMaterial.aspx" />
+    <Content Include="admin\Quotation\chooseSystemType.aspx" />
     <Content Include="admin\Quotation\chooseTemp.aspx" />
+    <Content Include="admin\Quotation\print\printQuotaionDepart.aspx" />
+    <Content Include="admin\Quotation\print\printQuotaionTotal.aspx" />
     <Content Include="admin\Quotation\QuotationListQuery.aspx" />
     <Content Include="admin\Quotation\QuotationTemplateEdit.aspx" />
     <Content Include="admin\Quotation\QuotationTemplateList.aspx" />
+    <Content Include="admin\Quotation\SystemTypeEdit.aspx" />
+    <Content Include="admin\Quotation\SystemTypeList.aspx" />
     <Content Include="admin\settings\builder_html.aspx" />
     <Content Include="admin\settings\nav_edit.aspx" />
     <Content Include="admin\settings\nav_list.aspx" />
@@ -232,6 +242,7 @@
     <Content Include="aspx\plugin\feedback.aspx" />
     <Content Include="aspx\plugin\link.aspx" />
     <Content Include="bin\AspNetPager.dll" />
+    <Content Include="bin\Aspose.Cells.dll" />
     <Content Include="crossdomain.xml" />
     <Content Include="css\image1.gif" />
     <Content Include="css\image2.gif" />
@@ -983,12 +994,33 @@
     <Compile Include="admin\Quotation\chooseMaterial.aspx.designer.cs">
       <DependentUpon>chooseMaterial.aspx</DependentUpon>
     </Compile>
+    <Compile Include="admin\Quotation\chooseSystemType.aspx.cs">
+      <DependentUpon>chooseSystemType.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="admin\Quotation\chooseSystemType.aspx.designer.cs">
+      <DependentUpon>chooseSystemType.aspx</DependentUpon>
+    </Compile>
     <Compile Include="admin\Quotation\chooseTemp.aspx.cs">
       <DependentUpon>chooseTemp.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="admin\Quotation\chooseTemp.aspx.designer.cs">
       <DependentUpon>chooseTemp.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="admin\Quotation\print\printQuotaionDepart.aspx.cs">
+      <DependentUpon>printQuotaionDepart.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="admin\Quotation\print\printQuotaionDepart.aspx.designer.cs">
+      <DependentUpon>printQuotaionDepart.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="admin\Quotation\print\printQuotaionTotal.aspx.cs">
+      <DependentUpon>printQuotaionTotal.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="admin\Quotation\print\printQuotaionTotal.aspx.designer.cs">
+      <DependentUpon>printQuotaionTotal.aspx</DependentUpon>
     </Compile>
     <Compile Include="admin\Quotation\QuotationListQuery.aspx.cs">
       <DependentUpon>QuotationListQuery.aspx</DependentUpon>
@@ -1010,6 +1042,20 @@
     </Compile>
     <Compile Include="admin\Quotation\QuotationTemplateList.aspx.designer.cs">
       <DependentUpon>QuotationTemplateList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="admin\Quotation\SystemTypeEdit.aspx.cs">
+      <DependentUpon>SystemTypeEdit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="admin\Quotation\SystemTypeEdit.aspx.designer.cs">
+      <DependentUpon>SystemTypeEdit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="admin\Quotation\SystemTypeList.aspx.cs">
+      <DependentUpon>SystemTypeList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="admin\Quotation\SystemTypeList.aspx.designer.cs">
+      <DependentUpon>SystemTypeList.aspx</DependentUpon>
     </Compile>
     <Compile Include="admin\settings\builder_html.aspx.cs">
       <DependentUpon>builder_html.aspx</DependentUpon>
@@ -1400,6 +1446,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="admin\MaterialSetting\导入模板.xlsx" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Properties\PublishProfiles\配置文件1.pubxml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

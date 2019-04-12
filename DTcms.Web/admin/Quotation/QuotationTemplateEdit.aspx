@@ -25,7 +25,7 @@
             var mtype = document.getElementById("hfdMtype").value;
             $.dialog({
                 title: '选择商品', width: 1024, heght: 600,
-                content: 'url:Quotation/chooseMaterial.aspx?mtype=' + mtype + '&idTarget=hfdTempId',
+                content: 'url:Quotation/chooseMaterial.aspx?stype=' + mtype + '&idTarget=hfdTempId',
                 lock: true
             });
         }
@@ -95,7 +95,7 @@
                             <asp:HiddenField ID="hfdMaterialId" runat="server" Value='<%#Eval("MaterialID") %>' />
                             <asp:Label ID="lblBrand" runat="server" Text='<%#Eval("Brand") %>'></asp:Label></td>
                         <td align="center">
-                            <asp:Image ID="imgBrand" runat="server" ImageUrl='<%#Eval("BrandImg") %>' Height="75" /></td>
+                            <asp:Image ID="imgBrand" runat="server" ImageUrl='<%#Eval("BrandImg") %>' Width="100" Height="50" /></td>
                         <td>
                             <asp:Label ID="lblMode" runat="server" Text='<%#Eval("Mode") %>'></asp:Label></td>
                         <td>
@@ -107,7 +107,7 @@
                         <td>
                             <asp:Label ID="lblUnitPrice" runat="server" Text='<%#Eval("UnitPrice") %>'></asp:Label></td>
                         <td align="center">
-                            <asp:Image ID="imgMaterial" runat="server" ImageUrl='<%#Eval("Photo") %>' Height="75" /></td>
+                            <asp:Image ID="imgMaterial" runat="server" ImageUrl='<%#Eval("Photo") %>' Width="100" Height="50" /></td>
                         <td>
                             <asp:TextBox ID="txtQuantity" runat="server" Text='<%#Eval("Quantity") %>' onkeyup="if(isNaN(value))execCommand('undo')" onafterpaste="if(isNaN(value))execCommand('undo')"></asp:TextBox></td>
                         <td align="center">
@@ -189,7 +189,7 @@
                             <asp:HiddenField ID="hfdMaterialId" runat="server" Value='<%#Eval("ID") %>' />
                             <asp:Label ID="lblBrand" runat="server" Text='<%#Eval("Brand") %>'></asp:Label></td>
                         <td align="center">
-                            <asp:Image ID="imgBrand" runat="server" ImageUrl='<%#Eval("BrandImg") %>' Height="75" /></td>
+                            <asp:Image ID="imgBrand" runat="server" ImageUrl='<%#Eval("BrandImg") %>' Width="100" Height="50" /></td>
                         <td>
                             <asp:Label ID="lblMode" runat="server" Text='<%#Eval("Mode") %>'></asp:Label></td>
                         <td>
@@ -200,7 +200,7 @@
                         <td>
                             <asp:Label ID="lblUnit" runat="server" Text='<%#Eval("Unit") %>'></asp:Label></td>
                         <td align="center">
-                            <asp:Image ID="imgMaterial" runat="server" ImageUrl='<%#Eval("Photo") %>' Height="75" /></td>
+                            <asp:Image ID="imgMaterial" runat="server" ImageUrl='<%#Eval("Photo") %>' Width="100" Height="50" /></td>
                         <td>
                             <asp:Label ID="lblQuantity" runat="server" Text='<%#Eval("totalcount") %>'></asp:Label>
                         <td>

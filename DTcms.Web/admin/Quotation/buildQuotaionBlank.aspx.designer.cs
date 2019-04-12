@@ -76,6 +76,24 @@ namespace DTcms.Web.admin.Quotation {
         protected global::System.Web.UI.WebControls.TextBox txtQuotationListNum;
         
         /// <summary>
+        /// btnAddGoodsType 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputButton btnAddGoodsType;
+        
+        /// <summary>
+        /// btnPrintTotal 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnPrintTotal;
+        
+        /// <summary>
         /// rblGoodsType 控件。
         /// </summary>
         /// <remarks>
@@ -83,6 +101,24 @@ namespace DTcms.Web.admin.Quotation {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::System.Web.UI.WebControls.RadioButtonList rblGoodsType;
+        
+        /// <summary>
+        /// b1 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputButton b1;
+        
+        /// <summary>
+        /// btnPrintPreview 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnPrintPreview;
         
         /// <summary>
         /// btnBind 控件。
@@ -173,6 +209,24 @@ namespace DTcms.Web.admin.Quotation {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtXiangmuguanliFee;
+        
+        /// <summary>
+        /// lblSystemSubTotal 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblSystemSubTotal;
+        
+        /// <summary>
+        /// lblQuotaionSubTotal 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblQuotaionSubTotal;
         
         /// <summary>
         /// btnSave 控件。

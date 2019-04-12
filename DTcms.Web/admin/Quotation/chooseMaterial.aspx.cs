@@ -14,8 +14,88 @@ namespace DTcms.Web.admin.Quotation
         {
             if (!IsPostBack)
             {
+                BindDDLM();
+                BindDDL();
                 BindData();
             }
+        }
+
+        private void BindDDLM()
+        {
+            string sql = "select * from Sy_MaterialType where 1=1";
+            string where = "";
+            if (!string.IsNullOrEmpty(Request.QueryString["stype"]))
+            {
+                string s = "select * from Sy_SystemType where SystemTypeID = " + Request.QueryString["stype"];
+                DataTable d = DbHelperSQL.Query(s).Tables[0];
+                if (d != null && d.Rows.Count > 0)
+                {
+                    string[] arr = d.Rows[0]["HasMaterialType"].ToString().Split('|');
+                    where += " and ID in (";
+                    for (int i = 0; i < arr.Length; i++)
+                    {
+                        if (!string.IsNullOrEmpty(arr[i]))
+                        {
+                            where += arr[i] + ",";
+                        }
+                    }
+                    where = where.Trim(',');
+                    where += ")";
+                }
+                else
+                {
+                    where += " and 1=2";
+                }
+            }
+            sql += where;
+            DataTable dt = DbHelperSQL.Query(sql).Tables[0];
+            ddlMaterialType.DataSource = dt;
+            ddlMaterialType.DataTextField = "MaterialType";
+            ddlMaterialType.DataValueField = "ID";
+            ddlMaterialType.DataBind();
+        }
+
+        private void BindDDL()
+        {
+            string sql = "select distinct Brand from Sy_Material where 1=1";
+            string where = "";
+            if (!string.IsNullOrEmpty(Request.QueryString["mtype"]))
+            {
+                where += " and MaterialTypeID = " + Request.QueryString["mtype"];
+            }
+            if (!string.IsNullOrEmpty(Request.QueryString["stype"]))
+            {
+                string s = "select * from Sy_SystemType where SystemTypeID = " + Request.QueryString["stype"];
+                DataTable d = DbHelperSQL.Query(s).Tables[0];
+                if (d != null && d.Rows.Count > 0)
+                {
+                    string[] arr = d.Rows[0]["HasMaterialType"].ToString().Split('|');
+                    where += " and MaterialTypeID in (";
+                    for (int i = 0; i < arr.Length; i++)
+                    {
+                        if (!string.IsNullOrEmpty(arr[i]))
+                        {
+                            where += arr[i] + ",";
+                        }
+                    }
+                    where = where.Trim(',');
+                    where += ")";
+                }
+                else
+                {
+                    where += " and 1=2";
+                }
+            }
+            if (ddlMaterialType.SelectedItem.Value != "-1")
+            {
+                where += " and MaterialTypeID = " + ddlMaterialType.SelectedItem.Value;
+            }
+            sql += where;
+            DataTable dt = DbHelperSQL.Query(sql).Tables[0];
+            ddlBrand.DataSource = dt;
+            ddlBrand.DataTextField = "Brand";
+            ddlBrand.DataValueField = "Brand";
+            ddlBrand.DataBind();
         }
 
         private void BindData()
@@ -26,10 +106,38 @@ namespace DTcms.Web.admin.Quotation
             {
                 where += " and MaterialTypeID = " + Request.QueryString["mtype"];
             }
+            if (!string.IsNullOrEmpty(Request.QueryString["stype"]))
+            {
+                string s = "select * from Sy_SystemType where SystemTypeID = " + Request.QueryString["stype"];
+                DataTable d = DbHelperSQL.Query(s).Tables[0];
+                if (d != null && d.Rows.Count > 0)
+                {
+                    string[] arr = d.Rows[0]["HasMaterialType"].ToString().Split('|');
+                    where += " and MaterialTypeID in (";
+                    for (int i = 0; i < arr.Length; i++)
+                    {
+                        if (!string.IsNullOrEmpty(arr[i]))
+                        {
+                            where += arr[i] + ",";
+                        }
+                    }
+                    where = where.Trim(',');
+                    where += ")";
+                }
+                else
+                {
+                    where += " and 1=2";
+                }
+            }
+            if (ddlBrand.SelectedItem.Value != "-1")
+            {
+                where += " and Brand = '" + ddlBrand.SelectedItem.Text + "'";
+            }
             if (txtKeywords.Text != "")
             {
                 where += " and (Name like '%" + txtKeywords.Text + "%' or Description like '%" + txtKeywords.Text + "%')";
             }
+            where += " order by MaterialTypeID";
             //DataTable dt = bll.GetListByPage(where, "MaterialType", 0, 7).Tables[0];
             DataTable dt = bll.GetList(where).Tables[0];
             PagedDataSource pds = new PagedDataSource();
@@ -60,6 +168,16 @@ namespace DTcms.Web.admin.Quotation
         protected void cblMType_SelectedIndexChanged(object sender, EventArgs e)
         {
             BindData();
+        }
+
+        protected void ddlBrand_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            BindData();
+        }
+
+        protected void ddlMaterialType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            BindDDL();
         }
     }
 }

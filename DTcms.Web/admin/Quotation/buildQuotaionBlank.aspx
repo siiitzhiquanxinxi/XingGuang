@@ -19,23 +19,31 @@
     <script type="text/javascript" charset="utf-8" src="../js/laymain.js"></script>
     <script type="text/javascript" charset="utf-8" src="../js/common.js"></script>
     <script type="text/javascript" src="../../scripts/lhgdialog/lhgdialog.js?skin=idialog"></script>
+    <script src="../../lhgdialog/lhgdialog.min.js"></script>
     <script type="text/javascript">
         function SelectMaterial() {
-            var mtype = document.getElementById("hfdMtype").value;
-            if (mtype == "" || mtype == null) {
-                alert("请选择商品类别!");
+            var stype = document.getElementById("hfdMtype").value;
+            if (stype == "" || stype == null) {
+                alert("请选择系统类别!");
                 return;
             }
             $.dialog({
                 title: '选择商品', width: 1024, heght: 600,
-                content: 'url:Quotation/chooseMaterial.aspx?mtype=' + mtype + '&idTarget=hfdTempId',
+                content: 'url:Quotation/chooseMaterial.aspx?stype=' + stype + '&idTarget=hfdTempId',
                 lock: true
             });
         }
-        function SelectGoodsType() {
+        //function SelectGoodsType() {
+        //    $.dialog({
+        //        title: '选择商品类型', width: 650, heght: 600,
+        //        content: 'url:Quotation/chooseGoodsType.aspx?idTarget=hfdTempId2',
+        //        lock: true
+        //    });
+        //}
+        function SelectSystemType() {
             $.dialog({
-                title: '选择商品类型', width: 650, heght: 600,
-                content: 'url:Quotation/chooseGoodsType.aspx?idTarget=hfdTempId2',
+                title: '选择系统类型', width: 650, heght: 600,
+                content: 'url:Quotation/chooseSystemType.aspx?idTarget=hfdTempId2',
                 lock: true
             });
         }
@@ -53,6 +61,12 @@
         }
         function bindClick2() {
             document.getElementById("btnBind2").click();
+        }
+        function IsPrint() {
+            var id = $("#hfdMtype").val();
+            alert(id);
+            window.open('print/printQuotaionDepart.aspx?id=' + id, '_blank');
+            //window.showModalDialog('print/printQuotaionDepart.aspx?id=' + id, window, 'dialogWidth:900px;dialogHeight:635px;center:yes;help:no;scroll:yes;resizable:yes;status:yes;');
         }
     </script>
 </head>
@@ -82,7 +96,8 @@
             <dl>
                 <dt>添加商品类别</dt>
                 <dd>
-                    <input id="btnAddGoodsType" type="button" value="添加商品类别" class="btn yellow" onclick="SelectGoodsType()" />
+                    <input id="btnAddGoodsType" runat="server" type="button" value="添加系统类别" class="btn yellow" onclick="SelectSystemType()" />
+                    <asp:Button ID="btnPrintTotal" runat="server" Text="报价单打印预览" class="btn yellow" Visible="false" OnClick="btnPrintTotal_Click" />
                 </dd>
             </dl>
             <dl>
@@ -108,7 +123,8 @@
             </div>
         </div>
         <div class="tab-content" id="divContent">
-            <input id="b1" type="button" value="添加商品" class="btn green" onclick="SelectMaterial()" style="margin-bottom: 8px;" />
+            <input id="b1" runat="server" type="button" value="添加商品" class="btn green" onclick="SelectMaterial()" style="margin-bottom: 8px;" />
+            <asp:Button ID="btnPrintPreview" runat="server" Text="打印预览" CssClass="btn yellow" OnClick="btnPrintPreview_Click" Visible="false" />
             <asp:Button ID="btnBind" runat="server" Text="绑定" OnClick="btnBind_Click" Style="display: none;" />
             <asp:Button ID="btnBind2" runat="server" Text="绑定2" OnClick="btnBind2_Click" Style="display: none;" />
             <asp:Repeater ID="rptList1" runat="server">
@@ -124,6 +140,7 @@
                             <th align="left">单价</th>
                             <th align="center">图片</th>
                             <th align="left">数量</th>
+                            <th align="left">小计</th>
                             <th width="10%">操作</th>
                         </tr>
                 </HeaderTemplate>
@@ -134,7 +151,7 @@
                             <asp:HiddenField ID="hfdMaterialId" runat="server" Value='<%#Eval("FK_materialID") %>' />
                             <asp:Label ID="lblBrand" runat="server" Text='<%#Eval("Brand") %>'></asp:Label></td>
                         <td align="center">
-                            <asp:Image ID="imgBrand" runat="server" ImageUrl='<%#Eval("BrandImg") %>' Height="75" /></td>
+                            <asp:Image ID="imgBrand" runat="server" ImageUrl='<%#Eval("BrandImg") %>' Width="100" Height="50" /></td>
                         <td>
                             <asp:Label ID="lblMode" runat="server" Text='<%#Eval("Mode") %>'></asp:Label></td>
                         <td>
@@ -146,9 +163,12 @@
                         <td>
                             <asp:Label ID="lblUnitPrice" runat="server" Text='<%#Eval("UnitPrice") %>'></asp:Label></td>
                         <td align="center">
-                            <asp:Image ID="imgMaterial" runat="server" ImageUrl='<%#Eval("Photo") %>' Height="75" /></td>
+                            <asp:Image ID="imgMaterial" runat="server" ImageUrl='<%#Eval("Photo") %>' Width="100" Height="50" /></td>
                         <td>
                             <asp:TextBox ID="txtQuantity" runat="server" Text='<%#Eval("GoodsQuantity") %>' onkeyup="if(isNaN(value))execCommand('undo')" onafterpaste="if(isNaN(value))execCommand('undo')"></asp:TextBox></td>
+                        <td>
+                            <asp:Label ID="lblSubTotal" runat="server"></asp:Label>
+                        </td>
                         <td align="center">
                             <asp:HiddenField ID="hfdIsDel" runat="server" Value="0" />
                             <asp:LinkButton ID="lbtnDel" runat="server" OnClick="lbtnDel_Click">删除</asp:LinkButton>
@@ -188,7 +208,7 @@
                             <asp:HiddenField ID="hfdMaterialId" runat="server" Value='<%#Eval("FK_LineId") %>' />
                             <asp:Label ID="lblBrand" runat="server" Text='<%#Eval("LineBrand") %>'></asp:Label></td>
                         <td align="center">
-                            <asp:Image ID="imgBrand" runat="server" ImageUrl='<%#Eval("LineBrandImg") %>' Height="75" /></td>
+                            <asp:Image ID="imgBrand" runat="server" ImageUrl='<%#Eval("LineBrandImg") %>' Width="100" Height="50" /></td>
                         <td>
                             <asp:Label ID="lblMode" runat="server" Text='<%#Eval("LineMode") %>'></asp:Label></td>
                         <td>
@@ -199,7 +219,7 @@
                         <td>
                             <asp:Label ID="lblUnit" runat="server" Text='<%#Eval("LineUnit") %>'></asp:Label></td>
                         <td align="center">
-                            <asp:Image ID="imgMaterial" runat="server" ImageUrl='<%#Eval("LinePhoto") %>' Height="75" /></td>
+                            <asp:Image ID="imgMaterial" runat="server" ImageUrl='<%#Eval("LinePhoto") %>' Width="100" Height="50" /></td>
                         <td>
                             <asp:Label ID="lblQuantity" runat="server" Text='<%#Eval("LineTotalcount") %>'></asp:Label>
                         <td>
@@ -263,6 +283,11 @@
                         <asp:TextBox ID="txtXiangmuguanliFee" runat="server"></asp:TextBox></td>
                 </tr>
             </table>
+        </div>
+        <div class="tab-content">
+            该系统小计金额：<asp:Label ID="lblSystemSubTotal" runat="server" Text=""></asp:Label><br />
+            <br />
+            报价单合计总额：<asp:Label ID="lblQuotaionSubTotal" runat="server" Text=""></asp:Label>
         </div>
         <!--/内容-->
         <!--工具栏-->

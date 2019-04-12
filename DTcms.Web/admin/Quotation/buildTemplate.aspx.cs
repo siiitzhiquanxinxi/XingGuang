@@ -21,11 +21,11 @@ namespace DTcms.Web.admin.Quotation
 
         private void BindDDL()
         {
-            string sql = "select * from Sy_MaterialType where 1=1";
+            string sql = "select * from Sy_SystemType where 1=1";
             DataTable dt = DbHelperSQL.Query(sql).Tables[0];
             ddlQuotationTemplateType.DataSource = dt;
-            ddlQuotationTemplateType.DataTextField = "MaterialType";
-            ddlQuotationTemplateType.DataValueField = "ID";
+            ddlQuotationTemplateType.DataTextField = "SystemTypeName";
+            ddlQuotationTemplateType.DataValueField = "SystemTypeID";
             ddlQuotationTemplateType.DataBind();
         }
 

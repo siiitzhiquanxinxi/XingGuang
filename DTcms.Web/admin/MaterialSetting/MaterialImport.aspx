@@ -80,8 +80,7 @@
         <!--工具栏-->
         <div class="page-footer" runat="server" id="div_gongju">
             <div class="btn-list">
-                <asp:Button ID="btnSubmit" runat="server" Text="导  入" CssClass="btn"
-                    OnClick="btnSubmit_Click" />
+                <asp:Button ID="btnSubmit2" runat="server" Text="导  入" CssClass="btn" OnClick="btnSubmit2_Click" />
                 <input name="btnReturn" type="button" value="返回上一页" class="btn yellow" onclick="javascript: history.back(-1);" />
                 <asp:Label ID="lblError" runat="server" Text="" Style="color: Red;"></asp:Label>
             </div>

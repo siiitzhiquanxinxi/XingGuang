@@ -51,10 +51,10 @@
 
 <div class="tab-content">
   <dl>
-    <dt>管理角色</dt>
+    <dt>用户角色</dt>
     <dd>
       <div class="rule-single-select">
-        <asp:DropDownList id="ddlRoleId" runat="server" datatype="*" errormsg="请选择管理员角色" sucmsg=" "></asp:DropDownList>
+        <asp:DropDownList id="ddlRoleId" runat="server" datatype="*" errormsg="请选择角色" sucmsg=" "></asp:DropDownList>
       </div>
     </dd>
   </dl>

@@ -28,7 +28,7 @@ namespace DTcms.Web.admin.Quotation
                 HiddenField hfdQuotationTemplateId = rptList1.Items[i].FindControl("hfdQuotationTemplateId") as HiddenField;
                 tempidArr += (hfdQuotationTemplateId.Value + "|");
             }
-            Response.Redirect("buildQuotaionBlank.aspx?tid=" + tempidArr);
+            Response.Redirect("buildQuotaionBlank.aspx?action=add&tid=" + tempidArr);
         }
 
         DataTable dttemp = new DataTable();

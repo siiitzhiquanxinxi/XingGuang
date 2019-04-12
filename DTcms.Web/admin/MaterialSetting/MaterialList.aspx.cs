@@ -33,10 +33,10 @@ namespace DTcms.Web.admin.MaterialSetting
         {
             BLL.Sy_MaterialType bll = new BLL.Sy_MaterialType();
             DataTable dt = bll.GetAllList().Tables[0];
-            cblMType.DataSource = dt;
-            cblMType.DataTextField = "MaterialType";
-            cblMType.DataValueField = "MaterialType";
-            cblMType.DataBind();
+            rblType.DataSource = dt;
+            rblType.DataTextField = "MaterialType";
+            rblType.DataValueField = "MaterialType";
+            rblType.DataBind();
         }
         protected string CombSqlTxt(string _keywords)
         {
@@ -46,26 +46,26 @@ namespace DTcms.Web.admin.MaterialSetting
             {
                 strTemp.Append(" and  Name like  '%" + _keywords + "%' or Description like '%" + txtKeywords.Text + "%'");
             }
-            int checkindex = 0;
-            for (int i = 0; i < cblMType.Items.Count; i++)
-            {
-                if (cblMType.Items[i].Selected == true)
-                {
-                    if (checkindex == 0)
-                    {
-                        strTemp.Append(" and (MaterialType = '" + cblMType.Items[i].Text + "'");
-                    }
-                    if (checkindex > 0)
-                    {
-                        strTemp.Append(" or MaterialType = '" + cblMType.Items[i].Text + "'");
-                    }
-                    checkindex++;
-                }
-            }
-            if (checkindex > 0)
-            {
-                strTemp.Append(")");
-            }
+            //int checkindex = 0;
+            //for (int i = 0; i < cblMType.Items.Count; i++)
+            //{
+            //    if (cblMType.Items[i].Selected == true)
+            //    {
+            //        if (checkindex == 0)
+            //        {
+            //            strTemp.Append(" and (MaterialType = '" + cblMType.Items[i].Text + "'");
+            //        }
+            //        if (checkindex > 0)
+            //        {
+            //            strTemp.Append(" or MaterialType = '" + cblMType.Items[i].Text + "'");
+            //        }
+            //        checkindex++;
+            //    }
+            //}
+            //if (checkindex > 0)
+            //{
+            //    strTemp.Append(")");
+            //}
             return strTemp.ToString();
         }
         //private void RptBind(string _strWhere, string _orderby)
@@ -91,33 +91,34 @@ namespace DTcms.Web.admin.MaterialSetting
             {
                 where += " and (Name like '%" + txtKeywords.Text + "%' or Description like '%" + txtKeywords.Text + "%')";
             }
-            int checkindex = 0;
-            for (int i = 0; i < cblMType.Items.Count; i++)
-            {
-                if (cblMType.Items[i].Selected == true)
-                {
-                    if (checkindex == 0)
-                    {
-                        where += " and (MaterialType = '" + cblMType.Items[i].Text + "'";
-                    }
-                    if (checkindex > 0)
-                    {
-                        where += " or MaterialType = '" + cblMType.Items[i].Text + "'";
-                    }
-                    checkindex++;
-                }
-            }
-            if (checkindex > 0)
-            {
-                where += ")";
-            }
+            where += " and MaterialType = '" + rblType.SelectedValue + "'";
+            //int checkindex = 0;
+            //for (int i = 0; i < cblMType.Items.Count; i++)
+            //{
+            //    if (cblMType.Items[i].Selected == true)
+            //    {
+            //        if (checkindex == 0)
+            //        {
+            //            where += " and (MaterialType = '" + cblMType.Items[i].Text + "'";
+            //        }
+            //        if (checkindex > 0)
+            //        {
+            //            where += " or MaterialType = '" + cblMType.Items[i].Text + "'";
+            //        }
+            //        checkindex++;
+            //    }
+            //}
+            //if (checkindex > 0)
+            //{
+            //    where += ")";
+            //}
 
             //DataTable dt = bll.GetListByPage(where, "MaterialType", 0, 100).Tables[0];
             DataTable dt = bll.GetList(where).Tables[0];
             PagedDataSource pds = new PagedDataSource();
             pds.AllowPaging = true;
             pds.PageSize = AspNetPager1.PageSize;
-            
+
             pds.CurrentPageIndex = AspNetPager1.CurrentPageIndex - 1;
             pds.DataSource = dt.DefaultView;
 
@@ -204,6 +205,11 @@ namespace DTcms.Web.admin.MaterialSetting
                 }
             }
             return _default_size;
+        }
+
+        protected void rblType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            BindData();
         }
     }
 }

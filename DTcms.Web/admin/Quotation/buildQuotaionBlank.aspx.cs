@@ -19,7 +19,17 @@ namespace DTcms.Web.admin.Quotation
                 if (!string.IsNullOrEmpty(Request.QueryString["id"]))//查看报价单明细
                 {
                     GetData();
-                    btnSave.Visible = false;
+                    if (Request.QueryString["action"] == "view")
+                    {
+                        btnSave.Visible = false;
+                        btnPrintPreview.Visible = btnPrintTotal.Visible = true;
+                        btnAddGoodsType.Visible = b1.Visible = false;
+                        btnUpdateLaborFee.Visible = btnUpdateLine.Visible = false;
+                    }
+                    if (Request.QueryString["action"] == "edit")
+                    {
+
+                    }
                 }
                 else if (!string.IsNullOrEmpty(Request.QueryString["tid"]))//由模板生成
                 {
@@ -42,15 +52,24 @@ namespace DTcms.Web.admin.Quotation
             {
                 txtQuotationListNum.Text = Q_model.QuotationListNum;
                 lstGoodsType = new List<QuatationListTypeClass>();
-
                 List<Model.Q_QuotationDetailType> lstQDT = new BLL.Q_QuotationDetailType().GetModelList("FK_ParentQuotationListId = " + Request.QueryString["id"]);
+                decimal total = 0;
                 foreach (Model.Q_QuotationDetailType item in lstQDT)
                 {
                     QuatationListTypeClass qltc = new QuatationListTypeClass();
-                    qltc.lstQuotationDetailGoods = new BLL.Q_QuotationDetailGoods().GetModelList("FK_QuotationDetailTypeId = "+ item.QuotationDetailTypeId);//每个商品
+                    qltc.Keyid = item.QuotationDetailTypeId;
+                    qltc.lstQuotationDetailGoods = new BLL.Q_QuotationDetailGoods().GetModelList("FK_QuotationDetailTypeId = " + item.QuotationDetailTypeId);//每个商品
                     qltc.lstQuotationDetailLines = new BLL.Q_QuotationDetailLines().GetModelList("FK_QuotationDetailTypeId = " + item.QuotationDetailTypeId);//每个线材
                     qltc.Typeid = Convert.ToInt16(item.FK_MaterialTypeId);
                     qltc.Typename = item.MaterialTypeName;
+                    qltc.QuotationDetailType = new BLL.Q_QuotationDetailType().GetModel(item.QuotationDetailTypeId);
+
+                    decimal subTotal = 0;
+                    string sql = "select sum(UnitPrice*GoodsQuantity) from Q_QuotationDetailGoods where FK_QuotationDetailTypeId = " + item.QuotationDetailTypeId.ToString();
+                    subTotal = Convert.ToDecimal(DbHelperSQL.Query(sql).Tables[0].Rows[0][0].ToString());
+                    total += subTotal;
+
+                    qltc.SubTotal = subTotal;
                     lstGoodsType.Add(qltc);
                 }
                 rblGoodsType.DataSource = lstGoodsType;
@@ -58,6 +77,7 @@ namespace DTcms.Web.admin.Quotation
                 rblGoodsType.DataValueField = "Typeid";
                 rblGoodsType.DataBind();
                 this.ViewState["GT"] = lstGoodsType;
+                lblQuotaionSubTotal.Text = Math.Round(total, 2).ToString();
             }
         }
         /// <summary>
@@ -207,6 +227,7 @@ namespace DTcms.Web.admin.Quotation
             }
             rptList1.DataSource = dtmaterial;
             rptList1.DataBind();
+            CalculateSubTotal();
         }
 
         protected void btnBind_Click(object sender, EventArgs e)
@@ -237,13 +258,13 @@ namespace DTcms.Web.admin.Quotation
             }
             if (hfdTempId2.Value != "")//添加
             {
-                string sql = "select * from Sy_MaterialType where ID = " + hfdTempId2.Value;
+                string sql = "select * from Sy_SystemType where SystemTypeID = " + hfdTempId2.Value;
                 DataTable dt = DbHelperSQL.Query(sql).Tables[0];
-                if (lstGoodsType.Where(p => p.Typeid == int.Parse(dt.Rows[0]["ID"].ToString())).Count() <= 0)
+                if (lstGoodsType.Where(p => p.Typeid == int.Parse(dt.Rows[0]["SystemTypeID"].ToString())).Count() <= 0)
                 {
                     QuatationListTypeClass qltc = new QuatationListTypeClass();
-                    qltc.Typeid = int.Parse(dt.Rows[0]["ID"].ToString());
-                    qltc.Typename = dt.Rows[0]["MaterialType"].ToString();
+                    qltc.Typeid = int.Parse(dt.Rows[0]["SystemTypeID"].ToString());
+                    qltc.Typename = dt.Rows[0]["SystemTypeName"].ToString();
                     lstGoodsType.Add(qltc);
                 }
                 hfdTempId2.Value = "";
@@ -271,15 +292,30 @@ namespace DTcms.Web.admin.Quotation
         {
             SaveToViewstate();
 
-            Model.Q_QuotationList modelQ_QuotationList = new Model.Q_QuotationList();
-            modelQ_QuotationList.QuotationListNum = txtQuotationListNum.Text;
-            modelQ_QuotationList.FK_ParentProgramId = null;
-            Model.manager model = new Model.manager();
-            model = Session[DTKeys.SESSION_ADMIN_INFO] as Model.manager;
-            modelQ_QuotationList.CreateBy = (model != null ? model.id : -1);
-            modelQ_QuotationList.CreateDate = DateTime.Now;
-            modelQ_QuotationList.QuotationListState = 0;
-            int Q_QuotationList_ID = new BLL.Q_QuotationList().Add(modelQ_QuotationList);
+            Model.Q_QuotationList modelQ_QuotationList;
+            int Q_QuotationList_ID;
+            if (Request.QueryString["action"] == "add")//新增
+            {
+                modelQ_QuotationList = new Model.Q_QuotationList();
+                modelQ_QuotationList.QuotationListNum = txtQuotationListNum.Text;
+                modelQ_QuotationList.FK_ParentProgramId = null;
+                Model.manager model = new Model.manager();
+                model = Session[DTKeys.SESSION_ADMIN_INFO] as Model.manager;
+                modelQ_QuotationList.CreateBy = (model != null ? model.id : -1);
+                modelQ_QuotationList.CreateDate = DateTime.Now;
+                modelQ_QuotationList.QuotationListState = 0;
+                Q_QuotationList_ID = new BLL.Q_QuotationList().Add(modelQ_QuotationList);
+            }
+            else//修改
+            {
+                Q_QuotationList_ID = int.Parse(Request.QueryString["id"]);
+                modelQ_QuotationList = new BLL.Q_QuotationList().GetModel(Q_QuotationList_ID);
+                modelQ_QuotationList.QuotationListNum = txtQuotationListNum.Text;
+                modelQ_QuotationList.FK_ParentProgramId = null;
+            }
+            DbHelperSQL.ExecuteSql("delete Q_QuotationDetailGoods where FK_QuotationDetailTypeId in (select QuotationDetailTypeId from Q_QuotationDetailType where FK_ParentQuotationListId = " + Q_QuotationList_ID + ") ");
+            DbHelperSQL.ExecuteSql("delete Q_QuotationDetailLines where FK_QuotationDetailTypeId in (select QuotationDetailTypeId from Q_QuotationDetailType where FK_ParentQuotationListId = " + Q_QuotationList_ID + ") ");
+            DbHelperSQL.ExecuteSql("delete Q_QuotationDetailType where FK_ParentQuotationListId = " + Q_QuotationList_ID);
 
             lstGoodsType = this.ViewState["GT"] as List<QuatationListTypeClass>;
             for (int i = 0; i < lstGoodsType.Count; i++)
@@ -343,6 +379,7 @@ namespace DTcms.Web.admin.Quotation
 
                 rptList1.DataSource = dtmaterial;
                 rptList1.DataBind();
+                CalculateSubTotal();
             }
         }
         protected void lbtnMoveDown_Click(object sender, EventArgs e)
@@ -379,6 +416,36 @@ namespace DTcms.Web.admin.Quotation
 
                 rptList1.DataSource = dtmaterial;
                 rptList1.DataBind();
+                CalculateSubTotal();
+            }
+        }
+
+        private void CalculateSubTotal()
+        {
+            decimal sum = 0;
+            for (int i = 0; i < rptList1.Items.Count; i++)
+            {
+                TextBox txtQuantity = rptList1.Items[i].FindControl("txtQuantity") as TextBox;
+                Label lblUnitPrice = rptList1.Items[i].FindControl("lblUnitPrice") as Label;
+                Label lblSubTotal = rptList1.Items[i].FindControl("lblSubTotal") as Label;
+                decimal Quantity = txtQuantity.Text != "" ? Convert.ToDecimal(txtQuantity.Text) : 0;
+                decimal UnitPrice = lblUnitPrice.Text != "" ? Convert.ToDecimal(lblUnitPrice.Text) : 0;
+                decimal subTotal = Quantity * UnitPrice;
+                sum += subTotal;
+                lblSubTotal.Text = Math.Round(subTotal, 2).ToString();
+            }
+            lblSystemSubTotal.Text = Math.Round(sum, 2).ToString();
+            if (this.ViewState["GT"] != null)
+            {
+                lstGoodsType = this.ViewState["GT"] as List<QuatationListTypeClass>;
+                lstGoodsType.Where(p => p.Typeid == Convert.ToDecimal(hfdMtype.Value)).First().SubTotal = sum;
+
+                decimal total = 0;
+                for (int i = 0; i < lstGoodsType.Count; i++)
+                {
+                    total += lstGoodsType[i].SubTotal;
+                }
+                lblQuotaionSubTotal.Text = Math.Round(total, 2).ToString();
             }
         }
 
@@ -532,6 +599,7 @@ namespace DTcms.Web.admin.Quotation
                 QuatationListTypeClass qltc = lstGoodsType.Where(p => p.Typeid == int.Parse(hfdMtype.Value)).First();
                 rptList1.DataSource = qltc.lstQuotationDetailGoods != null ? qltc.lstQuotationDetailGoods : null;
                 rptList1.DataBind();
+                CalculateSubTotal();
                 rptLine.DataSource = qltc.lstQuotationDetailLines != null ? qltc.lstQuotationDetailLines : null;
                 rptLine.DataBind();
                 if (qltc.QuotationDetailType != null)
@@ -558,14 +626,42 @@ namespace DTcms.Web.admin.Quotation
             }
         }
 
+        protected void btnPrintPreview_Click(object sender, EventArgs e)
+        {
+            lstGoodsType = this.ViewState["GT"] as List<QuatationListTypeClass>;
+            string id = lstGoodsType.Where(p => p.Typeid == Convert.ToInt32(hfdMtype.Value)).First().Keyid.ToString();
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "1", "window.open('print/printQuotaionDepart.aspx?id=" + id + "', '_blank');", true);
+        }
+
+        protected void btnPrintTotal_Click(object sender, EventArgs e)
+        {
+            string id = Request.QueryString["id"];
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "1", "window.open('print/printQuotaionTotal.aspx?id=" + id + "', '_blank');", true);
+        }
+
         [Serializable]
         private class QuatationListTypeClass
         {
+            /// <summary>
+            /// 主键
+            /// </summary>
+            public int Keyid { get; set; }
+            /// <summary>
+            /// 系统类别id
+            /// </summary>
             public int Typeid { get; set; }
+            /// <summary>
+            /// 系统类别名称
+            /// </summary>
             public string Typename { get; set; }
+            /// <summary>
+            /// 该系统分类小计金额
+            /// </summary>
+            public decimal SubTotal = 0;
             public Model.Q_QuotationDetailType QuotationDetailType;
             public List<Model.Q_QuotationDetailGoods> lstQuotationDetailGoods;
             public List<Model.Q_QuotationDetailLines> lstQuotationDetailLines;
         }
+
     }
 }
