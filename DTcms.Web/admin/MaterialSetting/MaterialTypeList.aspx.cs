@@ -19,13 +19,12 @@ namespace DTcms.Web.admin.MaterialSetting
         protected string keywords = string.Empty;
         protected void Page_Load(object sender, EventArgs e)
         {
-           
-            keywords = this.txtKeywords.Text.Trim();
-            //if (!IsPostBack)
-            //{
-            this.pageSize = GetPageSize(50); //每页数量
-            RptBind(CombSqlTxt(keywords), "ID desc");
-            //}
+            if (!IsPostBack)
+            {
+                keywords = this.txtKeywords.Text.Trim();
+                this.pageSize = GetPageSize(50); //每页数量
+                RptBind(CombSqlTxt(keywords), "ID desc");
+            }
         }
         private void RptBind(string _strWhere, string _orderby)
         {
@@ -93,7 +92,7 @@ namespace DTcms.Web.admin.MaterialSetting
             for (int i = 0; i < rptList.Items.Count; i++)
             {
                 string OrderNo = ((HiddenField)rptList.Items[i].FindControl("hidId")).Value;
-                CheckBox cb = (CheckBox)rptList.Items[i].FindControl("chkId");
+                CheckBox cb = (CheckBox)rptList.Items[i].FindControl("chkId") as CheckBox;
                 if (cb.Checked)
                 {
                     if (bll.Delete(Convert.ToInt32(OrderNo)))
@@ -106,7 +105,10 @@ namespace DTcms.Web.admin.MaterialSetting
                     }
                 }
             }
-            Response.Redirect("ProductionTypeList.aspx");
+            keywords = this.txtKeywords.Text.Trim();
+            this.pageSize = GetPageSize(50); //每页数量
+            RptBind(CombSqlTxt(keywords), "ID desc");
+            //
         }
 
     }

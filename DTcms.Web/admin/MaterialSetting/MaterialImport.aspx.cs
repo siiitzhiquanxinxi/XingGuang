@@ -30,7 +30,7 @@ namespace DTcms.Web.admin.MaterialSetting
             this.ddlMaterialType.DataValueField = "ID";
             this.ddlMaterialType.DataBind();
         }
-        
+
         Sy_Material MaterialBll = new Sy_Material();
         protected void btnSubmit2_Click(object sender, EventArgs e)
         {
@@ -45,10 +45,10 @@ namespace DTcms.Web.admin.MaterialSetting
                     s.Open(path);
                     Aspose.Cells.Worksheet ws = s.Worksheets[0];
                     DataTable dt = new DataTable();
-                    dt = ws.Cells.ExportDataTable(1, 0, ws.Cells.Rows.Count - 1, 18);
+                    dt = ws.Cells.ExportDataTable(1, 0, ws.Cells.Rows.Count - 1, 21);
                     System.IO.File.Delete(path);
 
-                    string str1 = "", str2 = "", str3 = "", str4 = "", str5 = "", str6 = "", str7 = "", str8 = "", str9 = "", str10 = "", str11 = "", str12 = "", str13 = "", str14 = "", str15 = "", str16 = "", str17 = "", str18 = "";
+                    string str1 = "", str2 = "", str3 = "", str4 = "", str5 = "", str6 = "", str7 = "", str8 = "", str9 = "", str10 = "", str11 = "", str12 = "", str13 = "", str14 = "", str15 = "", str16 = "", str17 = "", str18 = "", str19 = "", str20 = "", str21 = "";
 
                     int result = 0;
                     for (int i = 0; i < dt.Rows.Count; i++)
@@ -71,8 +71,11 @@ namespace DTcms.Web.admin.MaterialSetting
                         str16 = dt.Rows[i][15].ToString();
                         str17 = dt.Rows[i][16].ToString();
                         str18 = dt.Rows[i][17].ToString();
+                        str19 = dt.Rows[i][18].ToString();
+                        str20 = dt.Rows[i][19].ToString();
+                        str21 = dt.Rows[i][20].ToString();
                         //判断行数据是否完整并给出提示
-                        if (str1 == "" || str3 == "" || str4 == "" || str5 == "" || str6 == "")
+                        if (str1 == "" || str4 == "" || str5 == "" || str6 == "" || str7 == "")
                         {
                             int m = i + 1;
                             ScriptManager.RegisterStartupScript(this, this.GetType(), "JsError", "alert('第" + m + "行数据不完整！')", true);
@@ -84,47 +87,58 @@ namespace DTcms.Web.admin.MaterialSetting
                             material.MaterialTypeID = Convert.ToInt32(ddlMaterialType.SelectedValue);
                             material.MaterialType = ddlMaterialType.SelectedItem.Text;
                             material.Brand = str1;
-                            material.BrandImg = "/upload/" + str2;
-                            material.Mode = str3;
-                            material.Name = str4;
-                            material.Description = str5;
-                            material.Unit = str6;
-                            if (str7 == "")
+                            material.BrandEnglish = str2;
+                            material.BrandImg = "/upload/" + str3;
+                            material.Mode = str4;
+                            material.Name = str5;
+                            material.Description = str6;
+                            material.Unit = str7;
+                            if (str8 == "")
                                 material.UnitPrice = 0;
                             else
-                                material.UnitPrice = Convert.ToDecimal(str7);
-                            if (str8 == "")
+                                material.UnitPrice = Convert.ToDecimal(str8);
+                            if (str9 == "")
                                 material.CostPrice = 0;
                             else
-                                material.CostPrice = Convert.ToDecimal(str8);
-                            if (str9 == "")
+                                material.CostPrice = Convert.ToDecimal(str9);
+                            if (str11 == "")
                                 material.LaborCost = 0;
                             else
-                                material.LaborCost = Convert.ToDecimal(str9);
-                            if (str10 == "")
+                                material.LaborCost = Convert.ToDecimal(str11);
+                            if (str12 == "")
                                 material.InstallationFee = 0;
                             else
-                                material.InstallationFee = Convert.ToDecimal(str10);
-                            if (str11 == "")
+                                material.InstallationFee = Convert.ToDecimal(str12);
+                            if (str13 == "")
                                 material.CommissioningFee = 0;
                             else
-                                material.CommissioningFee = Convert.ToDecimal(str11);
-                            if (str12 == "")
+                                material.CommissioningFee = Convert.ToDecimal(str13);
+                            if (str14 == "")
                                 material.ManagementFee = 0;
                             else
-                                material.ManagementFee = Convert.ToDecimal(str12);
-                            if (str13 == "")
+                                material.ManagementFee = Convert.ToDecimal(str14);
+
+                            if (str15 == "")
+                                material.VideoDebugFee = 0;
+                            else
+                                material.VideoDebugFee = Convert.ToDecimal(str15);
+                            if (str16 == "")
+                                material.AudioDebugFee = 0;
+                            else
+                                material.AudioDebugFee = Convert.ToDecimal(str16);
+
+                            if (str17 == "")
                                 material.IndoorInstallationFee = 0;
                             else
-                                material.IndoorInstallationFee = Convert.ToDecimal(str13);
-                            if (str14 == "")
+                                material.IndoorInstallationFee = Convert.ToDecimal(str17);
+                            if (str18 == "")
                                 material.IndoorLaborCost = 0;
                             else
-                                material.IndoorLaborCost = Convert.ToDecimal(str14);
-                            material.Photo = "/upload/" + str15;
-                            material.MaterialID = str16;
-                            material.MaterialName = str17;
-                            material.Tag = str18;
+                                material.IndoorLaborCost = Convert.ToDecimal(str18);
+                            material.Photo = "/upload/" + str10;
+                            material.MaterialID = str19;
+                            material.MaterialName = str20;
+                            material.Tag = str21;
                             material.State = 0;
                             result = MaterialBll.Add(material);
                         }

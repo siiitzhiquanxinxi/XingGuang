@@ -1,14 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
 namespace DTcms.Model
 {
     /// <summary>
-	/// Sy_Material:实体类(属性说明自动提取数据库字段的描述信息)
-	/// </summary>
-	[Serializable]
+    /// Sy_Material:实体类(属性说明自动提取数据库字段的描述信息)
+    /// </summary>
+    [Serializable]
     public partial class Sy_Material
     {
         public Sy_Material()
@@ -18,6 +14,7 @@ namespace DTcms.Model
         private int? _materialtypeid;
         private string _materialtype;
         private string _brand;
+        private string _brandenglish;
         private string _brandimg;
         private string _mode;
         private string _name;
@@ -31,6 +28,8 @@ namespace DTcms.Model
         private decimal? _managementfee;
         private decimal? _indoorinstallationfee;
         private decimal? _indoorlaborcost;
+        private decimal? _videodebugfee;
+        private decimal? _audiodebugfee;
         private string _photo;
         private string _materialid;
         private string _materialname;
@@ -67,6 +66,14 @@ namespace DTcms.Model
         {
             set { _brand = value; }
             get { return _brand; }
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        public string BrandEnglish
+        {
+            set { _brandenglish = value; }
+            get { return _brandenglish; }
         }
         /// <summary>
         /// 
@@ -133,9 +140,9 @@ namespace DTcms.Model
             get { return _laborcost; }
         }
         /// <summary>
-		/// 
-		/// </summary>
-		public decimal? InstallationFee
+        /// 
+        /// </summary>
+        public decimal? InstallationFee
         {
             set { _installationfee = value; }
             get { return _installationfee; }
@@ -171,6 +178,22 @@ namespace DTcms.Model
         {
             set { _indoorlaborcost = value; }
             get { return _indoorlaborcost; }
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        public decimal? VideoDebugFee
+        {
+            set { _videodebugfee = value; }
+            get { return _videodebugfee; }
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        public decimal? AudioDebugFee
+        {
+            set { _audiodebugfee = value; }
+            get { return _audiodebugfee; }
         }
         /// <summary>
         /// 
@@ -216,3 +239,4 @@ namespace DTcms.Model
 
     }
 }
+

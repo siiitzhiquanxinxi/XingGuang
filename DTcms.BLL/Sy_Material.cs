@@ -1,16 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Data;
-using DTcms.Common;
+using System.Collections.Generic;
 using DTcms.Model;
 namespace DTcms.BLL
 {
     /// <summary>
-	/// Sy_Material
-	/// </summary>
-	public partial class Sy_Material
+    /// Sy_Material
+    /// </summary>
+    public partial class Sy_Material
     {
         private readonly DTcms.DAL.Sy_Material dal = new DTcms.DAL.Sy_Material();
         public Sy_Material()
@@ -64,6 +61,7 @@ namespace DTcms.BLL
 
             return dal.GetModel(ID);
         }
+        
 
         /// <summary>
         /// 获得数据列表
@@ -138,16 +136,11 @@ namespace DTcms.BLL
         //{
         //return dal.GetList(PageSize,PageIndex,strWhere);
         //}
-        /// <summary>
-        /// 获得查询分页数据
-        /// </summary>
-        public DataSet GetList(int pageSize, int pageIndex, string strWhere, string filedOrder, out int recordCount)
-        {
-            return dal.GetList(pageSize, pageIndex, strWhere, filedOrder, out recordCount);
-        }
+
         #endregion  BasicMethod
         #region  ExtensionMethod
 
         #endregion  ExtensionMethod
     }
 }
+

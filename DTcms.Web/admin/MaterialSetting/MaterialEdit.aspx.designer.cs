@@ -58,6 +58,15 @@ namespace DTcms.Web.admin.MaterialSetting {
         protected global::System.Web.UI.WebControls.TextBox txtBrand;
         
         /// <summary>
+        /// txtBrandEn 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtBrandEn;
+        
+        /// <summary>
         /// FileUpload1 控件。
         /// </summary>
         /// <remarks>
@@ -191,6 +200,24 @@ namespace DTcms.Web.admin.MaterialSetting {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtIndoorLaborCost;
+        
+        /// <summary>
+        /// txtVideoDebugFee 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtVideoDebugFee;
+        
+        /// <summary>
+        /// txtAudioDebugFee 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtAudioDebugFee;
         
         /// <summary>
         /// txtMaterialID 控件。

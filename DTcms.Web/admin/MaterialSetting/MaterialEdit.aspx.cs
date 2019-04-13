@@ -78,6 +78,8 @@ namespace DTcms.Web.admin.MaterialSetting
             txtManagementFee.Text = material.ManagementFee.ToString();
             txtIndoorInstallationFee.Text = material.IndoorInstallationFee.ToString();
             txtIndoorLaborCost.Text = material.IndoorLaborCost.ToString();
+            txtVideoDebugFee.Text = material.VideoDebugFee.ToString();
+            txtAudioDebugFee.Text = material.AudioDebugFee.ToString();
             //txtPhoto.Text = material.Photo;
             txtMaterialID.Text = material.MaterialID;
             txtMaterialName.Text = material.MaterialName;
@@ -138,6 +140,14 @@ namespace DTcms.Web.admin.MaterialSetting
             {
                 this.txtIndoorLaborCost.Text = "0";
             }
+            if (this.txtVideoDebugFee.Text.Trim() == "")
+            {
+                this.txtVideoDebugFee.Text = "0";
+            }
+            if (this.txtAudioDebugFee.Text.Trim() == "")
+            {
+                this.txtAudioDebugFee.Text = "0";
+            }
             return true;
         }
 
@@ -177,6 +187,8 @@ namespace DTcms.Web.admin.MaterialSetting
             material.ManagementFee = Convert.ToDecimal(txtManagementFee.Text.Trim());
             material.IndoorInstallationFee = Convert.ToDecimal(txtIndoorInstallationFee.Text.Trim());
             material.IndoorLaborCost = Convert.ToDecimal(txtIndoorLaborCost.Text.Trim());
+            material.VideoDebugFee= Convert.ToDecimal(txtVideoDebugFee.Text.Trim());
+            material.AudioDebugFee= Convert.ToDecimal(txtAudioDebugFee.Text.Trim());
             if (FileUpload2.HasFile)
             {
                 string fileurl = "";

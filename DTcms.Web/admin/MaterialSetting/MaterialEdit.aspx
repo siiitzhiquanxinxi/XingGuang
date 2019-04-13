@@ -80,9 +80,12 @@
             <dl>
                 <dt>产品分类：</dt>
                 <dd>
-                    <asp:HiddenField ID="hidID" runat="server" />
-                    <asp:DropDownList ID="ddlMaterialType" runat="server"></asp:DropDownList>
-                    <span class="Validform_checktip">*</span>
+                    <div class="rule-single-select">
+                        <asp:HiddenField ID="hidID" runat="server" />
+                        <asp:DropDownList ID="ddlMaterialType" runat="server" CssClass=""></asp:DropDownList>
+                        <span class="Validform_checktip">*</span>
+                    </div>
+
                 </dd>
             </dl>
             <dl>
@@ -92,7 +95,16 @@
                         minlength="1" MaxLength="100"></asp:TextBox>
                     <span class="Validform_checktip">*</span>
                 </dd>
-
+            </dl>
+            <dl>
+                <dt>品牌（英文）：</dt>
+                <dd>
+                    <asp:TextBox ID="txtBrandEn" runat="server" CssClass="input normal" sucmsg=" "
+                        minlength="1" MaxLength="100"></asp:TextBox>
+                    <span class="Validform_checktip">*</span>
+                </dd>
+            </dl>
+            <dl>
                 <dt>品牌Logo：</dt>
                 <dd>
                     <%--<asp:TextBox ID="txtBrandImg" runat="server" CssClass="input normal upload-path"
@@ -188,6 +200,22 @@
                 <dt>内部布线费用：</dt>
                 <dd>
                     <asp:TextBox ID="txtIndoorLaborCost" runat="server" CssClass="input normal" sucmsg=" " minlength="1"
+                        MaxLength="100"></asp:TextBox>
+
+                </dd>
+            </dl>
+            <dl>
+                <dt>视频调试费用：：</dt>
+                <dd>
+                    <asp:TextBox ID="txtVideoDebugFee" runat="server" CssClass="input normal" sucmsg=" " minlength="1"
+                        MaxLength="100"></asp:TextBox>
+
+                </dd>
+            </dl>
+            <dl>
+                <dt>音频调试费用：</dt>
+                <dd>
+                    <asp:TextBox ID="txtAudioDebugFee" runat="server" CssClass="input normal" sucmsg=" " minlength="1"
                         MaxLength="100"></asp:TextBox>
 
                 </dd>
