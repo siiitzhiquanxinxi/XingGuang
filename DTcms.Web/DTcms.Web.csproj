@@ -245,7 +245,6 @@
     <Content Include="aspx\plugin\feedback.aspx" />
     <Content Include="aspx\plugin\link.aspx" />
     <Content Include="bin\AspNetPager.dll" />
-    <Content Include="bin\Aspose.Cells.dll" />
     <Content Include="crossdomain.xml" />
     <Content Include="css\image1.gif" />
     <Content Include="css\image2.gif" />
