@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
 namespace DTcms.Model
 {
     /// <summary>
@@ -20,6 +16,9 @@ namespace DTcms.Model
         private int? _createby;
         private DateTime? _createdate;
         private int? _quotationliststate;
+        private int? _preferentialratio;
+        private decimal? _preferentialrelief;
+        private int? _tax;
         /// <summary>
         /// 
         /// </summary>
@@ -68,7 +67,32 @@ namespace DTcms.Model
             set { _quotationliststate = value; }
             get { return _quotationliststate; }
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        public int? PreferentialRatio
+        {
+            set { _preferentialratio = value; }
+            get { return _preferentialratio; }
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        public decimal? PreferentialRelief
+        {
+            set { _preferentialrelief = value; }
+            get { return _preferentialrelief; }
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        public int? Tax
+        {
+            set { _tax = value; }
+            get { return _tax; }
+        }
         #endregion Model
 
     }
 }
+

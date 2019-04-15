@@ -64,8 +64,7 @@
                         </div>--%>
                         <div class="menu-list">
                             <div class="rule-single-select">
-                                <asp:DropDownList ID="ddlBrand" runat="server" AppendDataBoundItems="true" AutoPostBack="true" OnSelectedIndexChanged="ddlBrand_SelectedIndexChanged">
-                                    <asp:ListItem Value="-1">--品牌--</asp:ListItem>
+                                <asp:DropDownList ID="ddlBrand" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlBrand_SelectedIndexChanged">
                                 </asp:DropDownList>
                             </div>
                         </div>
@@ -91,7 +90,7 @@
                             <%--<th align="center">LOGO</th>--%>
                             <th align="left">型号</th>
                             <th align="left">商品名称</th>
-                            <th align="center" style="width: 250px">描述</th>
+                            <th align="center" style="width: 300px">描述</th>
                             <th align="center">单位</th>
                             <th align="right">单价</th>
                             <%--<th align="center">图片</th>--%>

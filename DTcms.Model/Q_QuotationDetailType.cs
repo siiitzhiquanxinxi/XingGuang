@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
 namespace DTcms.Model
 {
     /// <summary>
@@ -17,11 +13,15 @@ namespace DTcms.Model
         private int _quotationdetailtypeid;
         private int? _fk_parentquotationlistid;
         private int? _fk_materialtypeid;
-        private string _materialtypename;
+        private string _systemtypename;
+        private string _systemtypedes;
         private decimal? _ruodiananzhuangfee;
         private decimal? _qicaianzhuangfee;
         private decimal? _xitongtiaoshifee;
         private decimal? _xiangmuguanlifee;
+        private decimal? _videodebugfee;
+        private decimal? _audiodebugfee;
+        private int? _typeorder;
         /// <summary>
         /// 
         /// </summary>
@@ -49,10 +49,18 @@ namespace DTcms.Model
         /// <summary>
         /// 
         /// </summary>
-        public string MaterialTypeName
+        public string SystemTypeName
         {
-            set { _materialtypename = value; }
-            get { return _materialtypename; }
+            set { _systemtypename = value; }
+            get { return _systemtypename; }
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        public string SystemTypeDes
+        {
+            set { _systemtypedes = value; }
+            get { return _systemtypedes; }
         }
         /// <summary>
         /// 
@@ -86,7 +94,32 @@ namespace DTcms.Model
             set { _xiangmuguanlifee = value; }
             get { return _xiangmuguanlifee; }
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        public decimal? VideoDebugFee
+        {
+            set { _videodebugfee = value; }
+            get { return _videodebugfee; }
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        public decimal? AudioDebugFee
+        {
+            set { _audiodebugfee = value; }
+            get { return _audiodebugfee; }
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        public int? TypeOrder
+        {
+            set { _typeorder = value; }
+            get { return _typeorder; }
+        }
         #endregion Model
 
     }
 }
+

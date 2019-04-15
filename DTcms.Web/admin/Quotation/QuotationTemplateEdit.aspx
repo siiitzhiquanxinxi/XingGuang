@@ -109,7 +109,8 @@
                         <td align="center">
                             <asp:Image ID="imgMaterial" runat="server" ImageUrl='<%#Eval("Photo") %>' Width="100" Height="50" /></td>
                         <td>
-                            <asp:TextBox ID="txtQuantity" runat="server" Text='<%#Eval("Quantity") %>' onkeyup="if(isNaN(value))execCommand('undo')" onafterpaste="if(isNaN(value))execCommand('undo')"></asp:TextBox></td>
+                            <asp:TextBox ID="txtQuantity" runat="server" CssClass="input small" Text='<%#Eval("Quantity").ToString()!=""?Math.Round(Convert.ToDecimal(Eval("Quantity")),0).ToString():"0" %>'
+                                onkeyup="if(isNaN(value))execCommand('undo')" onafterpaste="if(isNaN(value))execCommand('undo')"></asp:TextBox></td>
                         <td align="center">
                             <asp:HiddenField ID="hfdIsDel" runat="server" Value="0" />
                             <asp:LinkButton ID="lbtnDel" runat="server" OnClick="lbtnDel_Click">删除</asp:LinkButton>
@@ -262,6 +263,24 @@
                     <td>1</td>
                     <td>
                         <asp:TextBox ID="txtXiangmuguanliFee" runat="server"></asp:TextBox></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>视频调试费</td>
+                    <td></td>
+                    <td>项目</td>
+                    <td>1</td>
+                    <td>
+                        <asp:TextBox ID="txtVideoDebugFee" runat="server"></asp:TextBox></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>音频调试费</td>
+                    <td></td>
+                    <td>项目</td>
+                    <td>1</td>
+                    <td>
+                        <asp:TextBox ID="txtAudioDebugFee" runat="server"></asp:TextBox></td>
                 </tr>
             </table>
         </div>

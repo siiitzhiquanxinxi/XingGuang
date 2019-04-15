@@ -28,18 +28,11 @@
                 return;
             }
             $.dialog({
-                title: '选择商品', width: 1024, heght: 600,
+                title: '选择商品', width: 1200, heght: 600,
                 content: 'url:Quotation/chooseMaterial.aspx?stype=' + stype + '&idTarget=hfdTempId',
                 lock: true
             });
         }
-        //function SelectGoodsType() {
-        //    $.dialog({
-        //        title: '选择商品类型', width: 650, heght: 600,
-        //        content: 'url:Quotation/chooseGoodsType.aspx?idTarget=hfdTempId2',
-        //        lock: true
-        //    });
-        //}
         function SelectSystemType() {
             $.dialog({
                 title: '选择系统类型', width: 650, heght: 600,
@@ -48,11 +41,11 @@
             });
         }
         function InsertMaterial(obj) {
-            var mtype = document.getElementById("hfdMtype").value;
+            var stype = document.getElementById("hfdMtype").value;
             document.getElementById("hfdInsertIndex").value = $(obj).parent().parent().find("input[type=hidden]").get(0).value;
             $.dialog({
-                title: '选择商品', width: 1024, heght: 600,
-                content: 'url:Quotation/chooseMaterial.aspx?mtype=' + mtype + '&idTarget=hfdTempId',
+                title: '选择商品', width: 1200, heght: 600,
+                content: 'url:Quotation/chooseMaterial.aspx?stype=' + stype + '&idTarget=hfdTempId',
                 lock: true
             });
         }
@@ -101,11 +94,26 @@
                 </dd>
             </dl>
             <dl>
+                <dt>优惠金额</dt>
+                <dd>折扣：
+                    <asp:TextBox ID="txtDiscount" runat="server" CssClass="input small" Style="text-align: right;" datatype="/^(([1-9]{1}\d*)|([0]{1}))(\.(\d){1,2})?$/" Text="100"></asp:TextBox>%&nbsp;&nbsp;&nbsp;&nbsp;
+                    优惠减免：
+                    <asp:TextBox ID="txtReduce" runat="server" CssClass="input small" Style="text-align: right;" datatype="/^(([1-9]{1}\d*)|([0]{1}))(\.(\d){1,2})?$/" Text="0"></asp:TextBox>&nbsp;&nbsp;&nbsp;&nbsp;
+                    税率：
+                    <asp:TextBox ID="txtTax" runat="server" CssClass="input small" Style="text-align: right;" datatype="/^(([1-9]{1}\d*)|([0]{1}))(\.(\d){1,2})?$/" Text="0"></asp:TextBox>%
+                </dd>
+            </dl>
+            <dl>
                 <dt>选择类别</dt>
                 <dd>
                     <div class="rule-multi-radio">
                         <asp:RadioButtonList ID="rblGoodsType" runat="server" RepeatDirection="Horizontal" RepeatLayout="Flow" AutoPostBack="true" OnSelectedIndexChanged="rblGoodsType_SelectedIndexChanged">
                         </asp:RadioButtonList>
+                    </div>
+                    <div style="float: left; padding-left: 10px; padding-right: 10px;">
+                        <asp:LinkButton ID="lbtnToleft" runat="server" OnClick="lbtnToleft_Click"><img src="../skin/default/Toleft.png" width="32" height="32" alt="左移" /></asp:LinkButton>
+                        <asp:LinkButton ID="lbtnTodel" runat="server" OnClientClick="return confirm('确认删除该系统？')" OnClick="lbtnTodel_Click"><img src="../skin/default/Del.png" width="32" height="32" alt="删除" /></asp:LinkButton>
+                        <asp:LinkButton ID="lbtnToright" runat="server" OnClick="lbtnToright_Click"><img src="../skin/default/Toright.png" width="32" height="32" alt="右移" /></asp:LinkButton>
                     </div>
                 </dd>
             </dl>
@@ -127,6 +135,9 @@
             <asp:Button ID="btnPrintPreview" runat="server" Text="打印预览" CssClass="btn yellow" OnClick="btnPrintPreview_Click" Visible="false" />
             <asp:Button ID="btnBind" runat="server" Text="绑定" OnClick="btnBind_Click" Style="display: none;" />
             <asp:Button ID="btnBind2" runat="server" Text="绑定2" OnClick="btnBind2_Click" Style="display: none;" />
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            系统模块名称：<asp:TextBox ID="txtSystemName" runat="server" CssClass="input normal" Width="150"></asp:TextBox>
+            系统模块描述：<asp:TextBox ID="txtSystemDes" runat="server" CssClass="input normal"></asp:TextBox>
             <asp:Repeater ID="rptList1" runat="server">
                 <HeaderTemplate>
                     <table width="100%" border="0" cellspacing="0" cellpadding="0" class="ltable">
@@ -155,7 +166,8 @@
                         <td>
                             <asp:Label ID="lblMode" runat="server" Text='<%#Eval("Mode") %>'></asp:Label></td>
                         <td>
-                            <asp:Label ID="lblName" runat="server" Text='<%#Eval("Name") %>'></asp:Label></td>
+                            <asp:TextBox ID="txtName" runat="server" Text='<%#Eval("Name") %>'>></asp:TextBox>
+                            <%--<asp:Label ID="lblName" runat="server" Text='<%#Eval("Name") %>'></asp:Label>--%></td>
                         <td>
                             <asp:Label ID="lblDescription" runat="server" Text='<%#Eval("Description").ToString().Replace("\n","<br />") %>'></asp:Label></td>
                         <td>
@@ -165,7 +177,7 @@
                         <td align="center">
                             <asp:Image ID="imgMaterial" runat="server" ImageUrl='<%#Eval("Photo") %>' Width="100" Height="50" /></td>
                         <td>
-                            <asp:TextBox ID="txtQuantity" runat="server" Text='<%#Eval("GoodsQuantity") %>' onkeyup="if(isNaN(value))execCommand('undo')" onafterpaste="if(isNaN(value))execCommand('undo')"></asp:TextBox></td>
+                            <asp:TextBox ID="txtQuantity" runat="server" CssClass="input small" Text='<%#Eval("GoodsQuantity").ToString()!=""?Math.Round(Convert.ToDecimal(Eval("GoodsQuantity")),0).ToString():"0" %>' onkeyup="if(isNaN(value))execCommand('undo')" onafterpaste="if(isNaN(value))execCommand('undo')"></asp:TextBox></td>
                         <td>
                             <asp:Label ID="lblSubTotal" runat="server"></asp:Label>
                         </td>
@@ -281,6 +293,24 @@
                     <td>1</td>
                     <td>
                         <asp:TextBox ID="txtXiangmuguanliFee" runat="server"></asp:TextBox></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>视频调试费</td>
+                    <td></td>
+                    <td>项目</td>
+                    <td>1</td>
+                    <td>
+                        <asp:TextBox ID="txtVideoDebugFee" runat="server"></asp:TextBox></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>音频调试费</td>
+                    <td></td>
+                    <td>项目</td>
+                    <td>1</td>
+                    <td>
+                        <asp:TextBox ID="txtAudioDebugFee" runat="server"></asp:TextBox></td>
                 </tr>
             </table>
         </div>

@@ -25,6 +25,8 @@ namespace DTcms.Model
         private decimal? _qicaianzhuangfee;
         private decimal? _xitongtiaoshifee;
         private decimal? _xiangmuguanlifee;
+        private decimal? _videodebugfee;
+        private decimal? _audiodebugfee;
         /// <summary>
         /// 
         /// </summary>
@@ -144,6 +146,22 @@ namespace DTcms.Model
         {
             set { _xiangmuguanlifee = value; }
             get { return _xiangmuguanlifee; }
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        public decimal? VideoDebugFee
+        {
+            set { _videodebugfee = value; }
+            get { return _videodebugfee; }
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        public decimal? AudioDebugFee
+        {
+            set { _audiodebugfee = value; }
+            get { return _audiodebugfee; }
         }
         #endregion Model
 

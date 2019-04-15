@@ -96,6 +96,8 @@ namespace DTcms.Web.admin.Quotation
             ddlBrand.DataTextField = "Brand";
             ddlBrand.DataValueField = "Brand";
             ddlBrand.DataBind();
+            ListItem li = new ListItem("---全部---", "-1");
+            ddlBrand.Items.Insert(0, li);
         }
 
         private void BindData()
@@ -129,6 +131,10 @@ namespace DTcms.Web.admin.Quotation
                     where += " and 1=2";
                 }
             }
+            if (ddlMaterialType.SelectedItem.Value != "-1")
+            {
+                where += " and MaterialTypeID = " + ddlMaterialType.SelectedItem.Value;
+            }
             if (ddlBrand.SelectedItem.Value != "-1")
             {
                 where += " and Brand = '" + ddlBrand.SelectedItem.Text + "'";
@@ -154,7 +160,6 @@ namespace DTcms.Web.admin.Quotation
             AspNetPager1.RecordCount = dt.Rows.Count;
         }
 
-
         protected void btnSearch_Click(object sender, EventArgs e)
         {
             BindData();
@@ -178,6 +183,7 @@ namespace DTcms.Web.admin.Quotation
         protected void ddlMaterialType_SelectedIndexChanged(object sender, EventArgs e)
         {
             BindDDL();
+            BindData();
         }
     }
 }

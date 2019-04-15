@@ -49,6 +49,8 @@ namespace DTcms.Web.admin.Quotation
                     txtQicaianzhuangFee.Text = dt.Rows[0]["QicaianzhuangFee"].ToString() != "" ? dt.Rows[0]["QicaianzhuangFee"].ToString() : "0";
                     txtXitongtiaoshiFee.Text = dt.Rows[0]["XitongtiaoshiFee"].ToString() != "" ? dt.Rows[0]["XitongtiaoshiFee"].ToString() : "0";
                     txtXiangmuguanliFee.Text = dt.Rows[0]["XiangmuguanliFee"].ToString() != "" ? dt.Rows[0]["XiangmuguanliFee"].ToString() : "0";
+                    txtVideoDebugFee.Text = dt.Rows[0]["VideoDebugFee"].ToString() != "" ? dt.Rows[0]["VideoDebugFee"].ToString() : "0";
+                    txtAudioDebugFee.Text = dt.Rows[0]["AudioDebugFee"].ToString() != "" ? dt.Rows[0]["AudioDebugFee"].ToString() : "0";
 
                     sql = "select FK_LineId as ID,LineBrand as Brand,LineBrandImg as BrandImg,LineMode as Mode,LineName as Name,LineDescription as Description,LineUnit as Unit,LineUnitPrice as UnitPrice,LinePhoto as Photo,LineTotalcount as totalcount,LineTotalamount as totalamount from Q_QuotationTemplateLine where FK_TemplateId = " + Request.QueryString["id"];
                     DataTable dtLine = DbHelperSQL.Query(sql).Tables[0];
@@ -85,7 +87,7 @@ namespace DTcms.Web.admin.Quotation
                     string sql = "insert into Q_QuotationTemplateDetail values(" + Request.QueryString["id"] + "," + hfdMaterialId.Value + "," + hfdOrderIndex.Value + "," + (txtQuantity.Text != "" ? txtQuantity.Text : "0") + ")";
                     DbHelperSQL.ExecuteSql(sql);
                 }
-                string sql2 = "update Q_QuotationTemplate set RuodiananzhuangFee = " + (txtRuodiananzhuangFee.Text != "" ? txtRuodiananzhuangFee.Text : "0") + ",QicaianzhuangFee = " + (txtQicaianzhuangFee.Text != "" ? txtQicaianzhuangFee.Text : "0") + ",XitongtiaoshiFee = " + (txtXitongtiaoshiFee.Text != "" ? txtXitongtiaoshiFee.Text : "0") + ",XiangmuguanliFee = " + (txtXiangmuguanliFee.Text != "" ? txtXiangmuguanliFee.Text : "0") + ",QuotationTemplateName = '" + txtName.Text + "',QuotationTemplateMainBrand = '" + txtMainBrand.Text + "',QuotationTemplateDescription = '" + txtDes.Text + "',QuotationTemplateScenario = '" + txtScenario.Text + "',QuotationTemplateNotes = '" + txtNotes.Text + "',QuotationTemplateState = 1 where QuotationTemplateId = " + Request.QueryString["id"];
+                string sql2 = "update Q_QuotationTemplate set RuodiananzhuangFee = " + (txtRuodiananzhuangFee.Text != "" ? txtRuodiananzhuangFee.Text : "0") + ",QicaianzhuangFee = " + (txtQicaianzhuangFee.Text != "" ? txtQicaianzhuangFee.Text : "0") + ",XitongtiaoshiFee = " + (txtXitongtiaoshiFee.Text != "" ? txtXitongtiaoshiFee.Text : "0") + ",XiangmuguanliFee = " + (txtXiangmuguanliFee.Text != "" ? txtXiangmuguanliFee.Text : "0") + ",VideoDebugFee = "+ (txtVideoDebugFee.Text != "" ? txtVideoDebugFee.Text : "0") + ",AudioDebugFee = "+ (txtAudioDebugFee.Text != "" ? txtAudioDebugFee.Text : "0") + ",QuotationTemplateName = '" + txtName.Text + "',QuotationTemplateMainBrand = '" + txtMainBrand.Text + "',QuotationTemplateDescription = '" + txtDes.Text + "',QuotationTemplateScenario = '" + txtScenario.Text + "',QuotationTemplateNotes = '" + txtNotes.Text + "',QuotationTemplateState = 1 where QuotationTemplateId = " + Request.QueryString["id"];
                 DbHelperSQL.ExecuteSql(sql2);
 
                 for (int i = 0; i < rptLine.Items.Count; i++)
@@ -128,7 +130,7 @@ namespace DTcms.Web.admin.Quotation
                     sql = "insert into Q_QuotationTemplateDetail values(" + Request.QueryString["id"] + "," + hfdMaterialId.Value + "," + hfdOrderIndex.Value + "," + (txtQuantity.Text != "" ? txtQuantity.Text : "0") + ")";
                     DbHelperSQL.ExecuteSql(sql);
                 }
-                sql = "update Q_QuotationTemplate set RuodiananzhuangFee = " + (txtRuodiananzhuangFee.Text != "" ? txtRuodiananzhuangFee.Text : "0") + ",QicaianzhuangFee = " + (txtQicaianzhuangFee.Text != "" ? txtQicaianzhuangFee.Text : "0") + ",XitongtiaoshiFee = " + (txtXitongtiaoshiFee.Text != "" ? txtXitongtiaoshiFee.Text : "0") + ",XiangmuguanliFee = " + (txtXiangmuguanliFee.Text != "" ? txtXiangmuguanliFee.Text : "0") + ",QuotationTemplateName = '" + txtName.Text + "',QuotationTemplateMainBrand = '" + txtMainBrand.Text + "',QuotationTemplateDescription = '" + txtDes.Text + "',QuotationTemplateScenario = '" + txtScenario.Text + "',QuotationTemplateNotes = '" + txtNotes.Text + "' where QuotationTemplateId = " + Request.QueryString["id"];
+                sql = "update Q_QuotationTemplate set RuodiananzhuangFee = " + (txtRuodiananzhuangFee.Text != "" ? txtRuodiananzhuangFee.Text : "0") + ",QicaianzhuangFee = " + (txtQicaianzhuangFee.Text != "" ? txtQicaianzhuangFee.Text : "0") + ",XitongtiaoshiFee = " + (txtXitongtiaoshiFee.Text != "" ? txtXitongtiaoshiFee.Text : "0") + ",XiangmuguanliFee = " + (txtXiangmuguanliFee.Text != "" ? txtXiangmuguanliFee.Text : "0") + ",VideoDebugFee = " + (txtVideoDebugFee.Text != "" ? txtVideoDebugFee.Text : "0") + ",AudioDebugFee = " + (txtAudioDebugFee.Text != "" ? txtAudioDebugFee.Text : "0") + ",QuotationTemplateName = '" + txtName.Text + "',QuotationTemplateMainBrand = '" + txtMainBrand.Text + "',QuotationTemplateDescription = '" + txtDes.Text + "',QuotationTemplateScenario = '" + txtScenario.Text + "',QuotationTemplateNotes = '" + txtNotes.Text + "' where QuotationTemplateId = " + Request.QueryString["id"];
                 DbHelperSQL.ExecuteSql(sql);
                 sql = "delete Q_QuotationTemplateLine where FK_TemplateId = " + Request.QueryString["id"];
                 DbHelperSQL.ExecuteSql(sql);
@@ -321,8 +323,8 @@ namespace DTcms.Web.admin.Quotation
                     DataRow[] dr = d.Select("ID = " + dt.Rows[j]["ID"]);
                     if (dr.Length > 0)
                     {
-                        dr[0]["totalcount"] = Math.Round(Convert.ToDecimal(dr[0]["totalcount"]) + Convert.ToDecimal(dt.Rows[j]["totalcount"]), 2).ToString();
-                        dr[0]["totalamount"] = Math.Round(Convert.ToDecimal(dr[0]["totalamount"]) + Convert.ToDecimal(dt.Rows[j]["totalamount"]), 2).ToString();
+                        dr[0]["totalcount"] = Math.Round(Convert.ToDecimal(dr[0]["totalcount"]) + Convert.ToDecimal(dt.Rows[j]["totalcount"]), 0).ToString();
+                        dr[0]["totalamount"] = Math.Round(Convert.ToDecimal(dr[0]["totalamount"]) + Convert.ToDecimal(dt.Rows[j]["totalamount"]), 0).ToString();
                     }
                     else
                     {
@@ -346,6 +348,8 @@ namespace DTcms.Web.admin.Quotation
             decimal QicaianzhuangFee = 0;
             decimal XitongtiaoshiFee = 0;
             decimal XiangmuguanliFee = 0;
+            decimal VideoDebugFee = 0;
+            decimal AudioDebugFee = 0;
             for (int i = 0; i < rptList1.Items.Count; i++)
             {
                 HiddenField hfdMaterialId = rptList1.Items[i].FindControl("hfdMaterialId") as HiddenField;
@@ -356,11 +360,15 @@ namespace DTcms.Web.admin.Quotation
                 QicaianzhuangFee += count * (model.InstallationFee != null ? Convert.ToDecimal(model.InstallationFee) : 0);
                 XitongtiaoshiFee += count * (model.CommissioningFee != null ? Convert.ToDecimal(model.CommissioningFee) : 0);
                 XiangmuguanliFee += count * (model.ManagementFee != null ? Convert.ToDecimal(model.ManagementFee) : 0);
+                VideoDebugFee += count * (model.VideoDebugFee != null ? Convert.ToDecimal(model.VideoDebugFee) : 0);
+                AudioDebugFee += count * (model.AudioDebugFee != null ? Convert.ToDecimal(model.AudioDebugFee) : 0);
             }
-            txtRuodiananzhuangFee.Text = Math.Round(RuodiananzhuangFee, 2).ToString();
-            txtQicaianzhuangFee.Text = Math.Round(QicaianzhuangFee, 2).ToString();
-            txtXitongtiaoshiFee.Text = Math.Round(XitongtiaoshiFee, 2).ToString();
-            txtXiangmuguanliFee.Text = Math.Round(XiangmuguanliFee, 2).ToString();
+            txtRuodiananzhuangFee.Text = Math.Round(RuodiananzhuangFee, 0).ToString();
+            txtQicaianzhuangFee.Text = Math.Round(QicaianzhuangFee, 0).ToString();
+            txtXitongtiaoshiFee.Text = Math.Round(XitongtiaoshiFee, 0).ToString();
+            txtXiangmuguanliFee.Text = Math.Round(XiangmuguanliFee, 0).ToString();
+            txtVideoDebugFee.Text = Math.Round(VideoDebugFee, 0).ToString();
+            txtAudioDebugFee.Text = Math.Round(AudioDebugFee, 0).ToString();
         }
     }
 }

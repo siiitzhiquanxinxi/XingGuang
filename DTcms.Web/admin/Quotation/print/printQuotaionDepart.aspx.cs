@@ -23,7 +23,7 @@ namespace DTcms.Web.admin.Quotation.print
             {
                 string id = Request.QueryString["id"];
                 Model.Q_QuotationDetailType qdt = new BLL.Q_QuotationDetailType().GetModel(int.Parse(id));
-                lblTypeName.Text = qdt.MaterialTypeName;
+                lblTypeName.Text = qdt.SystemTypeName;
                 if (qdt != null)
                 {
                     List<Model.Q_QuotationDetailGoods> lstDetailGoods = new BLL.Q_QuotationDetailGoods().GetModelList("FK_QuotationDetailTypeId = " + id);

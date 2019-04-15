@@ -75,6 +75,11 @@
                             <th align="left">所属项目</th>
                             <th align="left">创建日期</th>
                             <th align="left">创建人</th>
+                            <th align="left">金额</th>
+                            <th align="left">折扣</th>
+                            <th align="left">优惠减免</th>
+                            <th align="left">税率</th>
+                            <th align="left">优惠后金额</th>
                             <th align="left">报价单状态</th>
                             <th width="10%">操作</th>
                         </tr>
@@ -89,6 +94,11 @@
                         <td><%#Eval("FK_ParentProgramId") %></td>
                         <td><%#Eval("CreateDate") %></td>
                         <td><%#Eval("CreateBy") %></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
                         <td><%#Eval("QuotationListState").ToString()=="0"?"已保存":Eval("QuotationListState").ToString()=="1"?"已审核":"" %></td>
                         <td align="center">
                             <asp:HiddenField ID="hfdState" runat="server" Value='<%#Eval("QuotationListState") %>' />

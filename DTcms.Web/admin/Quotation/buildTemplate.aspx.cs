@@ -43,7 +43,7 @@ namespace DTcms.Web.admin.Quotation
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "1", "alert('请填选择模板类型！')", true);
                 return;
             }
-            string sql = "insert into Q_QuotationTemplate values('" + txtName.Text + "','" + ddlQuotationTemplateType.SelectedItem.Text + "'," + ddlQuotationTemplateType.SelectedItem.Value + ",'" + txtMainBrand.Text + "','" + txtDes.Text + "','" + txtScenario.Text + "','" + txtNotes.Text + "'," + (model != null ? model.id.ToString() : "null") + ",'" + DateTime.Now.ToString() + "',0,0,0,0,0) SELECT @@IDENTITY";
+            string sql = "insert into Q_QuotationTemplate values('" + txtName.Text + "','" + ddlQuotationTemplateType.SelectedItem.Text + "'," + ddlQuotationTemplateType.SelectedItem.Value + ",'" + txtMainBrand.Text + "','" + txtDes.Text + "','" + txtScenario.Text + "','" + txtNotes.Text + "'," + (model != null ? model.id.ToString() : "null") + ",'" + DateTime.Now.ToString() + "',0,0,0,0,0,0,0) SELECT @@IDENTITY";
             string id = DbHelperSQL.Query(sql).Tables[0].Rows[0][0].ToString();
             if (!string.IsNullOrEmpty(id))
             {

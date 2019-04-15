@@ -52,8 +52,11 @@
                         <td align="center"><%# Container.ItemIndex + 1%>
                             <asp:HiddenField ID="hfdQuotationDetailTypeId" runat="server" Value='<%#Eval("QuotationDetailTypeId") %>' />
                         </td>
-                        <td><%#Eval("MaterialTypeName") %></td>
-                        <td>￥<asp:Label ID="lblSubTotal" runat="server"></asp:Label></td>
+                        <td>
+                            <asp:Label ID="txtBroundCN" runat="server" Text=""></asp:Label>&emsp;
+                            <asp:Label ID="txtBroundEN" runat="server" Text=""></asp:Label>&emsp;
+                            <%#Eval("SystemTypeName") %>&emsp;<%#Eval("SystemTypeDes") %></td>
+                        <td align="center">￥<asp:Label ID="lblSubTotal" runat="server"></asp:Label></td>
                     </tr>
                 </ItemTemplate>
                 <FooterTemplate>
@@ -70,7 +73,7 @@
             <ItemTemplate>
                 <div class="tab-content" id="divContent" style="border: none;">
                     <div style="text-align: center; width: 100%; padding-bottom: 5px;">
-                        <asp:Label ID="lblTypeName" runat="server" Text='<%#Eval("MaterialTypeName") %>' Style="font-size: 18px; font-weight: bolder;"></asp:Label>
+                        <asp:Label ID="lblTypeName" runat="server" Text='<%#Eval("SystemTypeName") %>' Style="font-size: 18px; font-weight: bolder;"></asp:Label>
                         <asp:HiddenField ID="hfdQuotationDetailTypeId" runat="server" Value='<%#Eval("QuotationDetailTypeId") %>' />
                     </div>
                     <asp:Repeater ID="rptList1" runat="server">

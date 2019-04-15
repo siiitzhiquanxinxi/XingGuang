@@ -89,7 +89,7 @@ namespace DTcms.Web.admin.MaterialSetting
             string where = " 1=1";
             if (txtKeywords.Text != "")
             {
-                where += " and (Name like '%" + txtKeywords.Text + "%' or Description like '%" + txtKeywords.Text + "%')";
+                where += " and (Name like '%" + txtKeywords.Text + "%' or Description like '%" + txtKeywords.Text + "%' or Mode like '%" + txtKeywords.Text + "%')";
             }
             where += " and MaterialType = '" + rblType.SelectedValue + "'";
             //int checkindex = 0;

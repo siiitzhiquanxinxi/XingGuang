@@ -148,6 +148,7 @@
     <Content Include="admin\settings\url_rewrite_edit.aspx" />
     <Content Include="admin\settings\url_rewrite_list.aspx" />
     <Content Include="admin\skin\base.css" />
+    <Content Include="admin\skin\default\Del.png" />
     <Content Include="admin\skin\default\ie_update.jpg" />
     <Content Include="admin\skin\default\loadimg.gif" />
     <Content Include="admin\skin\default\logo.png" />
@@ -159,6 +160,8 @@
     <Content Include="admin\skin\default\order_speed.gif" />
     <Content Include="admin\skin\default\skin_icons.png" />
     <Content Include="admin\skin\default\style.css" />
+    <Content Include="admin\skin\default\Toleft.png" />
+    <Content Include="admin\skin\default\Toright.png" />
     <Content Include="admin\skin\default\valid_icons.png" />
     <Content Include="admin\skin\layout.css" />
     <Content Include="admin\users\amount_log.aspx" />

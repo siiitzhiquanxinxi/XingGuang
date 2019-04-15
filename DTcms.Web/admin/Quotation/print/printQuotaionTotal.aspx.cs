@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Data;
 
 namespace DTcms.Web.admin.Quotation.print
 {
@@ -29,8 +30,17 @@ namespace DTcms.Web.admin.Quotation.print
                 decimal Q_total = 0;
                 for (int i = 0; i < rptTotal.Items.Count; i++)
                 {
-                    Label lblSubTotal = rptTotal.Items[i].FindControl("lblSubTotal") as Label;
                     HiddenField hfdQuotationDetailTypeId = rptTotal.Items[i].FindControl("hfdQuotationDetailTypeId") as HiddenField;
+                    Label txtBroundCN = rptTotal.Items[i].FindControl("txtBroundCN") as Label;
+                    Label txtBroundEN = rptTotal.Items[i].FindControl("txtBroundEN") as Label;
+                    List<Model.Q_QuotationDetailGoods> lstG = new BLL.Q_QuotationDetailGoods().GetModelList("FK_QuotationDetailTypeId = " + hfdQuotationDetailTypeId.Value + " order by DetailOrder");
+                    if (lstG != null && lstG.Count > 0)
+                    {
+                        txtBroundCN.Text = lstG[0].Brand;
+                        txtBroundEN.Text = lstG[0].BrandEnglish;
+                    }
+
+                    Label lblSubTotal = rptTotal.Items[i].FindControl("lblSubTotal") as Label;
                     string sql = "select sum(UnitPrice*GoodsQuantity) from Q_QuotationDetailGoods where FK_QuotationDetailTypeId = " + hfdQuotationDetailTypeId.Value;
                     lblSubTotal.Text = Math.Round(Convert.ToDecimal(DbHelperSQL.Query(sql).Tables[0].Rows[0][0].ToString()), 2).ToString();
                     Q_total += lblSubTotal.Text != "" ? Convert.ToDecimal(lblSubTotal.Text) : 0;

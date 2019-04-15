@@ -6,7 +6,6 @@ using System.Data;
 using System.Data.SqlClient;
 using DTcms.DBUtility;
 using DTcms.Common;
-
 namespace DTcms.DAL
 {
     /// <summary>
@@ -41,9 +40,9 @@ namespace DTcms.DAL
         {
             StringBuilder strSql = new StringBuilder();
             strSql.Append("insert into Q_QuotationDetailGoods(");
-            strSql.Append("FK_QuotationDetailTypeId,FK_materialID,DetailOrder,GoodsQuantity,Brand,BrandImg,Mode,Name,Description,Unit,UnitPrice,CostPrice,LaborCost,InstallationFee,CommissioningFee,ManagementFee,IndoorInstallationFee,IndoorLaborCost,Photo)");
+            strSql.Append("FK_QuotationDetailTypeId,FK_materialID,DetailOrder,GoodsQuantity,Brand,BrandEnglish,BrandImg,Mode,Name,Description,Unit,UnitPrice,CostPrice,LaborCost,InstallationFee,CommissioningFee,ManagementFee,IndoorInstallationFee,IndoorLaborCost,Photo)");
             strSql.Append(" values (");
-            strSql.Append("@FK_QuotationDetailTypeId,@FK_materialID,@DetailOrder,@GoodsQuantity,@Brand,@BrandImg,@Mode,@Name,@Description,@Unit,@UnitPrice,@CostPrice,@LaborCost,@InstallationFee,@CommissioningFee,@ManagementFee,@IndoorInstallationFee,@IndoorLaborCost,@Photo)");
+            strSql.Append("@FK_QuotationDetailTypeId,@FK_materialID,@DetailOrder,@GoodsQuantity,@Brand,@BrandEnglish,@BrandImg,@Mode,@Name,@Description,@Unit,@UnitPrice,@CostPrice,@LaborCost,@InstallationFee,@CommissioningFee,@ManagementFee,@IndoorInstallationFee,@IndoorLaborCost,@Photo)");
             strSql.Append(";select @@IDENTITY");
             SqlParameter[] parameters = {
                     new SqlParameter("@FK_QuotationDetailTypeId", SqlDbType.Int,4),
@@ -51,6 +50,7 @@ namespace DTcms.DAL
                     new SqlParameter("@DetailOrder", SqlDbType.Int,4),
                     new SqlParameter("@GoodsQuantity", SqlDbType.Decimal,9),
                     new SqlParameter("@Brand", SqlDbType.NVarChar,50),
+                    new SqlParameter("@BrandEnglish", SqlDbType.NVarChar,50),
                     new SqlParameter("@BrandImg", SqlDbType.NVarChar,50),
                     new SqlParameter("@Mode", SqlDbType.NVarChar,50),
                     new SqlParameter("@Name", SqlDbType.NVarChar,50),
@@ -70,20 +70,21 @@ namespace DTcms.DAL
             parameters[2].Value = model.DetailOrder;
             parameters[3].Value = model.GoodsQuantity;
             parameters[4].Value = model.Brand;
-            parameters[5].Value = model.BrandImg;
-            parameters[6].Value = model.Mode;
-            parameters[7].Value = model.Name;
-            parameters[8].Value = model.Description;
-            parameters[9].Value = model.Unit;
-            parameters[10].Value = model.UnitPrice;
-            parameters[11].Value = model.CostPrice;
-            parameters[12].Value = model.LaborCost;
-            parameters[13].Value = model.InstallationFee;
-            parameters[14].Value = model.CommissioningFee;
-            parameters[15].Value = model.ManagementFee;
-            parameters[16].Value = model.IndoorInstallationFee;
-            parameters[17].Value = model.IndoorLaborCost;
-            parameters[18].Value = model.Photo;
+            parameters[5].Value = model.BrandEnglish;
+            parameters[6].Value = model.BrandImg;
+            parameters[7].Value = model.Mode;
+            parameters[8].Value = model.Name;
+            parameters[9].Value = model.Description;
+            parameters[10].Value = model.Unit;
+            parameters[11].Value = model.UnitPrice;
+            parameters[12].Value = model.CostPrice;
+            parameters[13].Value = model.LaborCost;
+            parameters[14].Value = model.InstallationFee;
+            parameters[15].Value = model.CommissioningFee;
+            parameters[16].Value = model.ManagementFee;
+            parameters[17].Value = model.IndoorInstallationFee;
+            parameters[18].Value = model.IndoorLaborCost;
+            parameters[19].Value = model.Photo;
 
             object obj = DbHelperSQL.GetSingle(strSql.ToString(), parameters);
             if (obj == null)
@@ -107,6 +108,7 @@ namespace DTcms.DAL
             strSql.Append("DetailOrder=@DetailOrder,");
             strSql.Append("GoodsQuantity=@GoodsQuantity,");
             strSql.Append("Brand=@Brand,");
+            strSql.Append("BrandEnglish=@BrandEnglish,");
             strSql.Append("BrandImg=@BrandImg,");
             strSql.Append("Mode=@Mode,");
             strSql.Append("Name=@Name,");
@@ -128,6 +130,7 @@ namespace DTcms.DAL
                     new SqlParameter("@DetailOrder", SqlDbType.Int,4),
                     new SqlParameter("@GoodsQuantity", SqlDbType.Decimal,9),
                     new SqlParameter("@Brand", SqlDbType.NVarChar,50),
+                    new SqlParameter("@BrandEnglish", SqlDbType.NVarChar,50),
                     new SqlParameter("@BrandImg", SqlDbType.NVarChar,50),
                     new SqlParameter("@Mode", SqlDbType.NVarChar,50),
                     new SqlParameter("@Name", SqlDbType.NVarChar,50),
@@ -148,21 +151,22 @@ namespace DTcms.DAL
             parameters[2].Value = model.DetailOrder;
             parameters[3].Value = model.GoodsQuantity;
             parameters[4].Value = model.Brand;
-            parameters[5].Value = model.BrandImg;
-            parameters[6].Value = model.Mode;
-            parameters[7].Value = model.Name;
-            parameters[8].Value = model.Description;
-            parameters[9].Value = model.Unit;
-            parameters[10].Value = model.UnitPrice;
-            parameters[11].Value = model.CostPrice;
-            parameters[12].Value = model.LaborCost;
-            parameters[13].Value = model.InstallationFee;
-            parameters[14].Value = model.CommissioningFee;
-            parameters[15].Value = model.ManagementFee;
-            parameters[16].Value = model.IndoorInstallationFee;
-            parameters[17].Value = model.IndoorLaborCost;
-            parameters[18].Value = model.Photo;
-            parameters[19].Value = model.Q_QuotationDetailGoodsID;
+            parameters[5].Value = model.BrandEnglish;
+            parameters[6].Value = model.BrandImg;
+            parameters[7].Value = model.Mode;
+            parameters[8].Value = model.Name;
+            parameters[9].Value = model.Description;
+            parameters[10].Value = model.Unit;
+            parameters[11].Value = model.UnitPrice;
+            parameters[12].Value = model.CostPrice;
+            parameters[13].Value = model.LaborCost;
+            parameters[14].Value = model.InstallationFee;
+            parameters[15].Value = model.CommissioningFee;
+            parameters[16].Value = model.ManagementFee;
+            parameters[17].Value = model.IndoorInstallationFee;
+            parameters[18].Value = model.IndoorLaborCost;
+            parameters[19].Value = model.Photo;
+            parameters[20].Value = model.Q_QuotationDetailGoodsID;
 
             int rows = DbHelperSQL.ExecuteSql(strSql.ToString(), parameters);
             if (rows > 0)
@@ -226,7 +230,7 @@ namespace DTcms.DAL
         {
 
             StringBuilder strSql = new StringBuilder();
-            strSql.Append("select  top 1 Q_QuotationDetailGoodsID,FK_QuotationDetailTypeId,FK_materialID,DetailOrder,GoodsQuantity,Brand,BrandImg,Mode,Name,Description,Unit,UnitPrice,CostPrice,LaborCost,InstallationFee,CommissioningFee,ManagementFee,IndoorInstallationFee,IndoorLaborCost,Photo from Q_QuotationDetailGoods ");
+            strSql.Append("select  top 1 Q_QuotationDetailGoodsID,FK_QuotationDetailTypeId,FK_materialID,DetailOrder,GoodsQuantity,Brand,BrandEnglish,BrandImg,Mode,Name,Description,Unit,UnitPrice,CostPrice,LaborCost,InstallationFee,CommissioningFee,ManagementFee,IndoorInstallationFee,IndoorLaborCost,Photo from Q_QuotationDetailGoods ");
             strSql.Append(" where Q_QuotationDetailGoodsID=@Q_QuotationDetailGoodsID");
             SqlParameter[] parameters = {
                     new SqlParameter("@Q_QuotationDetailGoodsID", SqlDbType.Int,4)
@@ -277,6 +281,10 @@ namespace DTcms.DAL
                 if (row["Brand"] != null)
                 {
                     model.Brand = row["Brand"].ToString();
+                }
+                if (row["BrandEnglish"] != null)
+                {
+                    model.BrandEnglish = row["BrandEnglish"].ToString();
                 }
                 if (row["BrandImg"] != null)
                 {
@@ -344,7 +352,7 @@ namespace DTcms.DAL
         public DataSet GetList(string strWhere)
         {
             StringBuilder strSql = new StringBuilder();
-            strSql.Append("select Q_QuotationDetailGoodsID,FK_QuotationDetailTypeId,FK_materialID,DetailOrder,GoodsQuantity,Brand,BrandImg,Mode,Name,Description,Unit,UnitPrice,CostPrice,LaborCost,InstallationFee,CommissioningFee,ManagementFee,IndoorInstallationFee,IndoorLaborCost,Photo ");
+            strSql.Append("select Q_QuotationDetailGoodsID,FK_QuotationDetailTypeId,FK_materialID,DetailOrder,GoodsQuantity,Brand,BrandEnglish,BrandImg,Mode,Name,Description,Unit,UnitPrice,CostPrice,LaborCost,InstallationFee,CommissioningFee,ManagementFee,IndoorInstallationFee,IndoorLaborCost,Photo ");
             strSql.Append(" FROM Q_QuotationDetailGoods ");
             if (strWhere.Trim() != "")
             {
@@ -364,7 +372,7 @@ namespace DTcms.DAL
             {
                 strSql.Append(" top " + Top.ToString());
             }
-            strSql.Append(" Q_QuotationDetailGoodsID,FK_QuotationDetailTypeId,FK_materialID,DetailOrder,GoodsQuantity,Brand,BrandImg,Mode,Name,Description,Unit,UnitPrice,CostPrice,LaborCost,InstallationFee,CommissioningFee,ManagementFee,IndoorInstallationFee,IndoorLaborCost,Photo ");
+            strSql.Append(" Q_QuotationDetailGoodsID,FK_QuotationDetailTypeId,FK_materialID,DetailOrder,GoodsQuantity,Brand,BrandEnglish,BrandImg,Mode,Name,Description,Unit,UnitPrice,CostPrice,LaborCost,InstallationFee,CommissioningFee,ManagementFee,IndoorInstallationFee,IndoorLaborCost,Photo ");
             strSql.Append(" FROM Q_QuotationDetailGoods ");
             if (strWhere.Trim() != "")
             {

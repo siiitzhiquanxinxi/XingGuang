@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
 namespace DTcms.Model
 {
     /// <summary>
@@ -20,6 +16,7 @@ namespace DTcms.Model
         private int? _detailorder;
         private decimal? _goodsquantity;
         private string _brand;
+        private string _brandenglish;
         private string _brandimg;
         private string _mode;
         private string _name;
@@ -81,6 +78,14 @@ namespace DTcms.Model
         {
             set { _brand = value; }
             get { return _brand; }
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        public string BrandEnglish
+        {
+            set { _brandenglish = value; }
+            get { return _brandenglish; }
         }
         /// <summary>
         /// 
@@ -198,3 +203,4 @@ namespace DTcms.Model
 
     }
 }
+
