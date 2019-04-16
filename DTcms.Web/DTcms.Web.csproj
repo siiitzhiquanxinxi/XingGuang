@@ -110,9 +110,14 @@
     <Content Include="admin\manager\role_edit.aspx" />
     <Content Include="admin\manager\role_list.aspx" />
     <Content Include="admin\MaterialSetting\chooseMaterial.aspx" />
+    <Content Include="admin\MaterialSetting\MaterialCostEdit.aspx" />
+    <Content Include="admin\MaterialSetting\MaterialCostList.aspx" />
     <Content Include="admin\MaterialSetting\MaterialEdit.aspx" />
     <Content Include="admin\MaterialSetting\MaterialImport.aspx" />
     <Content Include="admin\MaterialSetting\MaterialList.aspx" />
+    <Content Include="admin\MaterialSetting\MaterialPriceCheck.aspx" />
+    <Content Include="admin\MaterialSetting\MaterialPriceEdit.aspx" />
+    <Content Include="admin\MaterialSetting\MaterialPriceList.aspx" />
     <Content Include="admin\MaterialSetting\MaterialTypeEdit.aspx" />
     <Content Include="admin\MaterialSetting\MaterialTypeList.aspx" />
     <Content Include="admin\order\express_edit.aspx" />
@@ -871,6 +876,20 @@
     <Compile Include="admin\MaterialSetting\chooseMaterial.aspx.designer.cs">
       <DependentUpon>chooseMaterial.aspx</DependentUpon>
     </Compile>
+    <Compile Include="admin\MaterialSetting\MaterialCostEdit.aspx.cs">
+      <DependentUpon>MaterialCostEdit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="admin\MaterialSetting\MaterialCostEdit.aspx.designer.cs">
+      <DependentUpon>MaterialCostEdit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="admin\MaterialSetting\MaterialCostList.aspx.cs">
+      <DependentUpon>MaterialCostList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="admin\MaterialSetting\MaterialCostList.aspx.designer.cs">
+      <DependentUpon>MaterialCostList.aspx</DependentUpon>
+    </Compile>
     <Compile Include="admin\MaterialSetting\MaterialEdit.aspx.cs">
       <DependentUpon>MaterialEdit.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -891,6 +910,27 @@
     </Compile>
     <Compile Include="admin\MaterialSetting\MaterialList.aspx.designer.cs">
       <DependentUpon>MaterialList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="admin\MaterialSetting\MaterialPriceCheck.aspx.cs">
+      <DependentUpon>MaterialPriceCheck.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="admin\MaterialSetting\MaterialPriceCheck.aspx.designer.cs">
+      <DependentUpon>MaterialPriceCheck.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="admin\MaterialSetting\MaterialPriceEdit.aspx.cs">
+      <DependentUpon>MaterialPriceEdit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="admin\MaterialSetting\MaterialPriceEdit.aspx.designer.cs">
+      <DependentUpon>MaterialPriceEdit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="admin\MaterialSetting\MaterialPriceList.aspx.cs">
+      <DependentUpon>MaterialPriceList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="admin\MaterialSetting\MaterialPriceList.aspx.designer.cs">
+      <DependentUpon>MaterialPriceList.aspx</DependentUpon>
     </Compile>
     <Compile Include="admin\MaterialSetting\MaterialTypeEdit.aspx.cs">
       <DependentUpon>MaterialTypeEdit.aspx</DependentUpon>

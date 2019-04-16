@@ -153,7 +153,7 @@
                 <dt>报价：</dt>
                 <dd>
                     <asp:TextBox ID="txtUnitPrice" runat="server" CssClass="input normal" sucmsg=" " minlength="1"
-                        MaxLength="100"></asp:TextBox>
+                        MaxLength="100" ReadOnly="True"></asp:TextBox>
                     <span class="Validform_checktip">*</span>
                 </dd>
             </dl>
@@ -161,7 +161,7 @@
                 <dt>弱电布线费：</dt>
                 <dd>
                     <asp:TextBox ID="txtLaborCost" runat="server" CssClass="input normal" sucmsg=" " minlength="1"
-                        MaxLength="100"></asp:TextBox>
+                        MaxLength="100" ReadOnly="True"></asp:TextBox>
 
                 </dd>
             </dl>
@@ -169,7 +169,7 @@
                 <dt>器材安装费：</dt>
                 <dd>
                     <asp:TextBox ID="txtInstallationFee" runat="server" CssClass="input normal" sucmsg=" " minlength="1"
-                        MaxLength="100"></asp:TextBox>
+                        MaxLength="100" ReadOnly="True"></asp:TextBox>
 
                 </dd>
             </dl>
@@ -177,7 +177,7 @@
                 <dt>系统调试费：</dt>
                 <dd>
                     <asp:TextBox ID="txtCommissioningFee" runat="server" CssClass="input normal" sucmsg=" " minlength="1"
-                        MaxLength="100"></asp:TextBox>
+                        MaxLength="100" ReadOnly="True"></asp:TextBox>
 
                 </dd>
             </dl>
@@ -185,7 +185,7 @@
                 <dt>项目管理费：</dt>
                 <dd>
                     <asp:TextBox ID="txtManagementFee" runat="server" CssClass="input normal" sucmsg=" " minlength="1"
-                        MaxLength="100"></asp:TextBox>
+                        MaxLength="100" ReadOnly="True"></asp:TextBox>
 
                 </dd>
             </dl>
@@ -193,22 +193,22 @@
                 <dt>内部安装费用：</dt>
                 <dd>
                     <asp:TextBox ID="txtIndoorInstallationFee" runat="server" CssClass="input normal" sucmsg=" " minlength="1"
-                        MaxLength="100"></asp:TextBox>
+                        MaxLength="100" ReadOnly="True"></asp:TextBox>
                 </dd>
             </dl>
             <dl>
                 <dt>内部布线费用：</dt>
                 <dd>
                     <asp:TextBox ID="txtIndoorLaborCost" runat="server" CssClass="input normal" sucmsg=" " minlength="1"
-                        MaxLength="100"></asp:TextBox>
+                        MaxLength="100" ReadOnly="True"></asp:TextBox>
 
                 </dd>
             </dl>
             <dl>
-                <dt>视频调试费用：：</dt>
+                <dt>视频调试费用：</dt>
                 <dd>
                     <asp:TextBox ID="txtVideoDebugFee" runat="server" CssClass="input normal" sucmsg=" " minlength="1"
-                        MaxLength="100"></asp:TextBox>
+                        MaxLength="100" ReadOnly="True"></asp:TextBox>
 
                 </dd>
             </dl>
@@ -216,7 +216,7 @@
                 <dt>音频调试费用：</dt>
                 <dd>
                     <asp:TextBox ID="txtAudioDebugFee" runat="server" CssClass="input normal" sucmsg=" " minlength="1"
-                        MaxLength="100"></asp:TextBox>
+                        MaxLength="100" ReadOnly="True"></asp:TextBox>
 
                 </dd>
             </dl>
