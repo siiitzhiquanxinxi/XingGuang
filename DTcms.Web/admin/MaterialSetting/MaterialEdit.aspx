@@ -239,10 +239,11 @@
                 <dd>
                     <asp:DropDownList ID="ddlTag" runat="server">
                         <asp:ListItem></asp:ListItem>
-                        <asp:ListItem>热卖</asp:ListItem>
-                        <asp:ListItem>滞销</asp:ListItem>
-                        <asp:ListItem>赚钱</asp:ListItem>
-                        <asp:ListItem>活动</asp:ListItem>
+                        <asp:ListItem>金牛产品</asp:ListItem>
+                        <asp:ListItem>明星产品</asp:ListItem>
+                        <asp:ListItem>正常产品</asp:ListItem>
+                        <asp:ListItem>瘦狗产品</asp:ListItem>
+                        <asp:ListItem>库存</asp:ListItem>
                     </asp:DropDownList>
                 </dd>
             </dl>
