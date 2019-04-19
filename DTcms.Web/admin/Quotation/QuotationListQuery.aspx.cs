@@ -24,7 +24,7 @@ namespace DTcms.Web.admin.Quotation
             {
                 strWhere += " and QuotationListNum like '" + txtKeywords.Text + "'";
             }
-            DataTable dt = new BLL.Q_QuotationList().GetList(strWhere+ " order by CreateDate desc").Tables[0];
+            DataTable dt = new BLL.Q_QuotationList().GetList(strWhere + " order by CreateDate desc").Tables[0];
             PagedDataSource pds = new PagedDataSource();
             pds.AllowPaging = true;
             pds.PageSize = AspNetPager1.PageSize;
@@ -43,8 +43,28 @@ namespace DTcms.Web.admin.Quotation
                     LinkButton lbtnApprove = rptList1.Items[i].FindControl("lbtnApprove") as LinkButton;
                     LinkButton lbtnEdit = rptList1.Items[i].FindControl("lbtnEdit") as LinkButton;
                     lbtnApprove.Enabled = lbtnEdit.Enabled = false;
-
                 }
+
+                HiddenField hfdId = rptList1.Items[i].FindControl("hfdId") as HiddenField;
+                Model.Q_QuotationList model = new BLL.Q_QuotationList().GetModel(int.Parse(hfdId.Value));
+                List<Model.Q_QuotationDetailType> lstType = new BLL.Q_QuotationDetailType().GetModelList("FK_ParentQuotationListId = " + hfdId.Value);
+                decimal Q_total = 0;
+                for (int j = 0; j < lstType.Count; j++)
+                {
+                    string sql = "select sum(UnitPrice*GoodsQuantity) from Q_QuotationDetailGoods where FK_QuotationDetailTypeId = " + lstType[j].QuotationDetailTypeId;
+                    decimal sub = Convert.ToDecimal(DbHelperSQL.Query(sql).Tables[0].Rows[0][0].ToString());
+                    Q_total += sub + Convert.ToDecimal(lstType[j].RuodiananzhuangFee)
+                        + Convert.ToDecimal(lstType[j].QicaianzhuangFee)
+                        + Convert.ToDecimal(lstType[j].XitongtiaoshiFee)
+                        + Convert.ToDecimal(lstType[j].XiangmuguanliFee)
+                        + Convert.ToDecimal(lstType[j].VideoDebugFee)
+                        + Convert.ToDecimal(lstType[j].AudioDebugFee);
+                }
+                Label lblTotal = rptList1.Items[i].FindControl("lblTotal") as Label;
+                lblTotal.Text = Math.Round(Q_total, 0).ToString();
+                Label lblAfterTotal = rptList1.Items[i].FindControl("lblAfterTotal") as Label;
+                Q_total = Q_total * Convert.ToDecimal(model.PreferentialRatio) / 100 - Convert.ToDecimal(model.PreferentialRelief);
+                lblAfterTotal.Text = Math.Round(Q_total, 0).ToString();
             }
 
             AspNetPager1.RecordCount = dt.Rows.Count;

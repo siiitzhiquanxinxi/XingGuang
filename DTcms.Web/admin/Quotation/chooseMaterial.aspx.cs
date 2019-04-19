@@ -141,7 +141,7 @@ namespace DTcms.Web.admin.Quotation
             }
             if (txtKeywords.Text != "")
             {
-                where += " and (Name like '%" + txtKeywords.Text + "%' or Description like '%" + txtKeywords.Text + "%')";
+                where += " and (Name like '%" + txtKeywords.Text + "%' or Description like '%" + txtKeywords.Text + "%' or Mode like '%" + txtKeywords.Text + "%')";
             }
             where += " order by MaterialTypeID";
             //DataTable dt = bll.GetListByPage(where, "MaterialType", 0, 7).Tables[0];

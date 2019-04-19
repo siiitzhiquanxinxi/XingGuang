@@ -39,10 +39,17 @@ namespace DTcms.Web.admin.Quotation.print
                         txtBroundCN.Text = lstG[0].Brand;
                         txtBroundEN.Text = lstG[0].BrandEnglish;
                     }
-
                     Label lblSubTotal = rptTotal.Items[i].FindControl("lblSubTotal") as Label;
                     string sql = "select sum(UnitPrice*GoodsQuantity) from Q_QuotationDetailGoods where FK_QuotationDetailTypeId = " + hfdQuotationDetailTypeId.Value;
-                    lblSubTotal.Text = Math.Round(Convert.ToDecimal(DbHelperSQL.Query(sql).Tables[0].Rows[0][0].ToString()), 2).ToString();
+                    decimal sub = Convert.ToDecimal(DbHelperSQL.Query(sql).Tables[0].Rows[0][0].ToString());
+                    Model.Q_QuotationDetailType model = new BLL.Q_QuotationDetailType().GetModel(int.Parse(hfdQuotationDetailTypeId.Value));
+                    sub += Convert.ToDecimal(model.RuodiananzhuangFee)
+                        + Convert.ToDecimal(model.QicaianzhuangFee)
+                        + Convert.ToDecimal(model.XitongtiaoshiFee)
+                        + Convert.ToDecimal(model.XiangmuguanliFee)
+                        + Convert.ToDecimal(model.VideoDebugFee)
+                        + Convert.ToDecimal(model.AudioDebugFee);
+                    lblSubTotal.Text = Math.Round(sub, 2).ToString();
                     Q_total += lblSubTotal.Text != "" ? Convert.ToDecimal(lblSubTotal.Text) : 0;
                 }
                 Label QlblTotal = rptTotal.Controls[rptTotal.Controls.Count - 1].FindControl("lblTotal") as Label;

@@ -94,11 +94,13 @@
                         <td><%#Eval("FK_ParentProgramId") %></td>
                         <td><%#Eval("CreateDate") %></td>
                         <td><%#Eval("CreateBy") %></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        <td>
+                            <asp:Label ID="lblTotal" runat="server" Text=""></asp:Label></td>
+                        <td><%#Eval("PreferentialRatio") %>%</td>
+                        <td><%#Eval("PreferentialRelief") %></td>
+                        <td><%#Eval("Tax") %>%</td>
+                        <td>
+                            <asp:Label ID="lblAfterTotal" runat="server" Text=""></asp:Label></td>
                         <td><%#Eval("QuotationListState").ToString()=="0"?"已保存":Eval("QuotationListState").ToString()=="1"?"已审核":"" %></td>
                         <td align="center">
                             <asp:HiddenField ID="hfdState" runat="server" Value='<%#Eval("QuotationListState") %>' />
