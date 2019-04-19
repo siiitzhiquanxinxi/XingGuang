@@ -114,7 +114,7 @@
 
                 </dd>
             </dl>
-            <dl>
+            <%--<dl>
                 <dt style="color:red">弱电布线费：</dt>
                 <dd>
                     <asp:TextBox ID="txtLaborCost" runat="server" CssClass="input normal" sucmsg=" " minlength="1"
@@ -176,7 +176,7 @@
                         MaxLength="100"></asp:TextBox>
 
                 </dd>
-            </dl>
+            </dl>--%>
             <dl>
                 <dt>金蝶物料编号：</dt>
                 <dd>

@@ -59,14 +59,14 @@ namespace DTcms.Web.admin.MaterialSetting
             txtUnit.Text = material.Unit;
             txtUnitPrice.Text = material.UnitPrice.ToString();
             //txtCostPrice.Text = material.CostPrice.ToString();
-            txtLaborCost.Text = material.LaborCost.ToString();
-            txtInstallationFee.Text = material.InstallationFee.ToString();
-            txtCommissioningFee.Text = material.CommissioningFee.ToString();
-            txtManagementFee.Text = material.ManagementFee.ToString();
-            txtIndoorInstallationFee.Text = material.IndoorInstallationFee.ToString();
-            txtIndoorLaborCost.Text = material.IndoorLaborCost.ToString();
-            txtVideoDebugFee.Text = material.VideoDebugFee.ToString();
-            txtAudioDebugFee.Text = material.AudioDebugFee.ToString();
+            //txtLaborCost.Text = material.LaborCost.ToString();
+            //txtInstallationFee.Text = material.InstallationFee.ToString();
+            //txtCommissioningFee.Text = material.CommissioningFee.ToString();
+            //txtManagementFee.Text = material.ManagementFee.ToString();
+            //txtIndoorInstallationFee.Text = material.IndoorInstallationFee.ToString();
+            //txtIndoorLaborCost.Text = material.IndoorLaborCost.ToString();
+            //txtVideoDebugFee.Text = material.VideoDebugFee.ToString();
+            //txtAudioDebugFee.Text = material.AudioDebugFee.ToString();
             //txtPhoto.Text = material.Photo;
             txtMaterialID.Text = material.MaterialID;
             txtMaterialName.Text = material.MaterialName;
@@ -84,38 +84,38 @@ namespace DTcms.Web.admin.MaterialSetting
             {
                 this.txtUnitPrice.Text = "0";
             }
-            if (this.txtLaborCost.Text.Trim() == "")
-            {
-                this.txtLaborCost.Text = "0";
-            }
-            if (this.txtInstallationFee.Text.Trim() == "")
-            {
-                this.txtInstallationFee.Text = "0";
-            }
-            if (this.txtCommissioningFee.Text.Trim() == "")
-            {
-                this.txtCommissioningFee.Text = "0";
-            }
-            if (this.txtManagementFee.Text.Trim() == "")
-            {
-                this.txtManagementFee.Text = "0";
-            }
-            if (this.txtIndoorInstallationFee.Text.Trim() == "")
-            {
-                this.txtIndoorInstallationFee.Text = "0";
-            }
-            if (this.txtIndoorLaborCost.Text.Trim() == "")
-            {
-                this.txtIndoorLaborCost.Text = "0";
-            }
-            if (this.txtVideoDebugFee.Text.Trim() == "")
-            {
-                this.txtVideoDebugFee.Text = "0";
-            }
-            if (this.txtAudioDebugFee.Text.Trim() == "")
-            {
-                this.txtAudioDebugFee.Text = "0";
-            }
+            //if (this.txtLaborCost.Text.Trim() == "")
+            //{
+            //    this.txtLaborCost.Text = "0";
+            //}
+            //if (this.txtInstallationFee.Text.Trim() == "")
+            //{
+            //    this.txtInstallationFee.Text = "0";
+            //}
+            //if (this.txtCommissioningFee.Text.Trim() == "")
+            //{
+            //    this.txtCommissioningFee.Text = "0";
+            //}
+            //if (this.txtManagementFee.Text.Trim() == "")
+            //{
+            //    this.txtManagementFee.Text = "0";
+            //}
+            //if (this.txtIndoorInstallationFee.Text.Trim() == "")
+            //{
+            //    this.txtIndoorInstallationFee.Text = "0";
+            //}
+            //if (this.txtIndoorLaborCost.Text.Trim() == "")
+            //{
+            //    this.txtIndoorLaborCost.Text = "0";
+            //}
+            //if (this.txtVideoDebugFee.Text.Trim() == "")
+            //{
+            //    this.txtVideoDebugFee.Text = "0";
+            //}
+            //if (this.txtAudioDebugFee.Text.Trim() == "")
+            //{
+            //    this.txtAudioDebugFee.Text = "0";
+            //}
             return true;
         }
 
@@ -124,14 +124,14 @@ namespace DTcms.Web.admin.MaterialSetting
             if (!IsCheck()) return;
             DTcms.Model.Sy_Material material = MaterialBll.GetModel(Convert.ToInt32(hidID.Value));
             material.UnitPrice = Convert.ToDecimal(txtUnitPrice.Text.Trim());
-            material.LaborCost = Convert.ToDecimal(txtLaborCost.Text.Trim());
-            material.InstallationFee = Convert.ToDecimal(txtInstallationFee.Text.Trim());
-            material.CommissioningFee = Convert.ToDecimal(txtCommissioningFee.Text.Trim());
-            material.ManagementFee = Convert.ToDecimal(txtManagementFee.Text.Trim());
-            material.IndoorInstallationFee = Convert.ToDecimal(txtIndoorInstallationFee.Text.Trim());
-            material.IndoorLaborCost = Convert.ToDecimal(txtIndoorLaborCost.Text.Trim());
-            material.VideoDebugFee = Convert.ToDecimal(txtVideoDebugFee.Text.Trim());
-            material.AudioDebugFee = Convert.ToDecimal(txtAudioDebugFee.Text.Trim());
+            //material.LaborCost = Convert.ToDecimal(txtLaborCost.Text.Trim());
+            //material.InstallationFee = Convert.ToDecimal(txtInstallationFee.Text.Trim());
+            //material.CommissioningFee = Convert.ToDecimal(txtCommissioningFee.Text.Trim());
+            //material.ManagementFee = Convert.ToDecimal(txtManagementFee.Text.Trim());
+            //material.IndoorInstallationFee = Convert.ToDecimal(txtIndoorInstallationFee.Text.Trim());
+            //material.IndoorLaborCost = Convert.ToDecimal(txtIndoorLaborCost.Text.Trim());
+            //material.VideoDebugFee = Convert.ToDecimal(txtVideoDebugFee.Text.Trim());
+            //material.AudioDebugFee = Convert.ToDecimal(txtAudioDebugFee.Text.Trim());
             material.State = 0;
             bool re= MaterialBll.Update(material);
             if (re)
