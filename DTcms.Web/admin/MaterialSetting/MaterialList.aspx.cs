@@ -26,6 +26,12 @@ namespace DTcms.Web.admin.MaterialSetting
                 keywords = this.txtKeywords.Text.Trim();
                 //this.pageSize = GetPageSize(5);
                 //RptBind(CombSqlTxt(keywords), "ID desc");
+                string MaterialType = DTRequest.GetQueryString("MaterialType");
+                if (MaterialType != "")
+                {
+                    rblType.SelectedValue = MaterialType;
+                    BindData();
+                }
             }
         }
 

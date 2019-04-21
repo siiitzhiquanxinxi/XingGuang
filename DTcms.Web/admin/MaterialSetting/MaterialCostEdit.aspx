@@ -122,6 +122,21 @@
                 </dd>
             </dl>
             <dl>
+                <dt style="color:red">内部安装费用：</dt>
+                <dd>
+                    <asp:TextBox ID="txtIndoorInstallationFee" runat="server" CssClass="input normal" sucmsg=" " minlength="1"
+                        MaxLength="100"></asp:TextBox>
+                </dd>
+            </dl>
+            <dl>
+                <dt style="color:red">内部布线费用：</dt>
+                <dd>
+                    <asp:TextBox ID="txtIndoorLaborCost" runat="server" CssClass="input normal" sucmsg=" " minlength="1"
+                        MaxLength="100"></asp:TextBox>
+
+                </dd>
+            </dl>
+            <dl>
                 <dt>金蝶物料编号：</dt>
                 <dd>
                     <%--<asp:TextBox ID="txtMaterialID" runat="server" CssClass="input normal" sucmsg=" " minlength="0"

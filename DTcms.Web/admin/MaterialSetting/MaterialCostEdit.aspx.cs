@@ -59,7 +59,8 @@ namespace DTcms.Web.admin.MaterialSetting
             txtUnit.Text = material.Unit;
             txtUnitPrice.Text = material.UnitPrice.ToString();
             txtCostPrice.Text = material.CostPrice.ToString();
-            
+            txtIndoorInstallationFee.Text = material.IndoorInstallationFee.ToString();
+            txtIndoorLaborCost.Text = material.IndoorLaborCost.ToString();
             //txtPhoto.Text = material.Photo;
             txtMaterialID.Text = material.MaterialID;
             txtMaterialName.Text = material.MaterialName;
@@ -80,7 +81,14 @@ namespace DTcms.Web.admin.MaterialSetting
             {
                 this.txtCostPrice.Text = "0";
             }
-           
+            if (this.txtIndoorInstallationFee.Text.Trim() == "")
+            {
+                this.txtIndoorInstallationFee.Text = "0";
+            }
+            if (this.txtIndoorLaborCost.Text.Trim() == "")
+            {
+                this.txtIndoorLaborCost.Text = "0";
+            }
             return true;
         }
 
@@ -89,7 +97,8 @@ namespace DTcms.Web.admin.MaterialSetting
             if (!IsCheck()) return;
             DTcms.Model.Sy_Material material = MaterialBll.GetModel(Convert.ToInt32(hidID.Value));
             material.CostPrice = Convert.ToDecimal(txtCostPrice.Text.Trim());
-            
+            material.IndoorInstallationFee = Convert.ToDecimal(txtIndoorInstallationFee.Text.Trim());
+            material.IndoorLaborCost = Convert.ToDecimal(txtIndoorLaborCost.Text.Trim());
             bool re = MaterialBll.Update(material);
             if (re)
             {
