@@ -135,6 +135,10 @@ namespace DTcms.Web.admin.Quotation
                     {
                         Model.Q_QuotationDetailGoods qdg = new Model.Q_QuotationDetailGoods();
                         Model.Sy_Material materialModel = new BLL.Sy_Material().GetModel(Convert.ToInt16(item.FK_materialID));
+                        if (materialModel == null)
+                        {
+                            continue;
+                        }
                         qdg.FK_materialID = item.FK_materialID;
                         qdg.DetailOrder = i; i++;
                         qdg.GoodsQuantity = item.TemplateDetailQuantity;
@@ -615,8 +619,7 @@ namespace DTcms.Web.admin.Quotation
                     Label lblBrand = rptLine.Items[i].FindControl("lblBrand") as Label;
                     Image imgBrand = rptLine.Items[i].FindControl("imgBrand") as Image;
                     Label lblMode = rptLine.Items[i].FindControl("lblMode") as Label;
-                    //Label lblName = rptLine.Items[i].FindControl("lblName") as Label;
-                    TextBox txtName = rptLine.Items[i].FindControl("txtName") as TextBox;
+                    Label lblName = rptLine.Items[i].FindControl("lblName") as Label;
                     Label lblDescription = rptLine.Items[i].FindControl("lblDescription") as Label;
                     Label lblUnit = rptLine.Items[i].FindControl("lblUnit") as Label;
                     Image imgMaterial = rptLine.Items[i].FindControl("imgMaterial") as Image;
@@ -629,7 +632,7 @@ namespace DTcms.Web.admin.Quotation
                     qdl.LineBrand = lblBrand.Text;
                     qdl.LineBrandImg = imgBrand.ImageUrl;
                     qdl.LineMode = lblMode.Text;
-                    qdl.LineName = txtName.Text;
+                    qdl.LineName = lblName.Text;
                     qdl.LineDescription = lblDescription.Text;
                     qdl.LineUnit = lblUnit.Text;
                     qdl.LinePhoto = imgMaterial.ImageUrl;

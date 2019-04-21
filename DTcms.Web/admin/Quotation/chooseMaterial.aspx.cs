@@ -28,7 +28,7 @@ namespace DTcms.Web.admin.Quotation
             {
                 string s = "select * from Sy_SystemType where SystemTypeID = " + Request.QueryString["stype"];
                 DataTable d = DbHelperSQL.Query(s).Tables[0];
-                if (d != null && d.Rows.Count > 0)
+                if (d != null && d.Rows.Count > 0 && d.Rows[0]["HasMaterialType"].ToString().Trim() != "")
                 {
                     string[] arr = d.Rows[0]["HasMaterialType"].ToString().Split('|');
                     where += " and ID in (";
@@ -67,7 +67,7 @@ namespace DTcms.Web.admin.Quotation
             {
                 string s = "select * from Sy_SystemType where SystemTypeID = " + Request.QueryString["stype"];
                 DataTable d = DbHelperSQL.Query(s).Tables[0];
-                if (d != null && d.Rows.Count > 0)
+                if (d != null && d.Rows.Count > 0 && d.Rows[0]["HasMaterialType"].ToString().Trim() != "")
                 {
                     string[] arr = d.Rows[0]["HasMaterialType"].ToString().Split('|');
                     where += " and MaterialTypeID in (";
@@ -112,7 +112,7 @@ namespace DTcms.Web.admin.Quotation
             {
                 string s = "select * from Sy_SystemType where SystemTypeID = " + Request.QueryString["stype"];
                 DataTable d = DbHelperSQL.Query(s).Tables[0];
-                if (d != null && d.Rows.Count > 0)
+                if (d != null && d.Rows.Count > 0 && d.Rows[0]["HasMaterialType"].ToString().Trim() != "")
                 {
                     string[] arr = d.Rows[0]["HasMaterialType"].ToString().Split('|');
                     where += " and MaterialTypeID in (";
