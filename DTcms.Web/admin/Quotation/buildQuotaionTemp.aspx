@@ -6,7 +6,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,initial-scale=1.0,user-scalable=no" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
-    <title>创建模板</title>
+    <title>由模板创建报价单</title>
     <link href="../../scripts/artdialog/ui-dialog.css" rel="stylesheet" type="text/css" />
     <link href="../skin/default/style.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript" charset="utf-8" src="../../scripts/jquery/jquery-1.11.2.min.js"></script>
@@ -22,7 +22,7 @@
     <script type="text/javascript">
         function SelectTemp() {
             $.dialog({
-                title: '选择商品类型', width: 800, heght: 600,
+                title: '选择商品类型', width: 1024, heght: 600,
                 content: 'url:Quotation/chooseTemp.aspx?idTarget=hfdTempId',
                 lock: true
             });
@@ -105,6 +105,60 @@
   </table>
                 </FooterTemplate>
             </asp:Repeater>
+        </div>
+        <div class="tab-content">
+            <dl>
+                <dt>客户编号</dt>
+                <dd>
+                    <asp:TextBox ID="txtCustomerNum" runat="server" CssClass="input normal" datatype="*2-100" sucmsg=" " />
+                    <span class="Validform_checktip">*</span>
+                </dd>
+            </dl>
+            <dl>
+                <dt>客户名称</dt>
+                <dd>
+                    <asp:TextBox ID="txtCustomerName" runat="server" CssClass="input normal" datatype="*2-100" sucmsg=" " />
+                    <span class="Validform_checktip">*</span>
+                </dd>
+            </dl>
+            <dl>
+                <dt>客户电话</dt>
+                <dd>
+                    <asp:TextBox ID="txtCustomerTel" runat="server" CssClass="input normal" datatype="*2-100" sucmsg=" " />
+                </dd>
+            </dl>
+            <dl>
+                <dt>项目地址</dt>
+                <dd>
+                    <asp:TextBox ID="txtCustomerAddress" runat="server" CssClass="input normal" datatype="*2-100" sucmsg=" " />
+                </dd>
+            </dl>
+            <dl>
+                <dt>项目面积</dt>
+                <dd>
+                    <asp:TextBox ID="txtProgramAreaNum" runat="server" CssClass="input normal" datatype="*2-100" sucmsg=" " />
+                </dd>
+            </dl>
+            <dl>
+                <dt>销售设计师</dt>
+                <dd>
+                    <asp:TextBox ID="txtSalePeople" runat="server" CssClass="input normal" datatype="*2-100" sucmsg=" " />
+                    <span class="Validform_checktip">*</span>
+                </dd>
+            </dl>
+            <dl>
+                <dt>业务员</dt>
+                <dd>
+                    <asp:TextBox ID="txtBussinessPeople" runat="server" CssClass="input normal" datatype="*2-100" sucmsg=" " />
+                    <span class="Validform_checktip">*</span>
+                </dd>
+            </dl>
+            <dl>
+                <dt>客户来源</dt>
+                <dd>
+                    <asp:TextBox ID="txtCustomerSource" runat="server" CssClass="input normal" datatype="*2-100" sucmsg=" " />
+                </dd>
+            </dl>
         </div>
         <!--/内容-->
         <!--工具栏-->

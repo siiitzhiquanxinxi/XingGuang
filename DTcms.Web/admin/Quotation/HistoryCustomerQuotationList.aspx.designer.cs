@@ -10,7 +10,7 @@
 namespace DTcms.Web.admin.Quotation {
     
     
-    public partial class chooseTemp {
+    public partial class HistoryCustomerQuotationList {
         
         /// <summary>
         /// form1 控件。
@@ -22,13 +22,13 @@ namespace DTcms.Web.admin.Quotation {
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
         
         /// <summary>
-        /// rblType 控件。
+        /// btnDelete 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButtonList rblType;
+        protected global::System.Web.UI.WebControls.LinkButton btnDelete;
         
         /// <summary>
         /// txtKeywords 控件。
@@ -49,13 +49,13 @@ namespace DTcms.Web.admin.Quotation {
         protected global::System.Web.UI.WebControls.LinkButton lbtnSearch;
         
         /// <summary>
-        /// rptList1 控件。
+        /// rptCusotmer 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Repeater rptList1;
+        protected global::System.Web.UI.WebControls.Repeater rptCusotmer;
         
         /// <summary>
         /// AspNetPager1 控件。

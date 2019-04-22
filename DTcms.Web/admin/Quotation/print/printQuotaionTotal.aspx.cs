@@ -54,8 +54,6 @@ namespace DTcms.Web.admin.Quotation.print
                 }
                 Label QlblTotal = rptTotal.Controls[rptTotal.Controls.Count - 1].FindControl("lblTotal") as Label;
                 QlblTotal.Text = Math.Round(Q_total, 2).ToString();
-
-
                 rptParent.DataSource = lstType;
                 rptParent.DataBind();
 

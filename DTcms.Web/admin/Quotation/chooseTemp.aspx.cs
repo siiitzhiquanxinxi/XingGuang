@@ -15,9 +15,9 @@ namespace DTcms.Web.admin.Quotation
             if (!IsPostBack)
             {
                 BindCkb();
-                if (cblMType.Items.Count > 0)
+                if (rblType.Items.Count > 0)
                 {
-                    cblMType.Items[0].Selected = true;
+                    rblType.Items[0].Selected = true;
                     BindData();
                 }
             }
@@ -29,37 +29,37 @@ namespace DTcms.Web.admin.Quotation
             DataTable dt = DbHelperSQL.Query(sql).Tables[0];
             //BLL.Sy_MaterialType bll = new BLL.Sy_MaterialType();
             //DataTable dt = bll.GetAllList().Tables[0];
-            cblMType.DataSource = dt;
-            cblMType.DataTextField = "SystemTypeName";
-            cblMType.DataValueField = "SystemTypeID";
-            cblMType.DataBind();
+            rblType.DataSource = dt;
+            rblType.DataTextField = "SystemTypeName";
+            rblType.DataValueField = "SystemTypeID";
+            rblType.DataBind();
         }
 
         private void BindData()
         {
             string sql = "select * from Q_QuotationTemplate where 1=1 and QuotationTemplateState = 1";
             string where = "";
-
-            int checkindex = 0;
-            for (int i = 0; i < cblMType.Items.Count; i++)
-            {
-                if (cblMType.Items[i].Selected == true)
-                {
-                    if (checkindex == 0)
-                    {
-                        where += " and (QuotationTemplateTypeId = '" + cblMType.Items[i].Value + "'";
-                    }
-                    if (checkindex > 0)
-                    {
-                        where += " or QuotationTemplateTypeId = '" + cblMType.Items[i].Value + "'";
-                    }
-                    checkindex++;
-                }
-            }
-            if (checkindex > 0)
-            {
-                where += ")";
-            }
+            where += "and QuotationTemplateTypeId = " + rblType.SelectedItem.Value;
+            //int checkindex = 0;
+            //for (int i = 0; i < cblMType.Items.Count; i++)
+            //{
+            //    if (cblMType.Items[i].Selected == true)
+            //    {
+            //        if (checkindex == 0)
+            //        {
+            //            where += " and (QuotationTemplateTypeId = '" + cblMType.Items[i].Value + "'";
+            //        }
+            //        if (checkindex > 0)
+            //        {
+            //            where += " or QuotationTemplateTypeId = '" + cblMType.Items[i].Value + "'";
+            //        }
+            //        checkindex++;
+            //    }
+            //}
+            //if (checkindex > 0)
+            //{
+            //    where += ")";
+            //}
             sql += where;
             sql += " order by QuotationTemplateTypeId";
             DataTable dt = DbHelperSQL.Query(sql).Tables[0];
@@ -85,6 +85,12 @@ namespace DTcms.Web.admin.Quotation
         }
 
         protected void cblMType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            AspNetPager1.CurrentPageIndex = 1;
+            BindData();
+        }
+
+        protected void rblType_SelectedIndexChanged(object sender, EventArgs e)
         {
             AspNetPager1.CurrentPageIndex = 1;
             BindData();

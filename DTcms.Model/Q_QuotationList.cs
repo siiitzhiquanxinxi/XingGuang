@@ -19,6 +19,7 @@ namespace DTcms.Model
         private int? _preferentialratio;
         private decimal? _preferentialrelief;
         private int? _tax;
+        private int? _fk_customerid;
         /// <summary>
         /// 
         /// </summary>
@@ -90,6 +91,14 @@ namespace DTcms.Model
         {
             set { _tax = value; }
             get { return _tax; }
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        public int? FK_CustomerID
+        {
+            set { _fk_customerid = value; }
+            get { return _fk_customerid; }
         }
         #endregion Model
 

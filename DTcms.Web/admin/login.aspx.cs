@@ -51,7 +51,7 @@ namespace DTcms.Web.admin
                 return;
             }
             Session[DTKeys.SESSION_ADMIN_INFO] = model;
-            Session.Timeout = 45;
+            Session.Timeout = 60;
             //写入登录日志
             Model.siteconfig siteConfig = new BLL.siteconfig().loadConfig();
             if (siteConfig.logstatus > 0)

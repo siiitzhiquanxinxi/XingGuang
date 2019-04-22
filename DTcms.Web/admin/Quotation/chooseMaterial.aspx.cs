@@ -144,20 +144,17 @@ namespace DTcms.Web.admin.Quotation
                 where += " and (Name like '%" + txtKeywords.Text + "%' or Description like '%" + txtKeywords.Text + "%' or Mode like '%" + txtKeywords.Text + "%')";
             }
             where += " order by MaterialTypeID";
-            //DataTable dt = bll.GetListByPage(where, "MaterialType", 0, 7).Tables[0];
             DataTable dt = bll.GetList(where).Tables[0];
-            PagedDataSource pds = new PagedDataSource();
-            pds.AllowPaging = true;
-            pds.PageSize = AspNetPager1.PageSize;
+            //PagedDataSource pds = new PagedDataSource();
+            //pds.AllowPaging = true;
+            //pds.PageSize = AspNetPager1.PageSize;
+            //pds.CurrentPageIndex = AspNetPager1.CurrentPageIndex - 1;
+            //pds.DataSource = dt.DefaultView;
 
-
-            pds.CurrentPageIndex = AspNetPager1.CurrentPageIndex - 1;
-            pds.DataSource = dt.DefaultView;
-
-            rptList1.DataSource = pds;
+            rptList1.DataSource = dt;
             rptList1.DataBind();
 
-            AspNetPager1.RecordCount = dt.Rows.Count;
+            //AspNetPager1.RecordCount = dt.Rows.Count;
         }
 
         protected void btnSearch_Click(object sender, EventArgs e)

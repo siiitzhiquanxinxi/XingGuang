@@ -63,14 +63,14 @@
                     <ul>
                         <li><a class="selected" href="javascript:;">商品明细</a></li>
                         <li><a href="javascript:;">模板信息</a></li>
-                        <li><a href="javascript:;">线材明细</a></li>
-                        <li><a href="javascript:;">人工费用明细</a></li>
                     </ul>
                 </div>
             </div>
         </div>
         <div class="tab-content" id="divContent">
             <input id="b1" type="button" value="添加商品" class="btn green" onclick="SelectMaterial()" style="margin-bottom: 8px;" />
+            <asp:Button ID="btnUpdateLine" runat="server" CssClass="btn green" Style="margin-bottom: 8px;" Text="更新线材明细" OnClick="btnUpdateLine_Click" />
+            <asp:Button ID="btnUpdateLaborFee" runat="server" CssClass="btn green" Style="margin-bottom: 8px;" Text="更新人工费用" OnClick="btnUpdateLaborFee_Click" />
             <asp:Button ID="btnBind" runat="server" Text="绑定" OnClick="btnBind_Click" Style="display: none;" />
             <asp:Repeater ID="rptList1" runat="server">
                 <HeaderTemplate>
@@ -125,52 +125,119 @@
   </table>
                 </FooterTemplate>
             </asp:Repeater>
-        </div>
-        <div class="tab-content" style="display: none">
-            <dl>
-                <dt>系统分类</dt>
-                <dd>
-                    <asp:TextBox ID="txtType" runat="server" CssClass="input normal" datatype="*2-100" sucmsg=" " />
-                    <span class="Validform_checktip">*</span>
-                </dd>
-            </dl>
-            <dl>
-                <dt>模板名称</dt>
-                <dd>
-                    <asp:TextBox ID="txtName" runat="server" CssClass="input normal" datatype="*2-100" sucmsg=" " />
-                    <span class="Validform_checktip">*</span>
-                </dd>
-            </dl>
-            <dl>
-                <dt>主要品牌</dt>
-                <dd>
-                    <asp:TextBox ID="txtMainBrand" runat="server" CssClass="input normal" datatype="*2-100" sucmsg=" " />
-                </dd>
-            </dl>
-            <dl>
-                <dt>系统描述</dt>
-                <dd>
-                    <asp:TextBox ID="txtDes" runat="server" CssClass="input normal" datatype="*2-100" sucmsg=" " />
-                </dd>
-            </dl>
-            <dl>
-                <dt>使用场景</dt>
-                <dd>
-                    <asp:TextBox ID="txtScenario" runat="server" CssClass="input normal" datatype="*2-100" sucmsg=" " />
-                </dd>
-            </dl>
-            <dl>
-                <dt>系统搭配注意事项</dt>
-                <dd>
-                    <asp:TextBox ID="txtNotes" runat="server" CssClass="input normal" datatype="*2-100" sucmsg=" " />
-                </dd>
-            </dl>
-        </div>
-        <div class="tab-content" style="display: none">
-            <asp:Button ID="btnUpdateLine" runat="server" CssClass="btn green" Style="margin-bottom: 8px;" Text="更新线材明细" OnClick="btnUpdateLine_Click" />
+
+            <table width="100%" border="0" cellspacing="0" cellpadding="0" class="ltable">
+                <tr>
+                    <th colspan="6" align="center"><b>人工费用</b></th>
+                </tr>
+                <tr>
+                    <th align="left" width="35px">&nbsp;&nbsp;</th>
+                    <th align="left" width="10%">项目</th>
+                    <th align="center" width="10%">LOGO</th>
+                    <th align="left">描述</th>
+                    <th align="left" width="10%">单位</th>
+                    <th align="left" width="10%">比例</th>
+                    <th align="left" width="10%">价格</th>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>弱电布线费比例系数</td>
+                    <td align="center">
+                        <img src="../skin/default/星光.jpg" /></td>
+                    <td>
+                        <asp:TextBox ID="txtRuodiananzhuangDes" runat="server" CssClass="input normal" Width="95%" TextMode="MultiLine" Height="80" sucmsg=" " /></td>
+                    <td>PCS</td>
+                    <td>
+                        <asp:TextBox ID="txtRuodiananzhuangFee" runat="server" CssClass="input small"></asp:TextBox></td>
+                    <td>
+                        <asp:TextBox ID="txtRuodiananzhuangTotal" runat="server"></asp:TextBox></td>
+
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>器材安装费比例系数</td>
+                    <td align="center">
+                        <img src="../skin/default/星光.jpg" /></td>
+                    <td>
+                        <asp:TextBox ID="txtQicaianzhuangDes" runat="server" CssClass="input normal" Width="95%" TextMode="MultiLine" Height="80" sucmsg=" " /></td>
+                    <td>PCS</td>
+                    <td>
+                        <asp:TextBox ID="txtQicaianzhuangFee" runat="server" CssClass="input small"></asp:TextBox></td>
+                    <td>
+                        <asp:TextBox ID="txtQicaianzhuangTotal" runat="server"></asp:TextBox></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>系统调试费比例系数</td>
+                    <td align="center">
+                        <img src="../skin/default/星光.jpg" /></td>
+                    <td>
+                        <asp:TextBox ID="txtXitongtiaoshiDes" runat="server" CssClass="input normal" Width="95%" TextMode="MultiLine" Height="80" sucmsg=" " /></td>
+                    <td>PCS</td>
+                    <td>
+                        <asp:TextBox ID="txtXitongtiaoshiFee" runat="server" CssClass="input small"></asp:TextBox></td>
+                    <td>
+                        <asp:TextBox ID="txtXitongtiaoshiTotal" runat="server"></asp:TextBox></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>项目管理费比例系数</td>
+                    <td align="center">
+                        <img src="../skin/default/星光.jpg" /></td>
+                    <td>
+                        <asp:TextBox ID="txtXiangmuguanliDes" runat="server" CssClass="input normal" Width="95%" TextMode="MultiLine" Height="80" sucmsg=" " /></td>
+                    <td>PCS</td>
+                    <td>
+                        <asp:TextBox ID="txtXiangmuguanliFee" runat="server" CssClass="input small"></asp:TextBox></td>
+                    <td>
+                        <asp:TextBox ID="txtXiangmuguanliTotal" runat="server"></asp:TextBox></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>视频调试费比例系数</td>
+                    <td align="center">
+                        <img src="../skin/default/星光.jpg" /></td>
+                    <td>
+                        <asp:TextBox ID="txtVideoDebugDes" runat="server" CssClass="input normal" Width="95%" TextMode="MultiLine" Height="80" sucmsg=" " /></td>
+                    <td>PCS</td>
+                    <td>
+                        <asp:TextBox ID="txtVideoDebugFee" runat="server" CssClass="input small"></asp:TextBox></td>
+                    <td>
+                        <asp:TextBox ID="txtVideoDebugTotal" runat="server"></asp:TextBox></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>音频调试费比例系数</td>
+                    <td align="center">
+                        <img src="../skin/default/星光.jpg" /></td>
+                    <td>
+                        <asp:TextBox ID="txtAudioDebugDes" runat="server" CssClass="input normal" Width="95%" TextMode="MultiLine" Height="80" sucmsg=" " /></td>
+                    <td>PCS</td>
+                    <td>
+                        <asp:TextBox ID="txtAudioDebugFee" runat="server" CssClass="input small"></asp:TextBox></td>
+                    <td>
+                        <asp:TextBox ID="txtAudioDebugTotal" runat="server"></asp:TextBox></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>线材辅材费比例系数</td>
+                    <td align="center">
+                        <img src="../skin/default/星光.jpg" /></td>
+                    <td>
+                        <asp:TextBox ID="txtAuMaterialDes" runat="server" CssClass="input normal" Width="95%" TextMode="MultiLine" Height="80" sucmsg=" " /></td>
+                    <td>PCS</td>
+                    <td>
+                        <asp:TextBox ID="txtAuMaterialFee" runat="server" CssClass="input small"></asp:TextBox></td>
+                    <td>
+                        <asp:TextBox ID="txtAuMaterialTotal" runat="server"></asp:TextBox></td>
+                </tr>
+            </table>
             <asp:Repeater ID="rptLine" runat="server">
                 <HeaderTemplate>
                     <table width="100%" border="0" cellspacing="0" cellpadding="0" class="ltable">
+                        <tr>
+                            <th colspan="10" align="center"><b>配套线材</b></th>
+                        </tr>
                         <tr>
                             <th align="center">品牌</th>
                             <th align="center">LOGO</th>
@@ -215,74 +282,61 @@
   </table>
                 </FooterTemplate>
             </asp:Repeater>
-
         </div>
         <div class="tab-content" style="display: none">
-            <asp:Button ID="btnUpdateLaborFee" runat="server" CssClass="btn green" Style="margin-bottom: 8px;" Text="更新人工费用" OnClick="btnUpdateLaborFee_Click" />
-            <table width="100%" border="0" cellspacing="0" cellpadding="0" class="ltable">
-                <tr>
-                    <th align="left">&nbsp;&nbsp;</th>
-                    <th align="left">项目</th>
-                    <th align="left" style="width: 280px">描述</th>
-                    <th align="left">单位</th>
-                    <th align="left">数量</th>
-                    <th align="left">价格</th>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td>弱电布线费</td>
-                    <td></td>
-                    <td>项目</td>
-                    <td>1</td>
-                    <td>
-                        <asp:TextBox ID="txtRuodiananzhuangFee" runat="server"></asp:TextBox></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td>器材安装费</td>
-                    <td></td>
-                    <td>项目</td>
-                    <td>1</td>
-                    <td>
-                        <asp:TextBox ID="txtQicaianzhuangFee" runat="server"></asp:TextBox></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td>系统调试费</td>
-                    <td></td>
-                    <td>项目</td>
-                    <td>1</td>
-                    <td>
-                        <asp:TextBox ID="txtXitongtiaoshiFee" runat="server"></asp:TextBox></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td>项目管理费</td>
-                    <td></td>
-                    <td>项目</td>
-                    <td>1</td>
-                    <td>
-                        <asp:TextBox ID="txtXiangmuguanliFee" runat="server"></asp:TextBox></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td>视频调试费</td>
-                    <td></td>
-                    <td>项目</td>
-                    <td>1</td>
-                    <td>
-                        <asp:TextBox ID="txtVideoDebugFee" runat="server"></asp:TextBox></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td>音频调试费</td>
-                    <td></td>
-                    <td>项目</td>
-                    <td>1</td>
-                    <td>
-                        <asp:TextBox ID="txtAudioDebugFee" runat="server"></asp:TextBox></td>
-                </tr>
-            </table>
+            <dl>
+                <dt>系统分类</dt>
+                <dd>
+                    <asp:TextBox ID="txtType" runat="server" CssClass="input normal" datatype="*2-100" sucmsg=" " />
+                    <span class="Validform_checktip">*</span>
+                </dd>
+            </dl>
+            <dl>
+                <dt>模板名称</dt>
+                <dd>
+                    <asp:TextBox ID="txtName" runat="server" CssClass="input normal" datatype="*2-100" sucmsg=" " />
+                    <span class="Validform_checktip">*</span>
+                </dd>
+            </dl>
+            <dl>
+                <dt>模板名称</dt>
+                <dd>
+                    <div class="rule-single-select">
+                        <asp:DropDownList ID="ddlTag" runat="server" datatype="*" sucmsg=" ">
+                            <asp:ListItem Text="--无--" Value=""></asp:ListItem>
+                            <asp:ListItem Text="正常产品" Value="正常产品"></asp:ListItem>
+                            <asp:ListItem Text="明星产品" Value="明星产品"></asp:ListItem>
+                            <asp:ListItem Text="金牛产品" Value="金牛产品"></asp:ListItem>
+                            <asp:ListItem Text="瘦狗产品" Value="瘦狗产品"></asp:ListItem>
+                            <asp:ListItem Text="库存" Value="库存"></asp:ListItem>
+                        </asp:DropDownList>
+                    </div>
+                </dd>
+            </dl>
+            <dl>
+                <dt>主要品牌</dt>
+                <dd>
+                    <asp:TextBox ID="txtMainBrand" runat="server" CssClass="input normal" datatype="*2-100" sucmsg=" " />
+                </dd>
+            </dl>
+            <dl>
+                <dt>系统描述</dt>
+                <dd>
+                    <asp:TextBox ID="txtDes" runat="server" CssClass="input normal" datatype="*2-100" sucmsg=" " />
+                </dd>
+            </dl>
+            <dl>
+                <dt>使用场景</dt>
+                <dd>
+                    <asp:TextBox ID="txtScenario" runat="server" CssClass="input normal" datatype="*2-100" sucmsg=" " />
+                </dd>
+            </dl>
+            <dl>
+                <dt>系统搭配注意事项</dt>
+                <dd>
+                    <asp:TextBox ID="txtNotes" runat="server" CssClass="input normal" datatype="*2-100" sucmsg=" " />
+                </dd>
+            </dl>
         </div>
         <!--/内容-->
         <!--工具栏-->

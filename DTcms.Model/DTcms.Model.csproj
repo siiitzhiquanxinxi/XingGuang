@@ -50,6 +50,7 @@
     <Compile Include="channel.cs" />
     <Compile Include="channel_field.cs" />
     <Compile Include="channel_site.cs" />
+    <Compile Include="C_CustomerProgram.cs" />
     <Compile Include="express.cs" />
     <Compile Include="mail_template.cs" />
     <Compile Include="manager.cs" />

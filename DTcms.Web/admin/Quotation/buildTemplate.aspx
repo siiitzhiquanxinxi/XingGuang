@@ -59,6 +59,21 @@
                 </dd>
             </dl>
             <dl>
+                <dt>热门标签</dt>
+                <dd>
+                    <div class="rule-single-select">
+                        <asp:DropDownList ID="ddlTag" runat="server" datatype="*" sucmsg=" ">
+                            <asp:ListItem Text="--无--" Value=""></asp:ListItem>
+                            <asp:ListItem Text="正常产品" Value="正常产品"></asp:ListItem>
+                            <asp:ListItem Text="明星产品" Value="明星产品"></asp:ListItem>
+                            <asp:ListItem Text="金牛产品" Value="金牛产品"></asp:ListItem>
+                            <asp:ListItem Text="瘦狗产品" Value="瘦狗产品"></asp:ListItem>
+                            <asp:ListItem Text="库存" Value="库存"></asp:ListItem>
+                        </asp:DropDownList>
+                    </div>
+                </dd>
+            </dl>
+            <dl>
                 <dt>主要品牌</dt>
                 <dd>
                     <asp:TextBox ID="txtMainBrand" runat="server" CssClass="input normal" datatype="*2-100" sucmsg=" " />
@@ -82,11 +97,57 @@
                     <asp:TextBox ID="txtNotes" runat="server" CssClass="input normal" datatype="*2-100" sucmsg=" " />
                 </dd>
             </dl>
+            <dl>
+                <dt>弱电布线费比例系数</dt>
+                <dd>
+                    <asp:TextBox ID="txtLaborCostFee" runat="server" CssClass="input small" datatype="*2-100" sucmsg=" " />
+                    &nbsp;&nbsp;描述：<asp:TextBox ID="txtLaborCostDes" runat="server" CssClass="input normal" TextMode="MultiLine" Height="60" sucmsg=" " />
+                </dd>
+            </dl>
+            <dl>
+                <dt>器材安装费比例系数</dt>
+                <dd>
+                    <asp:TextBox ID="txtInstallationFee" runat="server" CssClass="input small" datatype="*2-100" sucmsg=" " />
+                    &nbsp;&nbsp;描述：<asp:TextBox ID="txtInstallationDes" runat="server" CssClass="input normal" TextMode="MultiLine" Height="60" sucmsg=" " />
+                </dd>
+            </dl>
+            <dl>
+                <dt>系统调试费比例系数</dt>
+                <dd>
+                    <asp:TextBox ID="txtCommissioningFee" runat="server" CssClass="input small" datatype="*2-100" sucmsg=" " />
+                    &nbsp;&nbsp;描述：<asp:TextBox ID="txtCommissioningDes" runat="server" CssClass="input normal" TextMode="MultiLine" Height="60" sucmsg=" " />
+                </dd>
+            </dl>
+            <dl>
+                <dt>项目管理费比例系数</dt>
+                <dd>
+                    <asp:TextBox ID="txtManagementFee" runat="server" CssClass="input small" datatype="*2-100" sucmsg=" " />
+                    &nbsp;&nbsp;描述：<asp:TextBox ID="txtManagementDes" runat="server" CssClass="input normal" TextMode="MultiLine" Height="60" sucmsg=" " />
+                </dd>
+            </dl>
+            <dl>
+                <dt>视频调试费用比例系数</dt>
+                <dd>
+                    <asp:TextBox ID="txtVideoDebugFee" runat="server" CssClass="input small" datatype="*2-100" sucmsg=" " />
+                    &nbsp;&nbsp;描述：<asp:TextBox ID="txtVideoDebugDes" runat="server" CssClass="input normal" TextMode="MultiLine" Height="60" sucmsg=" " />
+                </dd>
+            </dl>
+            <dl>
+                <dt>音频调试费用比例系数</dt>
+                <dd>
+                    <asp:TextBox ID="txtAudioDebugFee" runat="server" CssClass="input small" datatype="*2-100" sucmsg=" " />
+                    &nbsp;&nbsp;描述：<asp:TextBox ID="txtAudioDebugDes" runat="server" CssClass="input normal" TextMode="MultiLine" Height="60" sucmsg=" " />
+                </dd>
+            </dl>
+            <dl>
+                <dt>线材辅材费用比例系数</dt>
+                <dd>
+                    <asp:TextBox ID="txtAuMaterialFee" runat="server" CssClass="input small" datatype="*2-100" sucmsg=" " />
+                    &nbsp;&nbsp;描述：<asp:TextBox ID="txtAuMaterialDes" runat="server" CssClass="input normal" TextMode="MultiLine" Height="60" sucmsg=" " />
+                </dd>
+            </dl>
         </div>
-
-
         <!--/内容-->
-
         <!--工具栏-->
         <div class="page-footer">
             <div class="btn-wrap">

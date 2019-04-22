@@ -79,7 +79,7 @@
         <!--/工具栏-->
 
         <!--列表-->
-        <div class="table-container">
+        <div class="table-container" style="overflow-y: scroll; height: 650px;">
             <!--文字列表-->
             <asp:Repeater ID="rptList1" runat="server">
                 <HeaderTemplate>
@@ -128,12 +128,12 @@
 
         <!--内容底部-->
         <div class="line20"></div>
-        <webdiyer:AspNetPager ID="AspNetPager1" runat="server" CustomInfoHTML="当前页:%CurrentPageIndex%/%PageCount% 共有%RecordCount%条记录 %PageCount%/页"
+        <%--<webdiyer:AspNetPager ID="AspNetPager1" runat="server" CustomInfoHTML="当前页:%CurrentPageIndex%/%PageCount% 共有%RecordCount%条记录 %PageCount%/页"
             FirstPageText="首页" HorizontalAlign="Center" InvalidPageIndexErrorMessage="页索引不是有效的数值！"
             LastPageText="末页" NextPageText="下一页" PageIndexOutOfRangeErrorMessage="页索引超出范围！"
             PageSize="5" PrevPageText="上一页" ShowCustomInfoSection="Left" ShowInputBox="Always"
             Width="100%" OnPageChanged="AspNetPager1_PageChanged" NumericButtonCount="5">
-        </webdiyer:AspNetPager>
+        </webdiyer:AspNetPager>--%>
         <!--/内容底部-->
 
     </form>

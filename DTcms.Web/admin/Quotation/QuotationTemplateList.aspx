@@ -55,10 +55,13 @@
                                 <asp:LinkButton ID="btnDelete" runat="server" CssClass="del" OnClientClick="return ExePostBack('btnDelete');" OnClick="btnDelete_Click"><i></i><span>删除</span></asp:LinkButton></li>
                         </ul>
                         <div class="menu-list">
-                            <div class="rule-multi-checkbox">
+                            <div class="rule-multi-radio">
+                                <asp:RadioButtonList ID="rblSType" runat="server" RepeatDirection="Vertical" RepeatLayout="Flow" AutoPostBack="true" OnSelectedIndexChanged="rblSType_SelectedIndexChanged"></asp:RadioButtonList>
+                            </div>
+                            <%--<div class="rule-multi-checkbox">
                                 <asp:CheckBoxList ID="cblSType" runat="server" RepeatDirection="Horizontal" RepeatLayout="Flow" AutoPostBack="True" OnSelectedIndexChanged="cblMType_SelectedIndexChanged">
                                 </asp:CheckBoxList>
-                            </div>
+                            </div>--%>
                         </div>
                     </div>
                     <div class="r-list">
@@ -84,6 +87,13 @@
                             <th align="left">系统描述</th>
                             <th align="left">使用场景</th>
                             <th align="left">系统搭配注意事项</th>
+                            <th align="left">弱电布线费</th>
+                            <th align="left">器材安装费</th>
+                            <th align="left">系统调试费</th>
+                            <th align="left">项目管理费</th>
+                            <th align="left">视频调试费用</th>
+                            <th align="left">音频调试费用</th>
+                            <th align="left">总额</th>
                             <th width="10%">操作</th>
                         </tr>
                 </HeaderTemplate>
@@ -99,6 +109,20 @@
                         <td><%#Eval("QuotationTemplateDescription") %></td>
                         <td><%#Eval("QuotationTemplateScenario") %></td>
                         <td><%#Eval("QuotationTemplateNotes") %></td>
+                        <td>
+                            <asp:Label ID="lblRuodiananzhuangFee" runat="server" Text=""></asp:Label></td>
+                        <td>
+                            <asp:Label ID="lblQicaianzhuangFee" runat="server" Text=""></asp:Label></td>
+                        <td>
+                            <asp:Label ID="lblXitongtiaoshiFee" runat="server" Text=""></asp:Label></td>
+                        <td>
+                            <asp:Label ID="lblXiangmuguanliFee" runat="server" Text=""></asp:Label></td>
+                        <td>
+                            <asp:Label ID="lblVideoDebugFee" runat="server" Text=""></asp:Label></td>
+                        <td>
+                            <asp:Label ID="lblAudioDebugFee" runat="server" Text=""></asp:Label></td>
+                        <td>
+                            <asp:Label ID="lblTotal" runat="server" Text=""></asp:Label></td>
                         <td align="center">
                             <a href='QuotationTemplateEdit.aspx?action=edit&id=<%#Eval("QuotationTemplateId") %>'>编辑</a>
                         </td>
@@ -112,7 +136,7 @@
             <!--/文字列表-->
         </div>
         <!--/列表-->
-        
+
         <!--内容底部-->
         <div class="line20"></div>
         <webdiyer:AspNetPager ID="AspNetPager1" runat="server" CustomInfoHTML="当前页:%CurrentPageIndex%/%PageCount% 共有%RecordCount%条记录 %PageCount%/页"

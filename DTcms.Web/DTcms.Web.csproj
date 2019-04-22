@@ -129,6 +129,8 @@
     <Content Include="admin\order\payment_edit.aspx" />
     <Content Include="admin\order\payment_list.aspx" />
     <Content Include="admin\Quotation\buildQuotaionBlank.aspx" />
+    <Content Include="admin\Quotation\HistoryCustomerQuotationList.aspx" />
+    <Content Include="admin\Quotation\QuotaionDetailEdit.aspx" />
     <Content Include="admin\Quotation\buildQuotaionTemp.aspx" />
     <Content Include="admin\Quotation\buildTemplate.aspx" />
     <Content Include="admin\Quotation\chooseGoodsType.aspx" />
@@ -140,6 +142,7 @@
     <Content Include="admin\Quotation\QuotationListQuery.aspx" />
     <Content Include="admin\Quotation\QuotationTemplateEdit.aspx" />
     <Content Include="admin\Quotation\QuotationTemplateList.aspx" />
+    <Content Include="admin\Quotation\showTotalPage.aspx" />
     <Content Include="admin\Quotation\SystemTypeEdit.aspx" />
     <Content Include="admin\Quotation\SystemTypeList.aspx" />
     <Content Include="admin\settings\builder_html.aspx" />
@@ -168,6 +171,7 @@
     <Content Include="admin\skin\default\Toleft.png" />
     <Content Include="admin\skin\default\Toright.png" />
     <Content Include="admin\skin\default\valid_icons.png" />
+    <Content Include="admin\skin\default\星光.jpg" />
     <Content Include="admin\skin\layout.css" />
     <Content Include="admin\users\amount_log.aspx" />
     <Content Include="admin\users\group_edit.aspx" />
@@ -461,6 +465,7 @@
     <Content Include="editor\themes\qq\qq.css" />
     <Content Include="editor\themes\simple\simple.css" />
     <Content Include="favicon.ico" />
+    <Content Include="Global.asax" />
     <Content Include="images\oauth\feixin.png" />
     <Content Include="images\oauth\kaixin.png" />
     <Content Include="images\oauth\qq.png" />
@@ -1009,6 +1014,20 @@
     <Compile Include="admin\Quotation\buildQuotaionBlank.aspx.designer.cs">
       <DependentUpon>buildQuotaionBlank.aspx</DependentUpon>
     </Compile>
+    <Compile Include="admin\Quotation\HistoryCustomerQuotationList.aspx.cs">
+      <DependentUpon>HistoryCustomerQuotationList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="admin\Quotation\HistoryCustomerQuotationList.aspx.designer.cs">
+      <DependentUpon>HistoryCustomerQuotationList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="admin\Quotation\QuotaionDetailEdit.aspx.cs">
+      <DependentUpon>QuotaionDetailEdit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="admin\Quotation\QuotaionDetailEdit.aspx.designer.cs">
+      <DependentUpon>QuotaionDetailEdit.aspx</DependentUpon>
+    </Compile>
     <Compile Include="admin\Quotation\buildQuotaionTemp.aspx.cs">
       <DependentUpon>buildQuotaionTemp.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1085,6 +1104,13 @@
     </Compile>
     <Compile Include="admin\Quotation\QuotationTemplateList.aspx.designer.cs">
       <DependentUpon>QuotationTemplateList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="admin\Quotation\showTotalPage.aspx.cs">
+      <DependentUpon>showTotalPage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="admin\Quotation\showTotalPage.aspx.designer.cs">
+      <DependentUpon>showTotalPage.aspx</DependentUpon>
     </Compile>
     <Compile Include="admin\Quotation\SystemTypeEdit.aspx.cs">
       <DependentUpon>SystemTypeEdit.aspx</DependentUpon>
@@ -1411,6 +1437,9 @@
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="DbHelperSQL.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="tools\admin_ajax.ashx.cs">
       <DependentUpon>admin_ajax.ashx</DependentUpon>

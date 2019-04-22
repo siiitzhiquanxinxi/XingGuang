@@ -37,9 +37,9 @@ namespace DTcms.DAL
         {
             StringBuilder strSql = new StringBuilder();
             strSql.Append("insert into Q_QuotationDetailType(");
-            strSql.Append("FK_ParentQuotationListId,FK_MaterialTypeId,SystemTypeName,SystemTypeDes,RuodiananzhuangFee,QicaianzhuangFee,XitongtiaoshiFee,XiangmuguanliFee,VideoDebugFee,AudioDebugFee,TypeOrder)");
+            strSql.Append("FK_ParentQuotationListId,FK_MaterialTypeId,SystemTypeName,SystemTypeDes,RuodiananzhuangFee,QicaianzhuangFee,XitongtiaoshiFee,XiangmuguanliFee,VideoDebugFee,AudioDebugFee,AuMaterialFee,RuodiananzhuangDes,QicaianzhuangDes,XitongtiaoshiDes,XiangmuguanliDes,VideoDebugDes,AudioDebugDes,AuMaterialDes,TypeOrder)");
             strSql.Append(" values (");
-            strSql.Append("@FK_ParentQuotationListId,@FK_MaterialTypeId,@SystemTypeName,@SystemTypeDes,@RuodiananzhuangFee,@QicaianzhuangFee,@XitongtiaoshiFee,@XiangmuguanliFee,@VideoDebugFee,@AudioDebugFee,@TypeOrder)");
+            strSql.Append("@FK_ParentQuotationListId,@FK_MaterialTypeId,@SystemTypeName,@SystemTypeDes,@RuodiananzhuangFee,@QicaianzhuangFee,@XitongtiaoshiFee,@XiangmuguanliFee,@VideoDebugFee,@AudioDebugFee,@AuMaterialFee,@RuodiananzhuangDes,@QicaianzhuangDes,@XitongtiaoshiDes,@XiangmuguanliDes,@VideoDebugDes,@AudioDebugDes,@AuMaterialDes,@TypeOrder)");
             strSql.Append(";select @@IDENTITY");
             SqlParameter[] parameters = {
                     new SqlParameter("@FK_ParentQuotationListId", SqlDbType.Int,4),
@@ -52,6 +52,14 @@ namespace DTcms.DAL
                     new SqlParameter("@XiangmuguanliFee", SqlDbType.Decimal,9),
                     new SqlParameter("@VideoDebugFee", SqlDbType.Decimal,9),
                     new SqlParameter("@AudioDebugFee", SqlDbType.Decimal,9),
+                    new SqlParameter("@AuMaterialFee", SqlDbType.Decimal,9),
+                    new SqlParameter("@RuodiananzhuangDes", SqlDbType.NVarChar,200),
+                    new SqlParameter("@QicaianzhuangDes", SqlDbType.NVarChar,200),
+                    new SqlParameter("@XitongtiaoshiDes", SqlDbType.NVarChar,200),
+                    new SqlParameter("@XiangmuguanliDes", SqlDbType.NVarChar,200),
+                    new SqlParameter("@VideoDebugDes", SqlDbType.NVarChar,200),
+                    new SqlParameter("@AudioDebugDes", SqlDbType.NVarChar,200),
+                    new SqlParameter("@AuMaterialDes", SqlDbType.NVarChar,200),
                     new SqlParameter("@TypeOrder", SqlDbType.Int,4)};
             parameters[0].Value = model.FK_ParentQuotationListId;
             parameters[1].Value = model.FK_MaterialTypeId;
@@ -63,7 +71,15 @@ namespace DTcms.DAL
             parameters[7].Value = model.XiangmuguanliFee;
             parameters[8].Value = model.VideoDebugFee;
             parameters[9].Value = model.AudioDebugFee;
-            parameters[10].Value = model.TypeOrder;
+            parameters[10].Value = model.AuMaterialFee;
+            parameters[11].Value = model.RuodiananzhuangDes;
+            parameters[12].Value = model.QicaianzhuangDes;
+            parameters[13].Value = model.XitongtiaoshiDes;
+            parameters[14].Value = model.XiangmuguanliDes;
+            parameters[15].Value = model.VideoDebugDes;
+            parameters[16].Value = model.AudioDebugDes;
+            parameters[17].Value = model.AuMaterialDes;
+            parameters[18].Value = model.TypeOrder;
 
             object obj = DbHelperSQL.GetSingle(strSql.ToString(), parameters);
             if (obj == null)
@@ -92,6 +108,14 @@ namespace DTcms.DAL
             strSql.Append("XiangmuguanliFee=@XiangmuguanliFee,");
             strSql.Append("VideoDebugFee=@VideoDebugFee,");
             strSql.Append("AudioDebugFee=@AudioDebugFee,");
+            strSql.Append("AuMaterialFee=@AuMaterialFee,");
+            strSql.Append("RuodiananzhuangDes=@RuodiananzhuangDes,");
+            strSql.Append("QicaianzhuangDes=@QicaianzhuangDes,");
+            strSql.Append("XitongtiaoshiDes=@XitongtiaoshiDes,");
+            strSql.Append("XiangmuguanliDes=@XiangmuguanliDes,");
+            strSql.Append("VideoDebugDes=@VideoDebugDes,");
+            strSql.Append("AudioDebugDes=@AudioDebugDes,");
+            strSql.Append("AuMaterialDes=@AuMaterialDes,");
             strSql.Append("TypeOrder=@TypeOrder");
             strSql.Append(" where QuotationDetailTypeId=@QuotationDetailTypeId");
             SqlParameter[] parameters = {
@@ -105,6 +129,14 @@ namespace DTcms.DAL
                     new SqlParameter("@XiangmuguanliFee", SqlDbType.Decimal,9),
                     new SqlParameter("@VideoDebugFee", SqlDbType.Decimal,9),
                     new SqlParameter("@AudioDebugFee", SqlDbType.Decimal,9),
+                    new SqlParameter("@AuMaterialFee", SqlDbType.Decimal,9),
+                    new SqlParameter("@RuodiananzhuangDes", SqlDbType.NVarChar,200),
+                    new SqlParameter("@QicaianzhuangDes", SqlDbType.NVarChar,200),
+                    new SqlParameter("@XitongtiaoshiDes", SqlDbType.NVarChar,200),
+                    new SqlParameter("@XiangmuguanliDes", SqlDbType.NVarChar,200),
+                    new SqlParameter("@VideoDebugDes", SqlDbType.NVarChar,200),
+                    new SqlParameter("@AudioDebugDes", SqlDbType.NVarChar,200),
+                    new SqlParameter("@AuMaterialDes", SqlDbType.NVarChar,200),
                     new SqlParameter("@TypeOrder", SqlDbType.Int,4),
                     new SqlParameter("@QuotationDetailTypeId", SqlDbType.Int,4)};
             parameters[0].Value = model.FK_ParentQuotationListId;
@@ -117,8 +149,16 @@ namespace DTcms.DAL
             parameters[7].Value = model.XiangmuguanliFee;
             parameters[8].Value = model.VideoDebugFee;
             parameters[9].Value = model.AudioDebugFee;
-            parameters[10].Value = model.TypeOrder;
-            parameters[11].Value = model.QuotationDetailTypeId;
+            parameters[10].Value = model.AuMaterialFee;
+            parameters[11].Value = model.RuodiananzhuangDes;
+            parameters[12].Value = model.QicaianzhuangDes;
+            parameters[13].Value = model.XitongtiaoshiDes;
+            parameters[14].Value = model.XiangmuguanliDes;
+            parameters[15].Value = model.VideoDebugDes;
+            parameters[16].Value = model.AudioDebugDes;
+            parameters[17].Value = model.AuMaterialDes;
+            parameters[18].Value = model.TypeOrder;
+            parameters[19].Value = model.QuotationDetailTypeId;
 
             int rows = DbHelperSQL.ExecuteSql(strSql.ToString(), parameters);
             if (rows > 0)
@@ -182,7 +222,7 @@ namespace DTcms.DAL
         {
 
             StringBuilder strSql = new StringBuilder();
-            strSql.Append("select  top 1 QuotationDetailTypeId,FK_ParentQuotationListId,FK_MaterialTypeId,SystemTypeName,SystemTypeDes,RuodiananzhuangFee,QicaianzhuangFee,XitongtiaoshiFee,XiangmuguanliFee,VideoDebugFee,AudioDebugFee,TypeOrder from Q_QuotationDetailType ");
+            strSql.Append("select  top 1 QuotationDetailTypeId,FK_ParentQuotationListId,FK_MaterialTypeId,SystemTypeName,SystemTypeDes,RuodiananzhuangFee,QicaianzhuangFee,XitongtiaoshiFee,XiangmuguanliFee,VideoDebugFee,AudioDebugFee,AuMaterialFee,RuodiananzhuangDes,QicaianzhuangDes,XitongtiaoshiDes,XiangmuguanliDes,VideoDebugDes,AudioDebugDes,AuMaterialDes,TypeOrder from Q_QuotationDetailType ");
             strSql.Append(" where QuotationDetailTypeId=@QuotationDetailTypeId");
             SqlParameter[] parameters = {
                     new SqlParameter("@QuotationDetailTypeId", SqlDbType.Int,4)
@@ -254,6 +294,38 @@ namespace DTcms.DAL
                 {
                     model.AudioDebugFee = decimal.Parse(row["AudioDebugFee"].ToString());
                 }
+                if (row["AuMaterialFee"] != null && row["AuMaterialFee"].ToString() != "")
+                {
+                    model.AuMaterialFee = decimal.Parse(row["AuMaterialFee"].ToString());
+                }
+                if (row["RuodiananzhuangDes"] != null)
+                {
+                    model.RuodiananzhuangDes = row["RuodiananzhuangDes"].ToString();
+                }
+                if (row["QicaianzhuangDes"] != null)
+                {
+                    model.QicaianzhuangDes = row["QicaianzhuangDes"].ToString();
+                }
+                if (row["XitongtiaoshiDes"] != null)
+                {
+                    model.XitongtiaoshiDes = row["XitongtiaoshiDes"].ToString();
+                }
+                if (row["XiangmuguanliDes"] != null)
+                {
+                    model.XiangmuguanliDes = row["XiangmuguanliDes"].ToString();
+                }
+                if (row["VideoDebugDes"] != null)
+                {
+                    model.VideoDebugDes = row["VideoDebugDes"].ToString();
+                }
+                if (row["AudioDebugDes"] != null)
+                {
+                    model.AudioDebugDes = row["AudioDebugDes"].ToString();
+                }
+                if (row["AuMaterialDes"] != null)
+                {
+                    model.AuMaterialDes = row["AuMaterialDes"].ToString();
+                }
                 if (row["TypeOrder"] != null && row["TypeOrder"].ToString() != "")
                 {
                     model.TypeOrder = int.Parse(row["TypeOrder"].ToString());
@@ -268,7 +340,7 @@ namespace DTcms.DAL
         public DataSet GetList(string strWhere)
         {
             StringBuilder strSql = new StringBuilder();
-            strSql.Append("select QuotationDetailTypeId,FK_ParentQuotationListId,FK_MaterialTypeId,SystemTypeName,SystemTypeDes,RuodiananzhuangFee,QicaianzhuangFee,XitongtiaoshiFee,XiangmuguanliFee,VideoDebugFee,AudioDebugFee,TypeOrder ");
+            strSql.Append("select QuotationDetailTypeId,FK_ParentQuotationListId,FK_MaterialTypeId,SystemTypeName,SystemTypeDes,RuodiananzhuangFee,QicaianzhuangFee,XitongtiaoshiFee,XiangmuguanliFee,VideoDebugFee,AudioDebugFee,AuMaterialFee,RuodiananzhuangDes,QicaianzhuangDes,XitongtiaoshiDes,XiangmuguanliDes,VideoDebugDes,AudioDebugDes,AuMaterialDes,TypeOrder ");
             strSql.Append(" FROM Q_QuotationDetailType ");
             if (strWhere.Trim() != "")
             {
@@ -288,7 +360,7 @@ namespace DTcms.DAL
             {
                 strSql.Append(" top " + Top.ToString());
             }
-            strSql.Append(" QuotationDetailTypeId,FK_ParentQuotationListId,FK_MaterialTypeId,SystemTypeName,SystemTypeDes,RuodiananzhuangFee,QicaianzhuangFee,XitongtiaoshiFee,XiangmuguanliFee,VideoDebugFee,AudioDebugFee,TypeOrder ");
+            strSql.Append(" QuotationDetailTypeId,FK_ParentQuotationListId,FK_MaterialTypeId,SystemTypeName,SystemTypeDes,RuodiananzhuangFee,QicaianzhuangFee,XitongtiaoshiFee,XiangmuguanliFee,VideoDebugFee,AudioDebugFee,AuMaterialFee,RuodiananzhuangDes,QicaianzhuangDes,XitongtiaoshiDes,XiangmuguanliDes,VideoDebugDes,AudioDebugDes,AuMaterialDes,TypeOrder ");
             strSql.Append(" FROM Q_QuotationDetailType ");
             if (strWhere.Trim() != "")
             {
@@ -376,6 +448,5 @@ namespace DTcms.DAL
         #endregion  ExtensionMethod
     }
 }
-
 
 

@@ -104,7 +104,7 @@
                         <td><%#Eval("QuotationListState").ToString()=="0"?"已保存":Eval("QuotationListState").ToString()=="1"?"已审核":"" %></td>
                         <td align="center">
                             <asp:HiddenField ID="hfdState" runat="server" Value='<%#Eval("QuotationListState") %>' />
-                            <a href='buildQuotaionBlank.aspx?action=view&id=<%#Eval("QuotationListId") %>'>查看</a>
+                            <a href='QuotaionDetailEdit.aspx?action=view&id=<%#Eval("QuotationListId") %>'>查看</a>
                             <asp:LinkButton ID="lbtnEdit" runat="server" CommandArgument='<%#Eval("QuotationListId") %>' OnClick="lbtnEdit_Click">编辑</asp:LinkButton>
                             <asp:LinkButton ID="lbtnApprove" runat="server" OnClientClick="return confirm('确认审核？审核无法修改')" CommandArgument='<%#Eval("QuotationListId") %>' OnClick="lbtnApprove_Click">审核</asp:LinkButton>
                         </td>

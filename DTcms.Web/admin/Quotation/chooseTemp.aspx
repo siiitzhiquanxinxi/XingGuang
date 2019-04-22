@@ -50,13 +50,12 @@
                     <a class="menu-btn"></a>
                     <div class="l-list">
                         <div class="menu-list">
-                            <div class="rule-multi-checkbox">
-                                <asp:CheckBoxList ID="cblMType" runat="server" RepeatDirection="Horizontal" RepeatLayout="Flow" AutoPostBack="True" OnSelectedIndexChanged="cblMType_SelectedIndexChanged">
-                                </asp:CheckBoxList>
+                            <div class="rule-multi-radio">
+                                <asp:RadioButtonList ID="rblType" runat="server" RepeatDirection="Horizontal" RepeatColumns="5" RepeatLayout="Flow" AutoPostBack="true" OnSelectedIndexChanged="rblType_SelectedIndexChanged"></asp:RadioButtonList>
                             </div>
                         </div>
                     </div>
-                    <div class="r-list">
+                    <div class="r-list" style="display: none;">
                         <asp:TextBox ID="txtKeywords" runat="server" CssClass="keyword" />
                         <asp:LinkButton ID="lbtnSearch" runat="server" CssClass="btn-search" OnClick="btnSearch_Click">查询</asp:LinkButton>
                     </div>

@@ -21,6 +21,14 @@ namespace DTcms.Model
         private decimal? _xiangmuguanlifee;
         private decimal? _videodebugfee;
         private decimal? _audiodebugfee;
+        private decimal? _aumaterialfee;
+        private string _ruodiananzhuangdes;
+        private string _qicaianzhuangdes;
+        private string _xitongtiaoshides;
+        private string _xiangmuguanlides;
+        private string _videodebugdes;
+        private string _audiodebugdes;
+        private string _aumaterialdes;
         private int? _typeorder;
         /// <summary>
         /// 
@@ -109,6 +117,70 @@ namespace DTcms.Model
         {
             set { _audiodebugfee = value; }
             get { return _audiodebugfee; }
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        public decimal? AuMaterialFee
+        {
+            set { _aumaterialfee = value; }
+            get { return _aumaterialfee; }
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        public string RuodiananzhuangDes
+        {
+            set { _ruodiananzhuangdes = value; }
+            get { return _ruodiananzhuangdes; }
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        public string QicaianzhuangDes
+        {
+            set { _qicaianzhuangdes = value; }
+            get { return _qicaianzhuangdes; }
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        public string XitongtiaoshiDes
+        {
+            set { _xitongtiaoshides = value; }
+            get { return _xitongtiaoshides; }
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        public string XiangmuguanliDes
+        {
+            set { _xiangmuguanlides = value; }
+            get { return _xiangmuguanlides; }
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        public string VideoDebugDes
+        {
+            set { _videodebugdes = value; }
+            get { return _videodebugdes; }
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        public string AudioDebugDes
+        {
+            set { _audiodebugdes = value; }
+            get { return _audiodebugdes; }
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        public string AuMaterialDes
+        {
+            set { _aumaterialdes = value; }
+            get { return _aumaterialdes; }
         }
         /// <summary>
         /// 

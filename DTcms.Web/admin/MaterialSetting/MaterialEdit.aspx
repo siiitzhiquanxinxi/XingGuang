@@ -237,14 +237,16 @@
             <dl>
                 <dt>标注：</dt>
                 <dd>
-                    <asp:DropDownList ID="ddlTag" runat="server">
-                        <asp:ListItem></asp:ListItem>
-                        <asp:ListItem>金牛产品</asp:ListItem>
-                        <asp:ListItem>明星产品</asp:ListItem>
-                        <asp:ListItem>正常产品</asp:ListItem>
-                        <asp:ListItem>瘦狗产品</asp:ListItem>
-                        <asp:ListItem>库存</asp:ListItem>
-                    </asp:DropDownList>
+                    <div class="rule-single-select">
+                        <asp:DropDownList ID="ddlTag" runat="server">
+                            <asp:ListItem></asp:ListItem>
+                            <asp:ListItem>正常产品</asp:ListItem>
+                            <asp:ListItem>金牛产品</asp:ListItem>
+                            <asp:ListItem>明星产品</asp:ListItem>
+                            <asp:ListItem>瘦狗产品</asp:ListItem>
+                            <asp:ListItem>库存</asp:ListItem>
+                        </asp:DropDownList>
+                    </div>
                 </dd>
             </dl>
 

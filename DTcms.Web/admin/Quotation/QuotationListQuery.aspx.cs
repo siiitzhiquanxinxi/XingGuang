@@ -52,13 +52,18 @@ namespace DTcms.Web.admin.Quotation
                 for (int j = 0; j < lstType.Count; j++)
                 {
                     string sql = "select sum(UnitPrice*GoodsQuantity) from Q_QuotationDetailGoods where FK_QuotationDetailTypeId = " + lstType[j].QuotationDetailTypeId;
-                    decimal sub = Convert.ToDecimal(DbHelperSQL.Query(sql).Tables[0].Rows[0][0].ToString());
-                    Q_total += sub + Convert.ToDecimal(lstType[j].RuodiananzhuangFee)
-                        + Convert.ToDecimal(lstType[j].QicaianzhuangFee)
-                        + Convert.ToDecimal(lstType[j].XitongtiaoshiFee)
-                        + Convert.ToDecimal(lstType[j].XiangmuguanliFee)
-                        + Convert.ToDecimal(lstType[j].VideoDebugFee)
-                        + Convert.ToDecimal(lstType[j].AudioDebugFee);
+                    DataTable d = DbHelperSQL.Query(sql).Tables[0];
+                    decimal sub = 0;
+                    if (d != null && d.Rows.Count > 0 && d.Rows[0][0].ToString() != "")
+                    {
+                        sub = Convert.ToDecimal(d.Rows[0][0].ToString());
+                        Q_total += sub + Convert.ToDecimal(lstType[j].RuodiananzhuangFee)
+                            + Convert.ToDecimal(lstType[j].QicaianzhuangFee)
+                            + Convert.ToDecimal(lstType[j].XitongtiaoshiFee)
+                            + Convert.ToDecimal(lstType[j].XiangmuguanliFee)
+                            + Convert.ToDecimal(lstType[j].VideoDebugFee)
+                            + Convert.ToDecimal(lstType[j].AudioDebugFee);
+                    }
                 }
                 Label lblTotal = rptList1.Items[i].FindControl("lblTotal") as Label;
                 lblTotal.Text = Math.Round(Q_total, 0).ToString();
@@ -99,7 +104,7 @@ namespace DTcms.Web.admin.Quotation
         protected void lbtnEdit_Click(object sender, EventArgs e)
         {
             LinkButton lbtn = sender as LinkButton;
-            Response.Redirect("buildQuotaionBlank.aspx?action=edit&id=" + lbtn.CommandArgument.ToString());
+            Response.Redirect("QuotaionDetailEdit.aspx?action=edit&id=" + lbtn.CommandArgument.ToString());
         }
 
         protected void lbtnApprove_Click(object sender, EventArgs e)
