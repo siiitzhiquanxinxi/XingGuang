@@ -6,7 +6,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,initial-scale=1.0,user-scalable=no" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
-    <title>创建模板</title>
+    <title>报价单明细</title>
     <link href="../../scripts/artdialog/ui-dialog.css" rel="stylesheet" type="text/css" />
     <link href="../skin/default/style.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript" charset="utf-8" src="../../scripts/jquery/jquery-1.11.2.min.js"></script>
@@ -49,11 +49,32 @@
                 lock: true
             });
         }
+        function ReplaceMaterial(obj) {
+            var mtype = document.getElementById("hfdMtype").value;
+            document.getElementById("hfdReplaceIndex").value = $(obj).parent().parent().find("input[type=hidden]").get(0).value;
+            $.dialog({
+                title: '选择商品', width: 1024, heght: 600,
+                content: 'url:Quotation/chooseMaterial.aspx?stype=' + mtype + '&idTarget=hfdTempId',
+                lock: true
+            });
+        }
+        function ReplaceLine(obj) {
+            var thisLineId = $(obj).parent().parent().find("input[type=hidden]").get(0).value;
+            document.getElementById("hfdLineReplaceId").value = thisLineId;
+            $.dialog({
+                title: '选择线材', width: 1024, heght: 600,
+                content: 'url:Quotation/chooseLine.aspx?&idTarget=hfdLineTempId',
+                lock: true
+            });
+        }
         function bindClick() {
             document.getElementById("btnBind").click();
         }
         function bindClick2() {
             document.getElementById("btnBind2").click();
+        }
+        function bindLineClick() {
+            document.getElementById("btnBindLine").click();
         }
         function IsPrint() {
             var id = $("#hfdMtype").val();
@@ -77,6 +98,10 @@
         <asp:HiddenField ID="hfdJsonContent" runat="server" />
         <%--当前选中的商品类别id--%>
         <asp:HiddenField ID="hfdInsertIndex" runat="server" />
+        <asp:HiddenField ID="hfdLineTempId" runat="server" />
+        <asp:HiddenField ID="hfdLineReplaceId" runat="server" />
+        <asp:HiddenField ID="hfdLineList" runat="server" />
+        <asp:HiddenField ID="hfdReplaceIndex" runat="server" />
         <!--导航栏-->
         <div class="location">
             <a href="#" class="home"><i></i><span>首页</span></a>
@@ -96,8 +121,8 @@
                 <dt>操作</dt>
                 <dd>
                     <input id="btnAddGoodsType" runat="server" type="button" value="添加系统类别" class="btn yellow" onclick="SelectSystemType()" />
-                    <asp:Button ID="btnPrintTotal" runat="server" Text="报价单打印预览" class="btn yellow" Visible="false" OnClick="btnPrintTotal_Click" />
-                    <input id="btnShowTotal" runat="server" type="button" value="查看汇总页" class="btn yellow" onclick="ShowTotalPage()" />
+                    <%--<asp:Button ID="btnPrintTotal" runat="server" Text="报价单打印预览" class="btn yellow" Visible="false" OnClick="btnPrintTotal_Click" />--%>
+                    <%--<input id="btnShowTotal" runat="server" type="button" value="查看汇总页" class="btn yellow" onclick="ShowTotalPage()" />--%>
                 </dd>
             </dl>
             <dl>
@@ -139,11 +164,13 @@
         </div>
         <div class="tab-content" id="divContent">
             <input id="b1" runat="server" type="button" value="添加商品" class="btn green" onclick="SelectMaterial()" style="margin-bottom: 8px;" />
-            <asp:Button ID="btnUpdateLine" runat="server" CssClass="btn green" Style="margin-bottom: 8px;" Text="更新线材明细" OnClick="btnUpdateLine_Click" />
-            <asp:Button ID="btnUpdateLaborFee" runat="server" CssClass="btn green" Style="margin-bottom: 8px;" Text="更新人工费用" OnClick="btnUpdateLaborFee_Click" />
-            <asp:Button ID="btnPrintPreview" runat="server" Text="打印预览" CssClass="btn yellow" OnClick="btnPrintPreview_Click" Visible="false" />
+            <asp:Button ID="btnUpdateLine" runat="server" CssClass="btn green" Style="margin-bottom: 8px; display: none;" Text="更新线材明细" OnClick="btnUpdateLine_Click" />
+            <asp:Button ID="btnUpdateLaborFee" runat="server" CssClass="btn green" Style="margin-bottom: 8px; display: none;" Text="更新人工费用" OnClick="btnUpdateLaborFee_Click" />
+            <%--<asp:Button ID="btnPrintPreview" runat="server" Text="打印预览" CssClass="btn yellow" OnClick="btnPrintPreview_Click" Visible="false" />--%>
+            <asp:Button ID="btnExportSheet" runat="server" Text="导出Sheet" CssClass="btn yellow" OnClick="btnExportSheet_Click" Visible="true" />
             <asp:Button ID="btnBind" runat="server" Text="绑定" OnClick="btnBind_Click" Style="display: none;" />
             <asp:Button ID="btnBind2" runat="server" Text="绑定2" OnClick="btnBind2_Click" Style="display: none;" />
+            <asp:Button ID="btnBindLine" runat="server" Text="绑定" OnClick="btnBindLine_Click" Style="display: none;" />
             &nbsp;&nbsp;&nbsp;&nbsp;
             系统模块名称：<asp:TextBox ID="txtSystemName" runat="server" CssClass="input normal" Width="150"></asp:TextBox>
             系统模块描述：<asp:TextBox ID="txtSystemDes" runat="server" CssClass="input normal"></asp:TextBox>
@@ -163,7 +190,7 @@
                             <th align="center" width="10%">图片</th>
                             <th align="left" width="5%">数量</th>
                             <th align="left" width="5%">小计</th>
-                            <th width="10%" width="15%">操作</th>
+                            <th width="10%">操作</th>
                         </tr>
                 </HeaderTemplate>
                 <ItemTemplate>
@@ -188,16 +215,18 @@
                         <td align="center">
                             <asp:Image ID="imgMaterial" runat="server" ImageUrl='<%#Eval("Photo") %>' Width="100" Height="50" /></td>
                         <td>
-                            <asp:TextBox ID="txtQuantity" runat="server" CssClass="input small" Text='<%#Eval("GoodsQuantity").ToString()!=""?Math.Round(Convert.ToDecimal(Eval("GoodsQuantity")),0).ToString():"0" %>' onkeyup="if(isNaN(value))execCommand('undo')" onafterpaste="if(isNaN(value))execCommand('undo')"></asp:TextBox></td>
+                            <asp:TextBox ID="txtQuantity" runat="server" CssClass="input small" Text='<%#Eval("GoodsQuantity").ToString()!=""?Math.Round(Convert.ToDecimal(Eval("GoodsQuantity")),0).ToString():"0" %>' onkeyup="if(isNaN(value))execCommand('undo')" onafterpaste="if(isNaN(value))execCommand('undo')" onblur="bindClick()"></asp:TextBox></td>
                         <td>
                             <asp:Label ID="lblSubTotal" runat="server"></asp:Label>
                         </td>
                         <td align="center">
                             <asp:HiddenField ID="hfdIsDel" runat="server" Value="0" />
                             <asp:LinkButton ID="lbtnDel" runat="server" OnClick="lbtnDel_Click">删除</asp:LinkButton>
+                            <a href="javascript:;" onclick="InsertMaterial(this);">插入</a>
+                            <a href="javascript:;" onclick="ReplaceMaterial(this);">替换</a>
+                            <br />
                             <asp:LinkButton ID="lbtnMoveUp" runat="server" OnClick="lbtnMoveUp_Click">上移</asp:LinkButton>
                             <asp:LinkButton ID="lbtnMoveDown" runat="server" OnClick="lbtnMoveDown_Click">下移</asp:LinkButton>
-                            <a href="javascript:;" onclick="InsertMaterial(this);">插入</a>
                         </td>
                     </tr>
                 </ItemTemplate>
@@ -228,7 +257,7 @@
                             <th align="center" width="10%">图片</th>
                             <th align="left" width="5%">数量</th>
                             <th align="left" width="5%">小计</th>
-                            <th width="10%" width="15%">&nbsp;</th>
+                            <th width="10%" align="center">操作</th>
                         </tr>
                 </HeaderTemplate>
                 <ItemTemplate>
@@ -255,7 +284,8 @@
                             <asp:Label ID="lblQuantity" runat="server" Text='<%#Eval("LineTotalcount") %>'></asp:Label></td>
                         <td>
                             <asp:Label ID="lblTotalAmount" runat="server" Text='<%#Eval("LineTotalamount") %>'></asp:Label></td>
-                        <td></td>
+                        <td align="center">
+                            <a href="javascript:;" onclick="ReplaceLine(this);">替换线材</a></td>
                     </tr>
                 </ItemTemplate>
                 <FooterTemplate>
@@ -285,15 +315,6 @@
                     <th align="left" width="5%">小计</th>
                     <th width="10%" width="15%">&nbsp;</th>
                 </tr>
-                <%--<tr>
-                    <th align="left" width="35px">&nbsp;&nbsp;</th>
-                    <th align="left" width="10%">项目</th>
-                    <th align="center" width="10%">LOGO</th>
-                    <th align="left">描述</th>
-                    <th align="left" width="10%">单位</th>
-                    <th align="left" width="10%">比例</th>
-                    <th align="left" width="10%">价格</th>
-                </tr>--%>
                 <tr>
                     <td></td>
                     <td align="center">
@@ -303,9 +324,10 @@
                     <td>
                         <asp:TextBox ID="txtRuodiananzhuangDes" runat="server" CssClass="input normal" Width="95%" TextMode="MultiLine" Height="80" sucmsg=" " /></td>
                     <td>PCS</td>
-                    <td>
-                        <asp:TextBox ID="txtRuodiananzhuangRate" runat="server" CssClass="input small"></asp:TextBox></td>
                     <td></td>
+                    <td align="center">
+                        <asp:Image ID="imgRuodiananzhuang" runat="server" />
+                    </td>
                     <td></td>
                     <td>
                         <asp:TextBox ID="txtRuodiananzhuangFee" runat="server" CssClass="input small"></asp:TextBox></td>
@@ -316,13 +338,32 @@
                     <td align="center">
                         <img src="../skin/default/星光.jpg" /></td>
                     <td></td>
-                    <td>器材安装费</td>
+                    <td>项目管理费</td>
+                    <td>
+                        <asp:TextBox ID="txtXiangmuguanliDes" runat="server" CssClass="input normal" Width="95%" TextMode="MultiLine" Height="80" sucmsg=" " /></td>
+                    <td>PCS</td>
+                    <td>
+                        <asp:TextBox ID="txtXiangmuguanliRate" runat="server" CssClass="input small"></asp:TextBox></td>
+                    <td align="center">
+                        <asp:Image ID="imgXiangmuguanli" runat="server" /></td>
+                    <td></td>
+                    <td>
+                        <asp:TextBox ID="txtXiangmuguanliFee" runat="server" CssClass="input small"></asp:TextBox></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td align="center">
+                        <img src="../skin/default/星光.jpg" /></td>
+                    <td></td>
+                    <td>规划与安装</td>
                     <td>
                         <asp:TextBox ID="txtQicaianzhuangDes" runat="server" CssClass="input normal" Width="95%" TextMode="MultiLine" Height="80" sucmsg=" " /></td>
                     <td>PCS</td>
                     <td>
                         <asp:TextBox ID="txtQicaianzhuangRate" runat="server" CssClass="input small"></asp:TextBox></td>
-                    <td></td>
+                    <td align="center">
+                        <asp:Image ID="imgQicaianzhuang" runat="server" /></td>
                     <td></td>
                     <td>
                         <asp:TextBox ID="txtQicaianzhuangFee" runat="server" CssClass="input small"></asp:TextBox></td>
@@ -339,7 +380,8 @@
                     <td>PCS</td>
                     <td>
                         <asp:TextBox ID="txtXitongtiaoshiRate" runat="server" CssClass="input small"></asp:TextBox></td>
-                    <td></td>
+                    <td align="center">
+                        <asp:Image ID="imgXitongtiaoshi" runat="server" /></td>
                     <td></td>
                     <td>
                         <asp:TextBox ID="txtXitongtiaoshiFee" runat="server" CssClass="input small"></asp:TextBox></td>
@@ -347,82 +389,13 @@
                 </tr>
                 <tr>
                     <td></td>
-                    <td align="center">
-                        <img src="../skin/default/星光.jpg" /></td>
-                    <td></td>
-                    <td>项目管理费</td>
-                    <td>
-                        <asp:TextBox ID="txtXiangmuguanliDes" runat="server" CssClass="input normal" Width="95%" TextMode="MultiLine" Height="80" sucmsg=" " /></td>
-                    <td>PCS</td>
-                    <td>
-                        <asp:TextBox ID="txtXiangmuguanliRate" runat="server" CssClass="input small"></asp:TextBox></td>
-                    <td></td>
-                    <td></td>
-                    <td>
-                        <asp:TextBox ID="txtXiangmuguanliFee" runat="server" CssClass="input small"></asp:TextBox></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td align="center">
-                        <img src="../skin/default/星光.jpg" /></td>
-                    <td></td>
-                    <td>视频调试费</td>
-                    <td>
-                        <asp:TextBox ID="txtVideoDebugDes" runat="server" CssClass="input normal" Width="95%" TextMode="MultiLine" Height="80" sucmsg=" " /></td>
-                    <td>PCS</td>
-                    <td>
-                        <asp:TextBox ID="txtVideoDebugRate" runat="server" CssClass="input small"></asp:TextBox></td>
-                    <td></td>
-                    <td></td>
-                    <td>
-                        <asp:TextBox ID="txtVideoDebugFee" runat="server" CssClass="input small"></asp:TextBox></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td align="center">
-                        <img src="../skin/default/星光.jpg" /></td>
-                    <td></td>
-                    <td>音频调试费</td>
-                    <td>
-                        <asp:TextBox ID="txtAudioDebugDes" runat="server" CssClass="input normal" Width="95%" TextMode="MultiLine" Height="80" sucmsg=" " /></td>
-                    <td>PCS</td>
-                    <td>
-                        <asp:TextBox ID="txtAudioDebugRate" runat="server" CssClass="input small"></asp:TextBox></td>
-                    <td></td>
-                    <td></td>
-                    <td>
-                        <asp:TextBox ID="txtAudioDebugFee" runat="server" CssClass="input small"></asp:TextBox></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td align="center">
-                        <img src="../skin/default/星光.jpg" /></td>
-                    <td></td>
-                    <td>线材辅材费</td>
-                    <td>
-                        <asp:TextBox ID="txtAuMaterialDes" runat="server" CssClass="input normal" Width="95%" TextMode="MultiLine" Height="70" sucmsg=" " /></td>
-                    <td>PCS</td>
-                    <td>
-                        <asp:TextBox ID="txtAuMaterialRate" runat="server" CssClass="input small"></asp:TextBox></td>
-                    <td></td>
-                    <td></td>
-                    <td>
-                        <asp:TextBox ID="txtAuMaterialFee" runat="server" CssClass="input small"></asp:TextBox></td>
-                    <td></td>
-                </tr>
-                <tr>
                     <td></td>
                     <td></td>
                     <td></td>
                     <td></td>
                     <td></td>
                     <td></td>
-                    <td></td>
-                    <td></td>
-                    <td colspan="2">人工费用合计：
+                    <td colspan="3">人工费用合计：
                     ￥<asp:Label ID="lblRengongTotal" runat="server" Text=""></asp:Label></td>
                     <td></td>
                 </tr>

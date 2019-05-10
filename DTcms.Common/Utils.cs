@@ -1494,5 +1494,26 @@ namespace DTcms.Common
         }
         #endregion
 
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="url"></param>
+        /// <param name="Response"></param>
+        public static void down(string url, HttpResponse Response)
+        {
+            System.IO.FileInfo DownloadFile = new FileInfo(url);
+            Response.Clear();
+            Response.ContentType = "application/octet-stream";
+            Response.AppendHeader("Content-Disposition", "attachment;filename=" + HttpUtility.UrlEncode(DownloadFile.Name, System.Text.Encoding.UTF8));
+            Response.AppendHeader("Content-Length", DownloadFile.Length.ToString());
+            Response.ContentEncoding = System.Text.Encoding.GetEncoding("gb2312");
+            Response.WriteFile(DownloadFile.FullName);
+            Response.Flush();
+            Response.Clear();
+            Response.Close();
+            HttpContext.Current.ApplicationInstance.CompleteRequest();
+        }
+
     }
 }

@@ -7,7 +7,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,initial-scale=1.0,user-scalable=no" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
-    <title>内容管理</title>
+    <title>选择物料</title>
     <link href="../../scripts/artdialog/ui-dialog.css" rel="stylesheet" type="text/css" />
     <link href="../skin/default/style.css" rel="stylesheet" type="text/css" />
     <link href="../../css/pagination.css" rel="stylesheet" type="text/css" />
@@ -36,7 +36,13 @@
             W.bindClick();
             api.close();
         }
-
+        function okmore(id) {
+            var api = frameElement.api, W = api.opener;
+            if (W.document.getElementById('<%=Request.QueryString["idTarget"] %>') || false)
+                W.document.getElementById('<%=Request.QueryString["idTarget"] %>').value = id;
+            W.bindClick();
+            api.close();
+        }
     </script>
 </head>
 
@@ -85,6 +91,7 @@
                 <HeaderTemplate>
                     <table width="100%" border="0" cellspacing="0" cellpadding="0" class="ltable">
                         <tr>
+                            <th align="center" width="6%">选择</th>
                             <th align="left" style="padding-left: 5px;">类型</th>
                             <th align="left">品牌</th>
                             <%--<th align="center">LOGO</th>--%>
@@ -99,6 +106,8 @@
                 </HeaderTemplate>
                 <ItemTemplate>
                     <tr height="80">
+                        <td align="center">
+                            <asp:CheckBox ID="chkId" CssClass="checkall" runat="server" Style="vertical-align: middle;" /></td>
                         <td style="padding-left: 5px;"><%#Eval("MaterialType") %>
                             <asp:HiddenField ID="hfdId" runat="server" Value='<%#Eval("ID") %>' />
                         </td>
@@ -125,15 +134,15 @@
             <!--/文字列表-->
         </div>
         <!--/列表-->
-
+        <!--工具栏-->
+        <div class="page-footer">
+            <div class="btn-wrap">
+                <asp:Button ID="btnOK" runat="server" Text="确认" CssClass="btn" OnClick="btnOK_Click" />
+            </div>
+        </div>
+        <!--/工具栏-->
         <!--内容底部-->
         <div class="line20"></div>
-        <%--<webdiyer:AspNetPager ID="AspNetPager1" runat="server" CustomInfoHTML="当前页:%CurrentPageIndex%/%PageCount% 共有%RecordCount%条记录 %PageCount%/页"
-            FirstPageText="首页" HorizontalAlign="Center" InvalidPageIndexErrorMessage="页索引不是有效的数值！"
-            LastPageText="末页" NextPageText="下一页" PageIndexOutOfRangeErrorMessage="页索引超出范围！"
-            PageSize="5" PrevPageText="上一页" ShowCustomInfoSection="Left" ShowInputBox="Always"
-            Width="100%" OnPageChanged="AspNetPager1_PageChanged" NumericButtonCount="5">
-        </webdiyer:AspNetPager>--%>
         <!--/内容底部-->
 
     </form>

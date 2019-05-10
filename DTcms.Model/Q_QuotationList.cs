@@ -20,6 +20,7 @@ namespace DTcms.Model
         private decimal? _preferentialrelief;
         private int? _tax;
         private int? _fk_customerid;
+        private int? _isshare;
         /// <summary>
         /// 
         /// </summary>
@@ -99,6 +100,14 @@ namespace DTcms.Model
         {
             set { _fk_customerid = value; }
             get { return _fk_customerid; }
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        public int? IsShare
+        {
+            set { _isshare = value; }
+            get { return _isshare; }
         }
         #endregion Model
 

@@ -87,7 +87,7 @@
         <webdiyer:AspNetPager ID="AspNetPager1" runat="server" CustomInfoHTML="当前页:%CurrentPageIndex%/%PageCount% 共有%RecordCount%条记录 %PageCount%/页"
             FirstPageText="首页" HorizontalAlign="Center" InvalidPageIndexErrorMessage="页索引不是有效的数值！"
             LastPageText="末页" NextPageText="下一页" PageIndexOutOfRangeErrorMessage="页索引超出范围！"
-            PageSize="10" PrevPageText="上一页" ShowCustomInfoSection="Left" ShowInputBox="Always"
+            PageSize="50" PrevPageText="上一页" ShowCustomInfoSection="Left" ShowInputBox="Always"
             Width="100%" OnPageChanged="AspNetPager1_PageChanged" NumericButtonCount="5">
         </webdiyer:AspNetPager>
         <!--/内容底部-->

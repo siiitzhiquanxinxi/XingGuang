@@ -129,6 +129,8 @@
     <Content Include="admin\order\payment_edit.aspx" />
     <Content Include="admin\order\payment_list.aspx" />
     <Content Include="admin\Quotation\buildQuotaionBlank.aspx" />
+    <Content Include="admin\Quotation\chooseLine.aspx" />
+    <Content Include="admin\Quotation\CustomerQuotationList.aspx" />
     <Content Include="admin\Quotation\HistoryCustomerQuotationList.aspx" />
     <Content Include="admin\Quotation\QuotaionDetailEdit.aspx" />
     <Content Include="admin\Quotation\buildQuotaionTemp.aspx" />
@@ -137,11 +139,9 @@
     <Content Include="admin\Quotation\chooseMaterial.aspx" />
     <Content Include="admin\Quotation\chooseSystemType.aspx" />
     <Content Include="admin\Quotation\chooseTemp.aspx" />
-    <Content Include="admin\Quotation\print\printQuotaionDepart.aspx" />
-    <Content Include="admin\Quotation\print\printQuotaionTotal.aspx" />
-    <Content Include="admin\Quotation\QuotationListQuery.aspx" />
     <Content Include="admin\Quotation\QuotationTemplateEdit.aspx" />
     <Content Include="admin\Quotation\QuotationTemplateList.aspx" />
+    <Content Include="admin\Quotation\ShareQuotationList.aspx" />
     <Content Include="admin\Quotation\showTotalPage.aspx" />
     <Content Include="admin\Quotation\SystemTypeEdit.aspx" />
     <Content Include="admin\Quotation\SystemTypeList.aspx" />
@@ -1014,6 +1014,20 @@
     <Compile Include="admin\Quotation\buildQuotaionBlank.aspx.designer.cs">
       <DependentUpon>buildQuotaionBlank.aspx</DependentUpon>
     </Compile>
+    <Compile Include="admin\Quotation\chooseLine.aspx.cs">
+      <DependentUpon>chooseLine.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="admin\Quotation\chooseLine.aspx.designer.cs">
+      <DependentUpon>chooseLine.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="admin\Quotation\CustomerQuotationList.aspx.cs">
+      <DependentUpon>CustomerQuotationList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="admin\Quotation\CustomerQuotationList.aspx.designer.cs">
+      <DependentUpon>CustomerQuotationList.aspx</DependentUpon>
+    </Compile>
     <Compile Include="admin\Quotation\HistoryCustomerQuotationList.aspx.cs">
       <DependentUpon>HistoryCustomerQuotationList.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1070,27 +1084,6 @@
     <Compile Include="admin\Quotation\chooseTemp.aspx.designer.cs">
       <DependentUpon>chooseTemp.aspx</DependentUpon>
     </Compile>
-    <Compile Include="admin\Quotation\print\printQuotaionDepart.aspx.cs">
-      <DependentUpon>printQuotaionDepart.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="admin\Quotation\print\printQuotaionDepart.aspx.designer.cs">
-      <DependentUpon>printQuotaionDepart.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="admin\Quotation\print\printQuotaionTotal.aspx.cs">
-      <DependentUpon>printQuotaionTotal.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="admin\Quotation\print\printQuotaionTotal.aspx.designer.cs">
-      <DependentUpon>printQuotaionTotal.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="admin\Quotation\QuotationListQuery.aspx.cs">
-      <DependentUpon>QuotationListQuery.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="admin\Quotation\QuotationListQuery.aspx.designer.cs">
-      <DependentUpon>QuotationListQuery.aspx</DependentUpon>
-    </Compile>
     <Compile Include="admin\Quotation\QuotationTemplateEdit.aspx.cs">
       <DependentUpon>QuotationTemplateEdit.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1104,6 +1097,13 @@
     </Compile>
     <Compile Include="admin\Quotation\QuotationTemplateList.aspx.designer.cs">
       <DependentUpon>QuotationTemplateList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="admin\Quotation\ShareQuotationList.aspx.cs">
+      <DependentUpon>ShareQuotationList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="admin\Quotation\ShareQuotationList.aspx.designer.cs">
+      <DependentUpon>ShareQuotationList.aspx</DependentUpon>
     </Compile>
     <Compile Include="admin\Quotation\showTotalPage.aspx.cs">
       <DependentUpon>showTotalPage.aspx</DependentUpon>
@@ -1520,6 +1520,7 @@
     <Content Include="admin\MaterialSetting\导入模板.xlsx" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="admin\Quotation\sheet.xlsx" />
     <None Include="Properties\PublishProfiles\配置文件1.pubxml" />
   </ItemGroup>
   <PropertyGroup>

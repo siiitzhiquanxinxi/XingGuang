@@ -72,7 +72,6 @@
             </div>
         </div>
         <!--/工具栏-->
-
         <!--列表-->
         <div class="table-container">
             <!--文字列表-->
@@ -84,16 +83,10 @@
                             <th align="left">系统分类</th>
                             <th align="left">模板名称</th>
                             <th align="left">主要品牌</th>
-                            <th align="left">系统描述</th>
                             <th align="left">使用场景</th>
+                            <th align="left">系统描述</th>
                             <th align="left">系统搭配注意事项</th>
-                            <th align="left">弱电布线费</th>
-                            <th align="left">器材安装费</th>
-                            <th align="left">系统调试费</th>
-                            <th align="left">项目管理费</th>
-                            <th align="left">视频调试费用</th>
-                            <th align="left">音频调试费用</th>
-                            <th align="left">总额</th>
+                            <th align="left">系统总价</th>
                             <th width="10%">操作</th>
                         </tr>
                 </HeaderTemplate>
@@ -106,21 +99,9 @@
                         <td><%#Eval("QuotationTemplateType") %></td>
                         <td><%#Eval("QuotationTemplateName") %></td>
                         <td><%#Eval("QuotationTemplateMainBrand") %></td>
-                        <td><%#Eval("QuotationTemplateDescription") %></td>
                         <td><%#Eval("QuotationTemplateScenario") %></td>
+                        <td><%#Eval("QuotationTemplateDescription") %></td>
                         <td><%#Eval("QuotationTemplateNotes") %></td>
-                        <td>
-                            <asp:Label ID="lblRuodiananzhuangFee" runat="server" Text=""></asp:Label></td>
-                        <td>
-                            <asp:Label ID="lblQicaianzhuangFee" runat="server" Text=""></asp:Label></td>
-                        <td>
-                            <asp:Label ID="lblXitongtiaoshiFee" runat="server" Text=""></asp:Label></td>
-                        <td>
-                            <asp:Label ID="lblXiangmuguanliFee" runat="server" Text=""></asp:Label></td>
-                        <td>
-                            <asp:Label ID="lblVideoDebugFee" runat="server" Text=""></asp:Label></td>
-                        <td>
-                            <asp:Label ID="lblAudioDebugFee" runat="server" Text=""></asp:Label></td>
                         <td>
                             <asp:Label ID="lblTotal" runat="server" Text=""></asp:Label></td>
                         <td align="center">
@@ -139,12 +120,6 @@
 
         <!--内容底部-->
         <div class="line20"></div>
-        <webdiyer:AspNetPager ID="AspNetPager1" runat="server" CustomInfoHTML="当前页:%CurrentPageIndex%/%PageCount% 共有%RecordCount%条记录 %PageCount%/页"
-            FirstPageText="首页" HorizontalAlign="Center" InvalidPageIndexErrorMessage="页索引不是有效的数值！"
-            LastPageText="末页" NextPageText="下一页" PageIndexOutOfRangeErrorMessage="页索引超出范围！"
-            PageSize="10" PrevPageText="上一页" ShowCustomInfoSection="Left" ShowInputBox="Always"
-            Width="100%" OnPageChanged="AspNetPager1_PageChanged" NumericButtonCount="5">
-        </webdiyer:AspNetPager>
         <!--/内容底部-->
 
     </form>

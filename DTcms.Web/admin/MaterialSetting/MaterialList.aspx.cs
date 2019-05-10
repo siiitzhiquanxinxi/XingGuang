@@ -12,9 +12,6 @@ namespace DTcms.Web.admin.MaterialSetting
 {
     public partial class MaterialList : System.Web.UI.Page
     {
-        //protected int totalCount;
-        //protected int page;
-        //protected int pageSize;
         protected string keywords = string.Empty;
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -24,8 +21,6 @@ namespace DTcms.Web.admin.MaterialSetting
                 BindCkb();
                 BindData();
                 keywords = this.txtKeywords.Text.Trim();
-                //this.pageSize = GetPageSize(5);
-                //RptBind(CombSqlTxt(keywords), "ID desc");
                 string MaterialType = DTRequest.GetQueryString("MaterialType");
                 if (MaterialType != "")
                 {
@@ -41,7 +36,7 @@ namespace DTcms.Web.admin.MaterialSetting
             DataTable dt = bll.GetAllList().Tables[0];
             rblType.DataSource = dt;
             rblType.DataTextField = "MaterialType";
-            rblType.DataValueField = "MaterialType";
+            rblType.DataValueField = "ID";
             rblType.DataBind();
         }
         protected string CombSqlTxt(string _keywords)
@@ -52,43 +47,8 @@ namespace DTcms.Web.admin.MaterialSetting
             {
                 strTemp.Append(" and  Name like  '%" + _keywords + "%' or Description like '%" + txtKeywords.Text + "%'");
             }
-            //int checkindex = 0;
-            //for (int i = 0; i < cblMType.Items.Count; i++)
-            //{
-            //    if (cblMType.Items[i].Selected == true)
-            //    {
-            //        if (checkindex == 0)
-            //        {
-            //            strTemp.Append(" and (MaterialType = '" + cblMType.Items[i].Text + "'");
-            //        }
-            //        if (checkindex > 0)
-            //        {
-            //            strTemp.Append(" or MaterialType = '" + cblMType.Items[i].Text + "'");
-            //        }
-            //        checkindex++;
-            //    }
-            //}
-            //if (checkindex > 0)
-            //{
-            //    strTemp.Append(")");
-            //}
             return strTemp.ToString();
         }
-        //private void RptBind(string _strWhere, string _orderby)
-        //{
-        //    _strWhere = " 1=1 " + _strWhere;
-        //    this.page = DTRequest.GetQueryInt("page", 1);
-        //    txtKeywords.Text = this.keywords;
-        //    DTcms.BLL.Sy_Material hdBll = new DTcms.BLL.Sy_Material();
-        //    DataSet ds = hdBll.GetList(this.pageSize, this.page, _strWhere, _orderby, out this.totalCount);
-        //    this.rptList1.DataSource = ds;
-        //    this.rptList1.DataBind();
-
-        //    //绑定页码
-        //    //txtPageNum.Text = this.pageSize.ToString();
-        //    //string pageUrl = Utils.CombUrlTxt("MaterialList.aspx", "keywords={0}&page={1}", this.keywords, "__id__");
-        //    //PageContent.InnerHtml = Utils.OutPageList(this.pageSize, this.page, this.totalCount, pageUrl, 8);
-        //}
         private void BindData()
         {
             BLL.Sy_Material bll = new BLL.Sy_Material();
@@ -97,29 +57,8 @@ namespace DTcms.Web.admin.MaterialSetting
             {
                 where += " and (Name like '%" + txtKeywords.Text + "%' or Description like '%" + txtKeywords.Text + "%' or Mode like '%" + txtKeywords.Text + "%')";
             }
-            where += " and MaterialType = '" + rblType.SelectedValue + "'";
-            //int checkindex = 0;
-            //for (int i = 0; i < cblMType.Items.Count; i++)
-            //{
-            //    if (cblMType.Items[i].Selected == true)
-            //    {
-            //        if (checkindex == 0)
-            //        {
-            //            where += " and (MaterialType = '" + cblMType.Items[i].Text + "'";
-            //        }
-            //        if (checkindex > 0)
-            //        {
-            //            where += " or MaterialType = '" + cblMType.Items[i].Text + "'";
-            //        }
-            //        checkindex++;
-            //    }
-            //}
-            //if (checkindex > 0)
-            //{
-            //    where += ")";
-            //}
-
-            //DataTable dt = bll.GetListByPage(where, "MaterialType", 0, 100).Tables[0];
+            where += " and MaterialTypeID = '" + rblType.SelectedValue + "'";
+            
             DataTable dt = bll.GetList(where).Tables[0];
             PagedDataSource pds = new PagedDataSource();
             pds.AllowPaging = true;
@@ -160,39 +99,18 @@ namespace DTcms.Web.admin.MaterialSetting
                 }
             }
             BindData();
-            //Response.Redirect("MaterialList.aspx");
         }
 
         protected void btnSearch_Click(object sender, EventArgs e)
         {
             BindData();
-            //keywords = this.txtKeywords.Text.Trim();
-            //this.pageSize = GetPageSize(10);
-            //RptBind(CombSqlTxt(keywords), "ID desc");
         }
-
-        //protected void txtPageNum_TextChanged(object sender, EventArgs e)
-        //{
-        //    int _pagesize;
-        //    if (int.TryParse(txtPageNum.Text.Trim(), out _pagesize))
-        //    {
-        //        if (_pagesize > 0)
-        //        {
-        //            Utils.WriteCookie("MaterialList", _pagesize.ToString(), 14400);
-        //        }
-        //    }
-        //    Response.Redirect(Utils.CombUrlTxt("MaterialList.aspx", "keywords={0}", this.keywords));
-        //}
+        
 
         protected void cblMType_SelectedIndexChanged(object sender, EventArgs e)
         {
             AspNetPager1.CurrentPageIndex = 1;
-            //this.pageSize = GetPageSize(100);
             BindData();
-            //绑定页码
-            //txtPageNum.Text = this.pageSize.ToString();
-            //string pageUrl = Utils.CombUrlTxt("MaterialList.aspx", "keywords={0}&page={1}", this.keywords, "__id__");
-            //PageContent.InnerHtml = Utils.OutPageList(this.pageSize, this.page, this.totalCount, pageUrl, 8);
         }
 
         protected void AspNetPager1_PageChanged(object sender, EventArgs e)

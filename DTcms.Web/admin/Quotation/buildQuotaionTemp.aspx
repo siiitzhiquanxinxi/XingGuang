@@ -74,6 +74,7 @@
                             <th align="left">系统描述</th>
                             <th align="left">使用场景</th>
                             <th align="left">系统搭配注意事项</th>
+                            <th align="left">金额</th>
                             <th align="center">操作</th>
                         </tr>
                 </HeaderTemplate>
@@ -95,6 +96,8 @@
                             <asp:Label ID="lblQuotationTemplateScenario" runat="server" Text='<%#Eval("QuotationTemplateScenario") %>'></asp:Label></td>
                         <td>
                             <asp:Label ID="lblQuotationTemplateNotes" runat="server" Text='<%#Eval("QuotationTemplateNotes") %>'></asp:Label></td>
+                        <td>
+                            <asp:Label ID="lblTotal" runat="server" Text=""></asp:Label></td>
                         <td align="center">
                             <asp:HiddenField ID="hfdIsDel" runat="server" Value="0" />
                             <asp:LinkButton ID="lbtnDel" runat="server" OnClick="lbtnDel_Click">删除</asp:LinkButton></td>

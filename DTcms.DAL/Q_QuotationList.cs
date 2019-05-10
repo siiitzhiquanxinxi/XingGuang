@@ -3,7 +3,6 @@ using System.Data;
 using System.Text;
 using System.Data.SqlClient;
 using DTcms.DBUtility;
-
 namespace DTcms.DAL
 {
     /// <summary>
@@ -38,9 +37,9 @@ namespace DTcms.DAL
         {
             StringBuilder strSql = new StringBuilder();
             strSql.Append("insert into Q_QuotationList(");
-            strSql.Append("QuotationListNum,FK_ParentProgramId,CreateBy,CreateDate,QuotationListState,PreferentialRatio,PreferentialRelief,Tax,FK_CustomerID)");
+            strSql.Append("QuotationListNum,FK_ParentProgramId,CreateBy,CreateDate,QuotationListState,PreferentialRatio,PreferentialRelief,Tax,FK_CustomerID,IsShare)");
             strSql.Append(" values (");
-            strSql.Append("@QuotationListNum,@FK_ParentProgramId,@CreateBy,@CreateDate,@QuotationListState,@PreferentialRatio,@PreferentialRelief,@Tax,@FK_CustomerID)");
+            strSql.Append("@QuotationListNum,@FK_ParentProgramId,@CreateBy,@CreateDate,@QuotationListState,@PreferentialRatio,@PreferentialRelief,@Tax,@FK_CustomerID,@IsShare)");
             strSql.Append(";select @@IDENTITY");
             SqlParameter[] parameters = {
                     new SqlParameter("@QuotationListNum", SqlDbType.NVarChar,50),
@@ -51,7 +50,8 @@ namespace DTcms.DAL
                     new SqlParameter("@PreferentialRatio", SqlDbType.Int,4),
                     new SqlParameter("@PreferentialRelief", SqlDbType.Decimal,9),
                     new SqlParameter("@Tax", SqlDbType.Int,4),
-                    new SqlParameter("@FK_CustomerID", SqlDbType.Int,4)};
+                    new SqlParameter("@FK_CustomerID", SqlDbType.Int,4),
+                    new SqlParameter("@IsShare", SqlDbType.Int,4)};
             parameters[0].Value = model.QuotationListNum;
             parameters[1].Value = model.FK_ParentProgramId;
             parameters[2].Value = model.CreateBy;
@@ -61,6 +61,7 @@ namespace DTcms.DAL
             parameters[6].Value = model.PreferentialRelief;
             parameters[7].Value = model.Tax;
             parameters[8].Value = model.FK_CustomerID;
+            parameters[9].Value = model.IsShare;
 
             object obj = DbHelperSQL.GetSingle(strSql.ToString(), parameters);
             if (obj == null)
@@ -87,7 +88,8 @@ namespace DTcms.DAL
             strSql.Append("PreferentialRatio=@PreferentialRatio,");
             strSql.Append("PreferentialRelief=@PreferentialRelief,");
             strSql.Append("Tax=@Tax,");
-            strSql.Append("FK_CustomerID=@FK_CustomerID");
+            strSql.Append("FK_CustomerID=@FK_CustomerID,");
+            strSql.Append("IsShare=@IsShare");
             strSql.Append(" where QuotationListId=@QuotationListId");
             SqlParameter[] parameters = {
                     new SqlParameter("@QuotationListNum", SqlDbType.NVarChar,50),
@@ -99,6 +101,7 @@ namespace DTcms.DAL
                     new SqlParameter("@PreferentialRelief", SqlDbType.Decimal,9),
                     new SqlParameter("@Tax", SqlDbType.Int,4),
                     new SqlParameter("@FK_CustomerID", SqlDbType.Int,4),
+                    new SqlParameter("@IsShare", SqlDbType.Int,4),
                     new SqlParameter("@QuotationListId", SqlDbType.Int,4)};
             parameters[0].Value = model.QuotationListNum;
             parameters[1].Value = model.FK_ParentProgramId;
@@ -109,7 +112,8 @@ namespace DTcms.DAL
             parameters[6].Value = model.PreferentialRelief;
             parameters[7].Value = model.Tax;
             parameters[8].Value = model.FK_CustomerID;
-            parameters[9].Value = model.QuotationListId;
+            parameters[9].Value = model.IsShare;
+            parameters[10].Value = model.QuotationListId;
 
             int rows = DbHelperSQL.ExecuteSql(strSql.ToString(), parameters);
             if (rows > 0)
@@ -173,7 +177,7 @@ namespace DTcms.DAL
         {
 
             StringBuilder strSql = new StringBuilder();
-            strSql.Append("select  top 1 QuotationListId,QuotationListNum,FK_ParentProgramId,CreateBy,CreateDate,QuotationListState,PreferentialRatio,PreferentialRelief,Tax,FK_CustomerID from Q_QuotationList ");
+            strSql.Append("select  top 1 QuotationListId,QuotationListNum,FK_ParentProgramId,CreateBy,CreateDate,QuotationListState,PreferentialRatio,PreferentialRelief,Tax,FK_CustomerID,IsShare from Q_QuotationList ");
             strSql.Append(" where QuotationListId=@QuotationListId");
             SqlParameter[] parameters = {
                     new SqlParameter("@QuotationListId", SqlDbType.Int,4)
@@ -241,6 +245,10 @@ namespace DTcms.DAL
                 {
                     model.FK_CustomerID = int.Parse(row["FK_CustomerID"].ToString());
                 }
+                if (row["IsShare"] != null && row["IsShare"].ToString() != "")
+                {
+                    model.IsShare = int.Parse(row["IsShare"].ToString());
+                }
             }
             return model;
         }
@@ -251,7 +259,7 @@ namespace DTcms.DAL
         public DataSet GetList(string strWhere)
         {
             StringBuilder strSql = new StringBuilder();
-            strSql.Append("select QuotationListId,QuotationListNum,FK_ParentProgramId,CreateBy,CreateDate,QuotationListState,PreferentialRatio,PreferentialRelief,Tax,FK_CustomerID ");
+            strSql.Append("select QuotationListId,QuotationListNum,FK_ParentProgramId,CreateBy,CreateDate,QuotationListState,PreferentialRatio,PreferentialRelief,Tax,FK_CustomerID,IsShare ");
             strSql.Append(" FROM Q_QuotationList ");
             if (strWhere.Trim() != "")
             {
@@ -271,7 +279,7 @@ namespace DTcms.DAL
             {
                 strSql.Append(" top " + Top.ToString());
             }
-            strSql.Append(" QuotationListId,QuotationListNum,FK_ParentProgramId,CreateBy,CreateDate,QuotationListState,PreferentialRatio,PreferentialRelief,Tax,FK_CustomerID ");
+            strSql.Append(" QuotationListId,QuotationListNum,FK_ParentProgramId,CreateBy,CreateDate,QuotationListState,PreferentialRatio,PreferentialRelief,Tax,FK_CustomerID,IsShare ");
             strSql.Append(" FROM Q_QuotationList ");
             if (strWhere.Trim() != "")
             {

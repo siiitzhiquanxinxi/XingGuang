@@ -121,6 +121,7 @@
                                 <asp:ListItem Text="跟单中" Value="1"></asp:ListItem>
                                 <asp:ListItem Text="签单" Value="2"></asp:ListItem>
                                 <asp:ListItem Text="死单" Value="3"></asp:ListItem>
+                                <asp:ListItem Text="弃单" Value="4"></asp:ListItem>
                             </asp:DropDownList></td>
                     </tr>
                     <tr>

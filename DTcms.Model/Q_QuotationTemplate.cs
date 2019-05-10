@@ -21,21 +21,19 @@ namespace DTcms.Model
         private int? _createby;
         private DateTime? _createdate;
         private int? _quotationtemplatestate;
-        private decimal? _ruodiananzhuangfee;
-        private decimal? _qicaianzhuangfee;
         private decimal? _xitongtiaoshifee;
         private decimal? _xiangmuguanlifee;
-        private decimal? _videodebugfee;
-        private decimal? _audiodebugfee;
-        private decimal? _aumaterialfee;
+        private decimal? _qicaianzhuangfee;
         private string _ruodiananzhuangdes;
-        private string _qicaianzhuangdes;
         private string _xitongtiaoshides;
         private string _xiangmuguanlides;
-        private string _videodebugdes;
-        private string _audiodebugdes;
-        private string _aumaterialdes;
-        private string _termptag;
+        private string _qicaianzhuangdes;
+        private string _ruodiananzhuangpic;
+        private string _xitongtiaoshipic;
+        private string _xiangmuguanlipic;
+        private string _qicaianzhuangpic;
+        private string _temptag;
+        private int? _temporder;
         /// <summary>
         /// 
         /// </summary>
@@ -127,22 +125,6 @@ namespace DTcms.Model
         /// <summary>
         /// 
         /// </summary>
-        public decimal? RuodiananzhuangFee
-        {
-            set { _ruodiananzhuangfee = value; }
-            get { return _ruodiananzhuangfee; }
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        public decimal? QicaianzhuangFee
-        {
-            set { _qicaianzhuangfee = value; }
-            get { return _qicaianzhuangfee; }
-        }
-        /// <summary>
-        /// 
-        /// </summary>
         public decimal? XitongtiaoshiFee
         {
             set { _xitongtiaoshifee = value; }
@@ -159,26 +141,10 @@ namespace DTcms.Model
         /// <summary>
         /// 
         /// </summary>
-        public decimal? VideoDebugFee
+        public decimal? QicaianzhuangFee
         {
-            set { _videodebugfee = value; }
-            get { return _videodebugfee; }
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        public decimal? AudioDebugFee
-        {
-            set { _audiodebugfee = value; }
-            get { return _audiodebugfee; }
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        public decimal? AuMaterialFee
-        {
-            set { _aumaterialfee = value; }
-            get { return _aumaterialfee; }
+            set { _qicaianzhuangfee = value; }
+            get { return _qicaianzhuangfee; }
         }
         /// <summary>
         /// 
@@ -187,14 +153,6 @@ namespace DTcms.Model
         {
             set { _ruodiananzhuangdes = value; }
             get { return _ruodiananzhuangdes; }
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        public string QicaianzhuangDes
-        {
-            set { _qicaianzhuangdes = value; }
-            get { return _qicaianzhuangdes; }
         }
         /// <summary>
         /// 
@@ -215,34 +173,58 @@ namespace DTcms.Model
         /// <summary>
         /// 
         /// </summary>
-        public string VideoDebugDes
+        public string QicaianzhuangDes
         {
-            set { _videodebugdes = value; }
-            get { return _videodebugdes; }
+            set { _qicaianzhuangdes = value; }
+            get { return _qicaianzhuangdes; }
         }
         /// <summary>
         /// 
         /// </summary>
-        public string AudioDebugDes
+        public string RuodiananzhuangPic
         {
-            set { _audiodebugdes = value; }
-            get { return _audiodebugdes; }
+            set { _ruodiananzhuangpic = value; }
+            get { return _ruodiananzhuangpic; }
         }
         /// <summary>
         /// 
         /// </summary>
-        public string AuMaterialDes
+        public string XitongtiaoshiPic
         {
-            set { _aumaterialdes = value; }
-            get { return _aumaterialdes; }
+            set { _xitongtiaoshipic = value; }
+            get { return _xitongtiaoshipic; }
         }
         /// <summary>
         /// 
         /// </summary>
-        public string TermpTag
+        public string XiangmuguanliPic
         {
-            set { _termptag = value; }
-            get { return _termptag; }
+            set { _xiangmuguanlipic = value; }
+            get { return _xiangmuguanlipic; }
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        public string QicaianzhuangPic
+        {
+            set { _qicaianzhuangpic = value; }
+            get { return _qicaianzhuangpic; }
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        public string TempTag
+        {
+            set { _temptag = value; }
+            get { return _temptag; }
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        public int? TempOrder
+        {
+            set { _temporder = value; }
+            get { return _temporder; }
         }
         #endregion Model
 

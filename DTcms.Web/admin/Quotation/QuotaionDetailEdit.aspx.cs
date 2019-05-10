@@ -6,6 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Data;
 using DTcms.Common;
+using System.IO;
 
 namespace DTcms.Web.admin.Quotation
 {
@@ -23,7 +24,7 @@ namespace DTcms.Web.admin.Quotation
                     if (Request.QueryString["action"] == "view")
                     {
                         btnSave.Visible = false;
-                        btnPrintPreview.Visible = btnPrintTotal.Visible = true;
+                        //btnPrintPreview.Visible = btnPrintTotal.Visible = true;
                         btnAddGoodsType.Visible = b1.Visible = false;
                         btnUpdateLaborFee.Visible = btnUpdateLine.Visible = false;
                     }
@@ -38,7 +39,6 @@ namespace DTcms.Web.admin.Quotation
                     {
                         txtQuotationListNum.Text = GetSpellCode(mo.real_name) + DateTime.Now.ToString("yyyyMMdd") + GetQNum();
                     }
-                    //txtQuotationListNum.Text = "XG" + DateTime.Now.ToString("yyyyMMddHHmmssfff");
                     CreateData();
                 }
                 else//空白新建
@@ -135,21 +135,18 @@ namespace DTcms.Web.admin.Quotation
                     qltc.QuotationDetailType.FK_MaterialTypeId = modelTemp.QuotationTemplateTypeId;
                     qltc.QuotationDetailType.SystemTypeName = modelTemp.QuotationTemplateName;
                     qltc.QuotationDetailType.SystemTypeDes = modelTemp.QuotationTemplateDescription;
-                    qltc.QuotationDetailType.RuodiananzhuangFee = modelTemp.RuodiananzhuangFee;
+                    //qltc.QuotationDetailType.RuodiananzhuangFee
                     qltc.QuotationDetailType.QicaianzhuangFee = modelTemp.QicaianzhuangFee;
                     qltc.QuotationDetailType.XitongtiaoshiFee = modelTemp.XitongtiaoshiFee;
                     qltc.QuotationDetailType.XiangmuguanliFee = modelTemp.XiangmuguanliFee;
-                    qltc.QuotationDetailType.VideoDebugFee = modelTemp.VideoDebugFee;
-                    qltc.QuotationDetailType.AudioDebugFee = modelTemp.AudioDebugFee;
-                    qltc.QuotationDetailType.AuMaterialFee = modelTemp.AuMaterialFee;
-
                     qltc.QuotationDetailType.RuodiananzhuangDes = modelTemp.RuodiananzhuangDes;
                     qltc.QuotationDetailType.QicaianzhuangDes = modelTemp.QicaianzhuangDes;
                     qltc.QuotationDetailType.XitongtiaoshiDes = modelTemp.XitongtiaoshiDes;
                     qltc.QuotationDetailType.XiangmuguanliDes = modelTemp.XiangmuguanliDes;
-                    qltc.QuotationDetailType.VideoDebugDes = modelTemp.VideoDebugDes;
-                    qltc.QuotationDetailType.AudioDebugDes = modelTemp.AudioDebugDes;
-                    qltc.QuotationDetailType.AuMaterialDes = modelTemp.AuMaterialDes;
+                    qltc.QuotationDetailType.RuodiananzhuangPic = modelTemp.RuodiananzhuangPic;
+                    qltc.QuotationDetailType.QicaianzhuangPic = modelTemp.QicaianzhuangPic;
+                    qltc.QuotationDetailType.XitongtiaoshiPic = modelTemp.XitongtiaoshiPic;
+                    qltc.QuotationDetailType.XiangmuguanliPic = modelTemp.XiangmuguanliPic;
 
                     qltc.lstQuotationDetailGoods = new List<Model.Q_QuotationDetailGoods>();//每个模板里的商品
                     List<Model.Q_QuotationTemplateDetail> lstQTD = new BLL.Q_QuotationTemplateDetail().GetModelList("TemplateParentID = " + TempId);
@@ -207,6 +204,7 @@ namespace DTcms.Web.admin.Quotation
                     lstGoodsType.Add(qltc);
                     order_index++;
                 }
+
                 rblGoodsType.DataSource = lstGoodsType;
                 rblGoodsType.DataTextField = "Typename";
                 rblGoodsType.DataValueField = "Typeid";
@@ -238,8 +236,17 @@ namespace DTcms.Web.admin.Quotation
             for (int i = 0; i < rptList1.Items.Count; i++)
             {
                 HiddenField hfdIsDel = rptList1.Items[i].FindControl("hfdIsDel") as HiddenField;
+                TextBox txtQuantity = rptList1.Items[i].FindControl("txtQuantity") as TextBox;
                 if (hfdIsDel.Value == "1")//删除
                 {
+                    continue;
+                }
+                if (!string.IsNullOrEmpty(hfdReplaceIndex.Value) && i == int.Parse(hfdReplaceIndex.Value) && hfdTempId.Value != "")//替换
+                {
+                    string sql = "select * from Sy_Material where ID = " + hfdTempId.Value;
+                    DataTable dt = DbHelperSQL.Query(sql).Tables[0];
+                    dtmaterial.Rows.Add(new object[] { int.Parse(hfdReplaceIndex.Value), dt.Rows[0]["ID"], dt.Rows[0]["Brand"], dt.Rows[0]["BrandImg"], dt.Rows[0]["Mode"], dt.Rows[0]["Name"], dt.Rows[0]["Description"], dt.Rows[0]["Unit"], dt.Rows[0]["UnitPrice"], dt.Rows[0]["Photo"], txtQuantity.Text });
+                    hfdTempId.Value = hfdReplaceIndex.Value = "";
                     continue;
                 }
                 if (!string.IsNullOrEmpty(hfdInsertIndex.Value) && i == int.Parse(hfdInsertIndex.Value) && hfdTempId.Value != "")//插入
@@ -262,20 +269,33 @@ namespace DTcms.Web.admin.Quotation
                 Label lblUnit = rptList1.Items[i].FindControl("lblUnit") as Label;
                 Label lblUnitPrice = rptList1.Items[i].FindControl("lblUnitPrice") as Label;
                 Image imgMaterial = rptList1.Items[i].FindControl("imgMaterial") as Image;
-                TextBox txtQuantity = rptList1.Items[i].FindControl("txtQuantity") as TextBox;
                 dtmaterial.Rows.Add(new object[] { i + needadd, hfdMaterialId.Value, lblBrand.Text, imgBrand.ImageUrl, lblMode.Text, txtName.Text, lblDescription.Text, lblUnit.Text, lblUnitPrice.Text, imgMaterial.ImageUrl, txtQuantity.Text });
             }
-            if (hfdTempId.Value != "")//添加新一行
+            if (hfdTempId.Value != "" && !hfdTempId.Value.Contains('|'))//添加新一行
             {
                 string sql = "select * from Sy_Material where ID = " + hfdTempId.Value;
                 DataTable dt = DbHelperSQL.Query(sql).Tables[0];
                 dtmaterial.Rows.Add(new object[] { rptList1.Items.Count, dt.Rows[0]["ID"], dt.Rows[0]["Brand"], dt.Rows[0]["BrandImg"], dt.Rows[0]["Mode"], dt.Rows[0]["Name"], dt.Rows[0]["Description"], dt.Rows[0]["Unit"], dt.Rows[0]["UnitPrice"], dt.Rows[0]["Photo"], "" });
                 hfdTempId.Value = "";
             }
+            else if (hfdTempId.Value != "" && hfdTempId.Value.Contains('|'))//添加多行
+            {
+                string[] arr = hfdTempId.Value.Split('|');
+                for (int i = 0; i < arr.Length; i++)
+                {
+                    if (arr[i].Trim() != "")
+                    {
+                        string sql = "select * from Sy_Material where ID = " + arr[i].Trim();
+                        DataTable dt = DbHelperSQL.Query(sql).Tables[0];
+                        dtmaterial.Rows.Add(new object[] { rptList1.Items.Count + i, dt.Rows[0]["ID"], dt.Rows[0]["Brand"], dt.Rows[0]["BrandImg"], dt.Rows[0]["Mode"], dt.Rows[0]["Name"], dt.Rows[0]["Description"], dt.Rows[0]["Unit"], dt.Rows[0]["UnitPrice"], dt.Rows[0]["Photo"], "" });
+                    }
+                }
+                hfdTempId.Value = "";
+            }
 
             rptList1.DataSource = dtmaterial;
             rptList1.DataBind();
-
+            UpdateLine();
             CalculateSubTotal();
         }
 
@@ -358,6 +378,7 @@ namespace DTcms.Web.admin.Quotation
                 modelQ_QuotationList.PreferentialRatio = int.Parse(txtDiscount.Text);
                 modelQ_QuotationList.PreferentialRelief = Convert.ToDecimal(txtReduce.Text);
                 modelQ_QuotationList.Tax = int.Parse(txtTax.Text);
+                modelQ_QuotationList.IsShare = 0;
                 Q_QuotationList_ID = new BLL.Q_QuotationList().Add(modelQ_QuotationList);
                 string sql = "update C_CustomerProgram set CustomerState = 1 where CustomerId = " + Request.QueryString["cid"];
                 DbHelperSQL.ExecuteSql(sql);
@@ -396,90 +417,7 @@ namespace DTcms.Web.admin.Quotation
                     new BLL.Q_QuotationDetailLines().Add(modelQ_QuotationDetailLines);
                 }
             }
-            ScriptManager.RegisterStartupScript(this, this.GetType(), "1", "alert('保存成功！');window.location='HistoryCustomerQuotationList.aspx'", true);
-        }
-
-        protected void lbtnDel_Click(object sender, EventArgs e)
-        {
-            LinkButton lbtnDel = sender as LinkButton;
-            HiddenField hfdIsDel = lbtnDel.Parent.FindControl("hfdIsDel") as HiddenField;
-            hfdIsDel.Value = "1";
-            BindData();
-        }
-        protected void lbtnMoveUp_Click(object sender, EventArgs e)
-        {
-            LinkButton lbtn = sender as LinkButton;
-            HiddenField thishfdOrderIndex = lbtn.Parent.FindControl("hfdOrderIndex") as HiddenField;
-            int thisIndex = Convert.ToInt16(thishfdOrderIndex.Value);
-            if (thisIndex != 0)
-            {
-                thishfdOrderIndex.Value = (thisIndex - 1).ToString();
-                HiddenField lastHfdIndex = rptList1.Items[thisIndex - 1].FindControl("hfdOrderIndex") as HiddenField;
-                lastHfdIndex.Value = (Convert.ToInt16(lastHfdIndex.Value) + 1).ToString();
-
-                InitializationDtmaterial();
-                for (int i = 0; i < rptList1.Items.Count; i++)
-                {
-                    HiddenField hfdOrderIndex = rptList1.Items[i].FindControl("hfdOrderIndex") as HiddenField;
-                    HiddenField hfdMaterialId = rptList1.Items[i].FindControl("hfdMaterialId") as HiddenField;
-                    Label lblBrand = rptList1.Items[i].FindControl("lblBrand") as Label;
-                    Image imgBrand = rptList1.Items[i].FindControl("imgBrand") as Image;
-                    Label lblMode = rptList1.Items[i].FindControl("lblMode") as Label;
-                    //Label lblName = rptList1.Items[i].FindControl("lblName") as Label;
-                    TextBox txtName = rptList1.Items[i].FindControl("txtName") as TextBox;
-                    Label lblDescription = rptList1.Items[i].FindControl("lblDescription") as Label;
-                    Label lblUnit = rptList1.Items[i].FindControl("lblUnit") as Label;
-                    Label lblUnitPrice = rptList1.Items[i].FindControl("lblUnitPrice") as Label;
-                    Image imgMaterial = rptList1.Items[i].FindControl("imgMaterial") as Image;
-                    TextBox txtQuantity = rptList1.Items[i].FindControl("txtQuantity") as TextBox;
-                    dtmaterial.Rows.Add(new object[] { Convert.ToInt16(hfdOrderIndex.Value), hfdMaterialId.Value, lblBrand.Text, imgBrand.ImageUrl, lblMode.Text, txtName.Text, lblDescription.Text, lblUnit.Text, lblUnitPrice.Text, imgMaterial.ImageUrl, txtQuantity.Text });
-                }
-                DataView dv = dtmaterial.DefaultView;
-                dv.Sort = "DetailOrder asc";
-                dtmaterial = dv.ToTable();
-
-                rptList1.DataSource = dtmaterial;
-                rptList1.DataBind();
-                CalculateSubTotal();
-            }
-        }
-        protected void lbtnMoveDown_Click(object sender, EventArgs e)
-        {
-            LinkButton lbtn = sender as LinkButton;
-            HiddenField thishfdOrderIndex = lbtn.Parent.FindControl("hfdOrderIndex") as HiddenField;
-            int thisIndex = Convert.ToInt16(thishfdOrderIndex.Value);
-            int maxIndex = rptList1.Items.Count;
-            if (thisIndex != maxIndex - 1)
-            {
-                thishfdOrderIndex.Value = (thisIndex + 1).ToString();
-                HiddenField nextHfdIndex = rptList1.Items[thisIndex + 1].FindControl("hfdOrderIndex") as HiddenField;
-                nextHfdIndex.Value = (Convert.ToInt16(nextHfdIndex.Value) - 1).ToString();
-
-                InitializationDtmaterial();
-                for (int i = 0; i < rptList1.Items.Count; i++)
-                {
-                    HiddenField hfdOrderIndex = rptList1.Items[i].FindControl("hfdOrderIndex") as HiddenField;
-                    HiddenField hfdMaterialId = rptList1.Items[i].FindControl("hfdMaterialId") as HiddenField;
-                    Label lblBrand = rptList1.Items[i].FindControl("lblBrand") as Label;
-                    Image imgBrand = rptList1.Items[i].FindControl("imgBrand") as Image;
-                    Label lblMode = rptList1.Items[i].FindControl("lblMode") as Label;
-                    //Label lblName = rptList1.Items[i].FindControl("lblName") as Label;
-                    TextBox txtName = rptList1.Items[i].FindControl("txtName") as TextBox;
-                    Label lblDescription = rptList1.Items[i].FindControl("lblDescription") as Label;
-                    Label lblUnit = rptList1.Items[i].FindControl("lblUnit") as Label;
-                    Label lblUnitPrice = rptList1.Items[i].FindControl("lblUnitPrice") as Label;
-                    Image imgMaterial = rptList1.Items[i].FindControl("imgMaterial") as Image;
-                    TextBox txtQuantity = rptList1.Items[i].FindControl("txtQuantity") as TextBox;
-                    dtmaterial.Rows.Add(new object[] { Convert.ToInt16(hfdOrderIndex.Value), hfdMaterialId.Value, lblBrand.Text, imgBrand.ImageUrl, lblMode.Text, txtName.Text, lblDescription.Text, lblUnit.Text, lblUnitPrice.Text, imgMaterial.ImageUrl, txtQuantity.Text });
-                }
-                DataView dv = dtmaterial.DefaultView;
-                dv.Sort = "DetailOrder asc";
-                dtmaterial = dv.ToTable();
-
-                rptList1.DataSource = dtmaterial;
-                rptList1.DataBind();
-                CalculateSubTotal();
-            }
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "1", "alert('保存成功！');window.location='CustomerQuotationList.aspx'", true);
         }
 
         //计算总价
@@ -514,8 +452,38 @@ namespace DTcms.Web.admin.Quotation
                 lblTotalLine.Text = Math.Round(linesum, 0).ToString();
             }
             //人工费总价
-            decimal rengongsum = lblRengongTotal.Text != "" ? Convert.ToDecimal(lblRengongTotal.Text) : 0;
+            //decimal rengongsum = lblRengongTotal.Text != "" ? Convert.ToDecimal(lblRengongTotal.Text) : 0;
+            decimal rengongsum = 0;
+            decimal ruodiananzhuangFee = 0;
+            for (int i = 0; i < rptList1.Items.Count; i++)
+            {
+                HiddenField hfdMaterialId = rptList1.Items[i].FindControl("hfdMaterialId") as HiddenField;
+                TextBox txtQuantity = rptList1.Items[i].FindControl("txtQuantity") as TextBox;
+                string Quantity = (txtQuantity.Text != "" ? txtQuantity.Text : "0");
 
+                decimal unitRuodianFee = 0;
+                Model.Sy_Material mmodel = new BLL.Sy_Material().GetModel(int.Parse(hfdMaterialId.Value));
+                if (mmodel != null && mmodel.LaborCost != null)
+                {
+                    unitRuodianFee = Convert.ToDecimal(mmodel.LaborCost);
+                }
+                ruodiananzhuangFee += Convert.ToDecimal(Quantity) * unitRuodianFee;
+            }
+            decimal QicaianzhuangRate = txtQicaianzhuangRate.Text != "" ? Convert.ToDecimal(txtQicaianzhuangRate.Text) : 0;
+            decimal XitongtiaoshiRate = txtXitongtiaoshiRate.Text != "" ? Convert.ToDecimal(txtXitongtiaoshiRate.Text) : 0;
+            decimal XiangmuguanliRate = txtXiangmuguanliRate.Text != "" ? Convert.ToDecimal(txtXiangmuguanliRate.Text) : 0;
+
+            decimal QicaianzhuangFee = QicaianzhuangRate * sum;
+            decimal XitongtiaoshiFee = XitongtiaoshiRate * sum;
+            decimal XiangmuguanliFee = XiangmuguanliRate * sum;
+            txtRuodiananzhuangFee.Text = Math.Round(ruodiananzhuangFee, 0).ToString();
+            txtQicaianzhuangFee.Text = Math.Round(QicaianzhuangFee, 0).ToString();
+            txtXitongtiaoshiFee.Text = Math.Round(XitongtiaoshiFee, 0).ToString();
+            txtXiangmuguanliFee.Text = Math.Round(XiangmuguanliFee, 0).ToString();
+            rengongsum = QicaianzhuangFee + XitongtiaoshiFee + XiangmuguanliFee + ruodiananzhuangFee;
+            lblRengongTotal.Text = Math.Round(rengongsum, 0).ToString();
+
+            //系统总价
             decimal totalsum = sum + linesum + rengongsum;
             lblSystemSubTotal.Text = Math.Round(totalsum, 0).ToString();
             if (this.ViewState["GT"] != null)
@@ -544,9 +512,41 @@ namespace DTcms.Web.admin.Quotation
             }
         }
 
-        //更新线材和人工
+        //更新线材
         protected void btnUpdateLine_Click(object sender, EventArgs e)
         {
+            UpdateLine();
+            CalculateSubTotal();
+        }
+        /// <summary>
+        /// 更新线材
+        /// </summary>
+        private void UpdateLine()
+        {
+            Dictionary<string, string> dic = new Dictionary<string, string>();
+            if (hfdLineList.Value != "" && hfdLineList.Value.Contains("|"))
+            {
+                string[] arr = hfdLineList.Value.Split('|');
+                if (arr.Length > 0)
+                {
+                    for (int i = 0; i < arr.Length; i++)
+                    {
+                        if (arr[i] != "")
+                        {
+                            string oldL = arr[i].Split('-')[0];
+                            string newL = arr[i].Split('-')[1];
+                            if (dic.Keys.Contains(oldL))
+                            {
+                                dic[oldL] = newL;
+                            }
+                            else
+                            {
+                                dic.Add(oldL, newL);
+                            }
+                        }
+                    }
+                }
+            }
             string s = "select ID as FK_LineId,Brand as LineBrand,BrandImg as LineBrandImg,Mode as LineMode,Name as LineName,Description as LineDescription,Unit as LineUnit,UnitPrice as LineUnitPrice,Photo as LinePhoto,'' as LineTotalcount,'' as LineTotalamount from Sy_Material where 1=2";
             DataTable d = DbHelperSQL.Query(s).Tables[0];
             for (int i = 0; i < rptList1.Items.Count; i++)
@@ -556,6 +556,22 @@ namespace DTcms.Web.admin.Quotation
                 string Quantity = (txtQuantity.Text != "" ? txtQuantity.Text : "0");
                 string sql = "select Sy_Material_Detail.*,BrandImg,UnitPrice,Photo," + Quantity + "*Num as totalcount," + Quantity + "*Num*UnitPrice as totalamount from Sy_Material_Detail inner join Sy_Material on Sy_Material.ID = Sy_Material_Detail.ID where ForInnerID = " + hfdMaterialId.Value + "";
                 DataTable dt = DbHelperSQL.Query(sql).Tables[0];
+                for (int j = 0; j < dt.Rows.Count; j++)
+                {
+                    if (dic.Keys.Contains(dt.Rows[j]["ID"].ToString()))
+                    {
+                        Model.Sy_Material Lmodel = new BLL.Sy_Material().GetModel(int.Parse(dic[dt.Rows[j]["ID"].ToString()]));
+                        dt.Rows[j]["ID"] = Lmodel.ID;
+                        dt.Rows[j]["Brand"] = Lmodel.Brand;
+                        dt.Rows[j]["BrandImg"] = Lmodel.BrandImg;
+                        dt.Rows[j]["Mode"] = Lmodel.Mode;
+                        dt.Rows[j]["Name"] = Lmodel.Name;
+                        dt.Rows[j]["Unit"] = Lmodel.Unit;
+                        dt.Rows[j]["UnitPrice"] = Lmodel.UnitPrice;
+                        dt.Rows[j]["Photo"] = Lmodel.Photo;
+                        dt.Rows[j]["totalamount"] = (Lmodel.UnitPrice * Convert.ToDecimal(dt.Rows[j]["totalcount"])).ToString();
+                    }
+                }
                 for (int j = 0; j < dt.Rows.Count; j++)
                 {
                     DataRow[] dr = d.Select("FK_LineId = " + dt.Rows[j]["ID"]);
@@ -572,41 +588,14 @@ namespace DTcms.Web.admin.Quotation
             }
             rptLine.DataSource = d;
             rptLine.DataBind();
-            CalculateSubTotal();
         }
+        /// <summary>
+        /// 更新人工
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         protected void btnUpdateLaborFee_Click(object sender, EventArgs e)
         {
-            decimal RuodiananzhuangRate = txtRuodiananzhuangRate.Text != "" ? Convert.ToDecimal(txtRuodiananzhuangRate.Text) : 0;
-            decimal QicaianzhuangRate = txtQicaianzhuangRate.Text != "" ? Convert.ToDecimal(txtQicaianzhuangRate.Text) : 0;
-            decimal XitongtiaoshiRate = txtXitongtiaoshiRate.Text != "" ? Convert.ToDecimal(txtXitongtiaoshiRate.Text) : 0;
-            decimal XiangmuguanliRate = txtXiangmuguanliRate.Text != "" ? Convert.ToDecimal(txtXiangmuguanliRate.Text) : 0;
-            decimal VideoDebugRate = txtVideoDebugRate.Text != "" ? Convert.ToDecimal(txtVideoDebugRate.Text) : 0;
-            decimal AudioDebugRate = txtAudioDebugRate.Text != "" ? Convert.ToDecimal(txtAudioDebugRate.Text) : 0;
-
-            decimal sum = 0;//该系统商品总价
-            for (int i = 0; i < rptList1.Items.Count; i++)
-            {
-                TextBox txtQuantity = rptList1.Items[i].FindControl("txtQuantity") as TextBox;
-                Label lblUnitPrice = rptList1.Items[i].FindControl("lblUnitPrice") as Label;
-                Label lblSubTotal = rptList1.Items[i].FindControl("lblSubTotal") as Label;
-                decimal Quantity = txtQuantity.Text != "" ? Convert.ToDecimal(txtQuantity.Text) : 0;
-                decimal UnitPrice = lblUnitPrice.Text != "" ? Convert.ToDecimal(lblUnitPrice.Text) : 0;
-                decimal subTotal = Quantity * UnitPrice;
-                sum += subTotal;
-            }
-            txtRuodiananzhuangFee.Text = Math.Round(sum * RuodiananzhuangRate, 0).ToString();
-            txtQicaianzhuangFee.Text = Math.Round(sum * QicaianzhuangRate, 0).ToString();
-            txtXitongtiaoshiFee.Text = Math.Round(sum * XitongtiaoshiRate, 0).ToString();
-            txtXiangmuguanliFee.Text = Math.Round(sum * XiangmuguanliRate, 0).ToString();
-            txtVideoDebugFee.Text = Math.Round(sum * VideoDebugRate, 0).ToString();
-            txtAudioDebugFee.Text = Math.Round(sum * AudioDebugRate, 0).ToString();
-
-            lblRengongTotal.Text = Math.Round(sum * RuodiananzhuangRate
-                + sum * QicaianzhuangRate
-                + sum * XitongtiaoshiRate
-                + sum * XiangmuguanliRate
-                + sum * VideoDebugRate
-                + sum * AudioDebugRate, 0).ToString();
             CalculateSubTotal();
         }
 
@@ -632,31 +621,30 @@ namespace DTcms.Web.admin.Quotation
                 qltc.QuotationDetailType.FK_MaterialTypeId = qltc.Typeid;
                 qltc.QuotationDetailType.SystemTypeName = txtSystemName.Text;
                 qltc.QuotationDetailType.SystemTypeDes = txtSystemDes.Text;
-                qltc.QuotationDetailType.RuodiananzhuangFee = (txtRuodiananzhuangRate.Text != "" ? Convert.ToDecimal(txtRuodiananzhuangRate.Text) : 0);
+
                 qltc.QuotationDetailType.QicaianzhuangFee = (txtQicaianzhuangRate.Text != "" ? Convert.ToDecimal(txtQicaianzhuangRate.Text) : 0);
                 qltc.QuotationDetailType.XitongtiaoshiFee = (txtXitongtiaoshiRate.Text != "" ? Convert.ToDecimal(txtXitongtiaoshiRate.Text) : 0);
                 qltc.QuotationDetailType.XiangmuguanliFee = (txtXiangmuguanliRate.Text != "" ? Convert.ToDecimal(txtXiangmuguanliRate.Text) : 0);
-                qltc.QuotationDetailType.VideoDebugFee = (txtVideoDebugRate.Text != "" ? Convert.ToDecimal(txtVideoDebugRate.Text) : 0);
-                qltc.QuotationDetailType.AudioDebugFee = (txtAudioDebugRate.Text != "" ? Convert.ToDecimal(txtAudioDebugRate.Text) : 0);
-                qltc.QuotationDetailType.AuMaterialFee = (txtAuMaterialRate.Text != "" ? Convert.ToDecimal(txtAuMaterialRate.Text) : 0);
 
                 qltc.QuotationDetailType.RuodiananzhuangDes = txtRuodiananzhuangDes.Text;
                 qltc.QuotationDetailType.QicaianzhuangDes = txtQicaianzhuangDes.Text;
                 qltc.QuotationDetailType.XitongtiaoshiDes = txtXitongtiaoshiDes.Text;
                 qltc.QuotationDetailType.XiangmuguanliDes = txtXiangmuguanliDes.Text;
-                qltc.QuotationDetailType.VideoDebugDes = txtVideoDebugDes.Text;
-                qltc.QuotationDetailType.AudioDebugDes = txtAudioDebugDes.Text;
-                qltc.QuotationDetailType.AuMaterialDes = txtAuMaterialDes.Text;
+
+                qltc.QuotationDetailType.RuodiananzhuangPic = imgRuodiananzhuang.ImageUrl;
+                qltc.QuotationDetailType.QicaianzhuangPic = imgQicaianzhuang.ImageUrl;
+                qltc.QuotationDetailType.XitongtiaoshiPic = imgXitongtiaoshi.ImageUrl;
+                qltc.QuotationDetailType.XiangmuguanliPic = imgXiangmuguanli.ImageUrl;
 
                 qltc.lstQuotationDetailGoods = new List<Model.Q_QuotationDetailGoods>();
                 qltc.lstQuotationDetailLines = new List<Model.Q_QuotationDetailLines>();
+                //商品
                 for (int i = 0; i < rptList1.Items.Count; i++)
                 {
                     HiddenField hfdMaterialId = rptList1.Items[i].FindControl("hfdMaterialId") as HiddenField;
                     Label lblBrand = rptList1.Items[i].FindControl("lblBrand") as Label;
                     Image imgBrand = rptList1.Items[i].FindControl("imgBrand") as Image;
                     Label lblMode = rptList1.Items[i].FindControl("lblMode") as Label;
-                    //Label lblName = rptList1.Items[i].FindControl("lblName") as Label;
                     TextBox txtName = rptList1.Items[i].FindControl("txtName") as TextBox;
                     Label lblDescription = rptList1.Items[i].FindControl("lblDescription") as Label;
                     Label lblUnit = rptList1.Items[i].FindControl("lblUnit") as Label;
@@ -680,6 +668,7 @@ namespace DTcms.Web.admin.Quotation
 
                     qltc.lstQuotationDetailGoods.Add(qdg);
                 }
+                //线材
                 for (int i = 0; i < rptLine.Items.Count; i++)
                 {
                     HiddenField hfdMaterialId = rptLine.Items[i].FindControl("hfdMaterialId") as HiddenField;
@@ -711,7 +700,6 @@ namespace DTcms.Web.admin.Quotation
                 }
                 this.ViewState["GT"] = lstGoodsType;
             }
-
         }
         //显示之前编辑的商品信息
         private void ShowByViewstate()
@@ -738,30 +726,24 @@ namespace DTcms.Web.admin.Quotation
                     }
                     txtSystemDes.Text = qltc.QuotationDetailType.SystemTypeDes;
 
-
                     //显示人工费用比例和描述
-                    decimal RuodiananzhuangRate = qltc.QuotationDetailType.RuodiananzhuangFee != null ? Convert.ToDecimal(qltc.QuotationDetailType.RuodiananzhuangFee) : 0;
                     decimal QicaianzhuangRate = qltc.QuotationDetailType.QicaianzhuangFee != null ? Convert.ToDecimal(qltc.QuotationDetailType.QicaianzhuangFee) : 0;
                     decimal XitongtiaoshiRate = qltc.QuotationDetailType.XitongtiaoshiFee != null ? Convert.ToDecimal(qltc.QuotationDetailType.XitongtiaoshiFee) : 0;
                     decimal XiangmuguanliRate = qltc.QuotationDetailType.XiangmuguanliFee != null ? Convert.ToDecimal(qltc.QuotationDetailType.XiangmuguanliFee) : 0;
-                    decimal VideoDebugRate = qltc.QuotationDetailType.VideoDebugFee != null ? Convert.ToDecimal(qltc.QuotationDetailType.VideoDebugFee) : 0;
-                    decimal AudioDebugRate = qltc.QuotationDetailType.AudioDebugFee != null ? Convert.ToDecimal(qltc.QuotationDetailType.AudioDebugFee) : 0;
-                    decimal AuMaterialRate = qltc.QuotationDetailType.AuMaterialFee != null ? Convert.ToDecimal(qltc.QuotationDetailType.AuMaterialFee) : 0;
-                    txtRuodiananzhuangRate.Text = Math.Round(RuodiananzhuangRate, 2).ToString();
+
                     txtQicaianzhuangRate.Text = Math.Round(QicaianzhuangRate, 2).ToString();
                     txtXitongtiaoshiRate.Text = Math.Round(XitongtiaoshiRate, 2).ToString();
                     txtXiangmuguanliRate.Text = Math.Round(XiangmuguanliRate, 2).ToString();
-                    txtVideoDebugRate.Text = Math.Round(VideoDebugRate, 2).ToString();
-                    txtAudioDebugRate.Text = Math.Round(AudioDebugRate, 2).ToString();
-                    txtAuMaterialRate.Text = Math.Round(AuMaterialRate, 2).ToString();
 
                     txtRuodiananzhuangDes.Text = qltc.QuotationDetailType.RuodiananzhuangDes;
                     txtQicaianzhuangDes.Text = qltc.QuotationDetailType.QicaianzhuangDes;
                     txtXitongtiaoshiDes.Text = qltc.QuotationDetailType.XitongtiaoshiDes;
                     txtXiangmuguanliDes.Text = qltc.QuotationDetailType.XiangmuguanliDes;
-                    txtVideoDebugDes.Text = qltc.QuotationDetailType.VideoDebugDes;
-                    txtAudioDebugDes.Text = qltc.QuotationDetailType.AudioDebugDes;
-                    txtAuMaterialDes.Text = qltc.QuotationDetailType.AuMaterialDes;
+
+                    imgRuodiananzhuang.ImageUrl = qltc.QuotationDetailType.RuodiananzhuangPic;
+                    imgQicaianzhuang.ImageUrl = qltc.QuotationDetailType.QicaianzhuangPic;
+                    imgXitongtiaoshi.ImageUrl = qltc.QuotationDetailType.XitongtiaoshiPic;
+                    imgXiangmuguanli.ImageUrl = qltc.QuotationDetailType.XiangmuguanliPic;
 
                     decimal sum = 0;//该系统商品总价
                     for (int i = 0; i < rptList1.Items.Count; i++)
@@ -774,15 +756,12 @@ namespace DTcms.Web.admin.Quotation
                         decimal subTotal = Quantity * UnitPrice;
                         sum += subTotal;
                     }
-                    txtRuodiananzhuangFee.Text = Math.Round(sum * RuodiananzhuangRate, 0).ToString();
-                    txtQicaianzhuangFee.Text = Math.Round(sum * QicaianzhuangRate, 0).ToString();
-                    txtXitongtiaoshiFee.Text = Math.Round(sum * XitongtiaoshiRate, 0).ToString();
-                    txtXiangmuguanliFee.Text = Math.Round(sum * XiangmuguanliRate, 0).ToString();
-                    txtVideoDebugFee.Text = Math.Round(sum * VideoDebugRate, 0).ToString();
-                    txtAudioDebugFee.Text = Math.Round(sum * AudioDebugRate, 0).ToString();
-                    txtAuMaterialFee.Text = Math.Round(sum * AuMaterialRate, 0).ToString();
-                    //显示人工费用总计
-                    lblRengongTotal.Text = Math.Round(sum * RuodiananzhuangRate + sum * QicaianzhuangRate + sum * XitongtiaoshiRate + sum * XiangmuguanliRate + sum * VideoDebugRate + sum * AudioDebugRate, 0).ToString();
+                    //txtQicaianzhuangFee.Text = Math.Round(sum * QicaianzhuangRate, 0).ToString();
+                    //txtXitongtiaoshiFee.Text = Math.Round(sum * XitongtiaoshiRate, 0).ToString();
+                    //txtXiangmuguanliFee.Text = Math.Round(sum * XiangmuguanliRate, 0).ToString();
+
+                    ////显示人工费用总计
+                    //lblRengongTotal.Text = Math.Round(sum * RuodiananzhuangRate + sum * QicaianzhuangRate + sum * XitongtiaoshiRate + sum * XiangmuguanliRate + sum * VideoDebugRate + sum * AudioDebugRate, 0).ToString();
                 }
                 else
                 {
@@ -790,8 +769,9 @@ namespace DTcms.Web.admin.Quotation
                     {
                         txtSystemName.Text = rblGoodsType.SelectedItem.Text;
                     }
-                    txtSystemDes.Text = txtRuodiananzhuangFee.Text = txtQicaianzhuangFee.Text = txtXitongtiaoshiFee.Text = txtXiangmuguanliFee.Text = txtVideoDebugFee.Text = txtAudioDebugFee.Text = txtAuMaterialFee.Text = "";
-                    txtRuodiananzhuangRate.Text = txtQicaianzhuangRate.Text = txtXitongtiaoshiRate.Text = txtXiangmuguanliRate.Text = txtVideoDebugRate.Text = txtAudioDebugRate.Text = txtAuMaterialRate.Text = "";
+                    txtSystemDes.Text = txtRuodiananzhuangFee.Text = txtQicaianzhuangFee.Text = txtXitongtiaoshiFee.Text = txtXiangmuguanliFee.Text = "";
+                    txtQicaianzhuangRate.Text = txtXitongtiaoshiRate.Text = txtXiangmuguanliRate.Text = "";
+                    txtRuodiananzhuangDes.Text = txtQicaianzhuangDes.Text = txtXitongtiaoshiDes.Text = txtXiangmuguanliDes.Text = "";
                 }
                 CalculateSubTotal();
 
@@ -927,6 +907,88 @@ namespace DTcms.Web.admin.Quotation
                     rptList1.DataBind();
                     this.ViewState["GT"] = lstGoodsType;
                 }
+            }
+        }
+        protected void lbtnDel_Click(object sender, EventArgs e)
+        {
+            LinkButton lbtnDel = sender as LinkButton;
+            HiddenField hfdIsDel = lbtnDel.Parent.FindControl("hfdIsDel") as HiddenField;
+            hfdIsDel.Value = "1";
+            BindData();
+        }
+        protected void lbtnMoveUp_Click(object sender, EventArgs e)
+        {
+            LinkButton lbtn = sender as LinkButton;
+            HiddenField thishfdOrderIndex = lbtn.Parent.FindControl("hfdOrderIndex") as HiddenField;
+            int thisIndex = Convert.ToInt16(thishfdOrderIndex.Value);
+            if (thisIndex != 0)
+            {
+                thishfdOrderIndex.Value = (thisIndex - 1).ToString();
+                HiddenField lastHfdIndex = rptList1.Items[thisIndex - 1].FindControl("hfdOrderIndex") as HiddenField;
+                lastHfdIndex.Value = (Convert.ToInt16(lastHfdIndex.Value) + 1).ToString();
+
+                InitializationDtmaterial();
+                for (int i = 0; i < rptList1.Items.Count; i++)
+                {
+                    HiddenField hfdOrderIndex = rptList1.Items[i].FindControl("hfdOrderIndex") as HiddenField;
+                    HiddenField hfdMaterialId = rptList1.Items[i].FindControl("hfdMaterialId") as HiddenField;
+                    Label lblBrand = rptList1.Items[i].FindControl("lblBrand") as Label;
+                    Image imgBrand = rptList1.Items[i].FindControl("imgBrand") as Image;
+                    Label lblMode = rptList1.Items[i].FindControl("lblMode") as Label;
+                    //Label lblName = rptList1.Items[i].FindControl("lblName") as Label;
+                    TextBox txtName = rptList1.Items[i].FindControl("txtName") as TextBox;
+                    Label lblDescription = rptList1.Items[i].FindControl("lblDescription") as Label;
+                    Label lblUnit = rptList1.Items[i].FindControl("lblUnit") as Label;
+                    Label lblUnitPrice = rptList1.Items[i].FindControl("lblUnitPrice") as Label;
+                    Image imgMaterial = rptList1.Items[i].FindControl("imgMaterial") as Image;
+                    TextBox txtQuantity = rptList1.Items[i].FindControl("txtQuantity") as TextBox;
+                    dtmaterial.Rows.Add(new object[] { Convert.ToInt16(hfdOrderIndex.Value), hfdMaterialId.Value, lblBrand.Text, imgBrand.ImageUrl, lblMode.Text, txtName.Text, lblDescription.Text, lblUnit.Text, lblUnitPrice.Text, imgMaterial.ImageUrl, txtQuantity.Text });
+                }
+                DataView dv = dtmaterial.DefaultView;
+                dv.Sort = "DetailOrder asc";
+                dtmaterial = dv.ToTable();
+
+                rptList1.DataSource = dtmaterial;
+                rptList1.DataBind();
+                CalculateSubTotal();
+            }
+        }
+        protected void lbtnMoveDown_Click(object sender, EventArgs e)
+        {
+            LinkButton lbtn = sender as LinkButton;
+            HiddenField thishfdOrderIndex = lbtn.Parent.FindControl("hfdOrderIndex") as HiddenField;
+            int thisIndex = Convert.ToInt16(thishfdOrderIndex.Value);
+            int maxIndex = rptList1.Items.Count;
+            if (thisIndex != maxIndex - 1)
+            {
+                thishfdOrderIndex.Value = (thisIndex + 1).ToString();
+                HiddenField nextHfdIndex = rptList1.Items[thisIndex + 1].FindControl("hfdOrderIndex") as HiddenField;
+                nextHfdIndex.Value = (Convert.ToInt16(nextHfdIndex.Value) - 1).ToString();
+
+                InitializationDtmaterial();
+                for (int i = 0; i < rptList1.Items.Count; i++)
+                {
+                    HiddenField hfdOrderIndex = rptList1.Items[i].FindControl("hfdOrderIndex") as HiddenField;
+                    HiddenField hfdMaterialId = rptList1.Items[i].FindControl("hfdMaterialId") as HiddenField;
+                    Label lblBrand = rptList1.Items[i].FindControl("lblBrand") as Label;
+                    Image imgBrand = rptList1.Items[i].FindControl("imgBrand") as Image;
+                    Label lblMode = rptList1.Items[i].FindControl("lblMode") as Label;
+                    //Label lblName = rptList1.Items[i].FindControl("lblName") as Label;
+                    TextBox txtName = rptList1.Items[i].FindControl("txtName") as TextBox;
+                    Label lblDescription = rptList1.Items[i].FindControl("lblDescription") as Label;
+                    Label lblUnit = rptList1.Items[i].FindControl("lblUnit") as Label;
+                    Label lblUnitPrice = rptList1.Items[i].FindControl("lblUnitPrice") as Label;
+                    Image imgMaterial = rptList1.Items[i].FindControl("imgMaterial") as Image;
+                    TextBox txtQuantity = rptList1.Items[i].FindControl("txtQuantity") as TextBox;
+                    dtmaterial.Rows.Add(new object[] { Convert.ToInt16(hfdOrderIndex.Value), hfdMaterialId.Value, lblBrand.Text, imgBrand.ImageUrl, lblMode.Text, txtName.Text, lblDescription.Text, lblUnit.Text, lblUnitPrice.Text, imgMaterial.ImageUrl, txtQuantity.Text });
+                }
+                DataView dv = dtmaterial.DefaultView;
+                dv.Sort = "DetailOrder asc";
+                dtmaterial = dv.ToTable();
+
+                rptList1.DataSource = dtmaterial;
+                rptList1.DataBind();
+                CalculateSubTotal();
             }
         }
         #endregion
@@ -1156,6 +1218,134 @@ namespace DTcms.Web.admin.Quotation
 
                 return ("?");
 
+        }
+
+        protected void btnBindLine_Click(object sender, EventArgs e)
+        {
+            hfdLineList.Value += hfdLineReplaceId.Value + "-" + hfdLineTempId.Value + "|";
+            UpdateLine();
+            hfdLineTempId.Value = hfdLineReplaceId.Value = "";
+        }
+
+        protected void btnExportTotal_Click(object sender, EventArgs e)
+        {
+            DataTable dt = DbHelperSQL.Query("select * from Sy_SystemType where 1=1").Tables[0];
+            dt.Columns.Add("pic");
+
+            byte[] bytes = SaveImage(Server.MapPath(@"../../" + dt.Rows[0]["RuodiananzhuangPic"].ToString()));
+            MemoryStream ms = new MemoryStream(bytes);
+            System.Drawing.Image returnImage = System.Drawing.Image.FromStream(ms);
+
+
+
+
+            Aspose.Cells.Workbook workbook = new Aspose.Cells.Workbook();
+            workbook.Open(Server.MapPath(@"muban.xls"));
+            Aspose.Cells.Worksheet worksheet = workbook.Worksheets[0];
+            worksheet.Cells.SetRowHeight(1, 60);
+            worksheet.Cells.SetColumnWidth(14, 20);
+            worksheet.Cells.ImportDataTable(dt, false, 1, 0, dt.Rows.Count, dt.Columns.Count, true);
+            worksheet.Pictures.Add(1, 14, ms, 500, 300);
+            string title = DateTime.Now.ToString("yyyyMMddHHmm");
+            workbook.Save(Server.MapPath(@"../../upload/" + title + ".xls"));
+            DTcms.Common.Utils.down(Server.MapPath(@"../../upload/" + title + ".xls"), Response);
+            if (File.Exists(Server.MapPath(@"../../upload/" + title + ".xls")))
+            {
+                File.Delete(Server.MapPath(@"../../upload/" + title + ".xls"));
+            }
+        }
+
+        public byte[] SaveImage(String path)
+        {
+            FileStream fs = new FileStream(path, FileMode.Open, FileAccess.Read); //将图片以文件流的形式进行保存
+            BinaryReader br = new BinaryReader(fs);
+            byte[] imgBytesIn = br.ReadBytes((int)fs.Length); //将流读入到字节数组中
+            return imgBytesIn;
+        }
+        /// <summary>
+        /// 导出sheet
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void btnExportSheet_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(hfdMtype.Value))
+            {
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "1", "alert('请选择系统类型')", true);
+                return;
+            }
+            lstGoodsType = this.ViewState["GT"] as List<QuatationListTypeClass>;
+            string id = lstGoodsType.Where(p => p.Typeid == Convert.ToInt32(hfdMtype.Value)).First().Keyid.ToString();
+            Model.Q_QuotationDetailType qdt = new BLL.Q_QuotationDetailType().GetModel(int.Parse(id));
+            if (qdt != null)
+            {
+                string sql = "select * from Q_QuotationDetailGoods where FK_QuotationDetailTypeId = " + id + " order by DetailOrder";
+                DataTable dt = DbHelperSQL.Query(sql).Tables[0];
+
+                Aspose.Cells.Workbook workbook = new Aspose.Cells.Workbook();
+                workbook.Open(Server.MapPath(@"sheet.xlsx"));
+                Aspose.Cells.Worksheet worksheet = workbook.Worksheets[0];
+                decimal total = 0;
+                Aspose.Cells.Style style = workbook.Styles[workbook.Styles.Add()];//新增样式
+                //style.HorizontalAlignment = Aspose.Cells.TextAlignmentType.Center;//文字居中
+                style.Font.Name = "宋体";//文字字体
+                style.Font.Size = 10;//文字大小
+                style.IsTextWrapped = true;//单元格内容自动换行
+                style.VerticalAlignment = Aspose.Cells.TextAlignmentType.Center;
+                worksheet.Cells[0, 0].PutValue(qdt.SystemTypeName);
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
+                    if (dt.Rows[i]["BrandImg"].ToString().Trim() != "")
+                    {
+                        byte[] bytes = SaveImage(Server.MapPath(@"../../" + dt.Rows[0]["BrandImg"].ToString()));
+                        MemoryStream ms = new MemoryStream(bytes);
+                        worksheet.Pictures.Add(i + 5, 1, ms, 110, 25);
+                    }
+                    if (dt.Rows[i]["Photo"].ToString().Trim() != "")
+                    {
+                        byte[] bytes = SaveImage(Server.MapPath(@"../../" + dt.Rows[0]["Photo"].ToString()));
+                        MemoryStream ms = new MemoryStream(bytes);
+                        worksheet.Pictures.Add(i + 5, 9, ms, 110, 25);
+                    }
+                    decimal qty = 0;
+                    if (!string.IsNullOrEmpty(dt.Rows[0]["GoodsQuantity"].ToString()))
+                    {
+                        qty = Convert.ToDecimal(dt.Rows[0]["GoodsQuantity"].ToString());
+                    }
+                    decimal unitptice = 0;
+                    if (!string.IsNullOrEmpty(dt.Rows[0]["UnitPrice"].ToString()))
+                    {
+                        unitptice = Convert.ToDecimal(dt.Rows[0]["UnitPrice"].ToString());
+                    }
+                    decimal subTotal = qty * unitptice;
+                    total += subTotal;
+                    worksheet.Cells[i + 5, 0].PutValue((i + 1).ToString());
+                    worksheet.Cells[i + 5, 2].PutValue(dt.Rows[0]["Mode"].ToString());
+                    worksheet.Cells[i + 5, 3].PutValue(dt.Rows[0]["Name"].ToString());
+                    worksheet.Cells[i + 5, 4].PutValue(dt.Rows[0]["Description"].ToString().Replace("<br />", "\r\n"));
+                    worksheet.Cells[i + 5, 5].PutValue(Math.Round(qty, 0).ToString());
+                    worksheet.Cells[i + 5, 6].PutValue(dt.Rows[0]["Unit"].ToString());
+                    worksheet.Cells[i + 5, 7].PutValue(Math.Round(unitptice, 0).ToString());
+                    worksheet.Cells[i + 5, 8].PutValue("￥" + Math.Round(subTotal, 0).ToString());
+                    worksheet.Cells[i + 5, 0].Style = style;
+                    worksheet.Cells[i + 5, 1].Style = style;
+                    worksheet.Cells[i + 5, 2].Style = style;
+                    worksheet.Cells[i + 5, 3].Style = style;
+                    worksheet.Cells[i + 5, 4].Style = style;
+                    worksheet.Cells[i + 5, 5].Style = style;
+                    worksheet.Cells[i + 5, 6].Style = style;
+                    worksheet.Cells[i + 5, 7].Style = style;
+                    worksheet.Cells[i + 5, 8].Style = style;
+                    worksheet.Cells.SetRowHeight(i + 5, 55);
+                }
+                string title = DateTime.Now.ToString("yyyyMMddHHmm");
+                workbook.Save(Server.MapPath(@"../../upload/" + title + ".xls"));
+                DTcms.Common.Utils.down(Server.MapPath(@"../../upload/" + title + ".xls"), Response);
+                if (File.Exists(Server.MapPath(@"../../upload/" + title + ".xls")))
+                {
+                    File.Delete(Server.MapPath(@"../../upload/" + title + ".xls"));
+                }
+            }
         }
     }
 }

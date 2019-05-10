@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Data;
+using System.IO;
 
 namespace DTcms.Web.admin.Quotation
 {
@@ -31,6 +32,7 @@ namespace DTcms.Web.admin.Quotation
                 txtDes.Text = dt.Rows[0]["QuotationTemplateDescription"].ToString();
                 txtScenario.Text = dt.Rows[0]["QuotationTemplateScenario"].ToString();
                 txtNotes.Text = dt.Rows[0]["QuotationTemplateNotes"].ToString();
+                txtOrder.Text = dt.Rows[0]["TempOrder"].ToString();
                 sql = "select DetailOrder as OrderIndex,FK_materialID as MaterialID, Brand,BrandImg,Mode,Name,Description,Unit,UnitPrice,Photo,TemplateDetailQuantity as Quantity from Q_QuotationTemplateDetail as QT inner join Sy_Material as M on M.ID = QT.FK_materialID where TemplateParentID = " + Request.QueryString["id"];
                 DataTable dtDetail = DbHelperSQL.Query(sql).Tables[0];
                 for (int i = 0; i < dtDetail.Rows.Count; i++)
@@ -41,81 +43,45 @@ namespace DTcms.Web.admin.Quotation
                 rptList1.DataBind();
                 if (Request.QueryString["action"].ToString() == "add")
                 {
-                    txtRuodiananzhuangFee.Text = dt.Rows[0]["RuodiananzhuangFee"].ToString() != "" ? dt.Rows[0]["RuodiananzhuangFee"].ToString() : "0";
                     txtQicaianzhuangFee.Text = dt.Rows[0]["QicaianzhuangFee"].ToString() != "" ? dt.Rows[0]["QicaianzhuangFee"].ToString() : "0";
                     txtXitongtiaoshiFee.Text = dt.Rows[0]["XitongtiaoshiFee"].ToString() != "" ? dt.Rows[0]["XitongtiaoshiFee"].ToString() : "0";
                     txtXiangmuguanliFee.Text = dt.Rows[0]["XiangmuguanliFee"].ToString() != "" ? dt.Rows[0]["XiangmuguanliFee"].ToString() : "0";
-                    txtVideoDebugFee.Text = dt.Rows[0]["VideoDebugFee"].ToString() != "" ? dt.Rows[0]["VideoDebugFee"].ToString() : "0";
-                    txtAudioDebugFee.Text = dt.Rows[0]["AudioDebugFee"].ToString() != "" ? dt.Rows[0]["AudioDebugFee"].ToString() : "0";
-                    txtAuMaterialFee.Text = dt.Rows[0]["AuMaterialFee"].ToString() != "" ? dt.Rows[0]["AuMaterialFee"].ToString() : "0";
-
-                    txtRuodiananzhuangDes.Text = dt.Rows[0]["RuodiananzhuangDes"].ToString();
                     txtQicaianzhuangDes.Text = dt.Rows[0]["QicaianzhuangDes"].ToString();
                     txtXitongtiaoshiDes.Text = dt.Rows[0]["XitongtiaoshiDes"].ToString();
                     txtXiangmuguanliDes.Text = dt.Rows[0]["XiangmuguanliDes"].ToString();
-                    txtVideoDebugDes.Text = dt.Rows[0]["VideoDebugDes"].ToString();
-                    txtAudioDebugDes.Text = dt.Rows[0]["AudioDebugDes"].ToString();
-                    txtAuMaterialDes.Text = dt.Rows[0]["AuMaterialDes"].ToString();
-
-                    ddlTag.SelectedValue = dt.Rows[0]["TermpTag"].ToString();
+                    txtRuodiananzhuangDes.Text = dt.Rows[0]["RuodiananzhuangDes"].ToString();
+                    imgQicaianzhuang.ImageUrl = dt.Rows[0]["QicaianzhuangPic"].ToString();
+                    imgXitongtiaoshi.ImageUrl = dt.Rows[0]["XitongtiaoshiPic"].ToString();
+                    imgXiangmuguanli.ImageUrl = dt.Rows[0]["XiangmuguanliPic"].ToString();
+                    imgRuodiananzhuang.ImageUrl = dt.Rows[0]["RuodiananzhuangPic"].ToString();
+                    ddlTag.SelectedValue = dt.Rows[0]["TempTag"].ToString();
                 }
                 else if (Request.QueryString["action"].ToString() == "edit")
                 {
-                    txtRuodiananzhuangFee.Text = dt.Rows[0]["RuodiananzhuangFee"].ToString() != "" ? dt.Rows[0]["RuodiananzhuangFee"].ToString() : "0";
                     txtQicaianzhuangFee.Text = dt.Rows[0]["QicaianzhuangFee"].ToString() != "" ? dt.Rows[0]["QicaianzhuangFee"].ToString() : "0";
                     txtXitongtiaoshiFee.Text = dt.Rows[0]["XitongtiaoshiFee"].ToString() != "" ? dt.Rows[0]["XitongtiaoshiFee"].ToString() : "0";
                     txtXiangmuguanliFee.Text = dt.Rows[0]["XiangmuguanliFee"].ToString() != "" ? dt.Rows[0]["XiangmuguanliFee"].ToString() : "0";
-                    txtVideoDebugFee.Text = dt.Rows[0]["VideoDebugFee"].ToString() != "" ? dt.Rows[0]["VideoDebugFee"].ToString() : "0";
-                    txtAudioDebugFee.Text = dt.Rows[0]["AudioDebugFee"].ToString() != "" ? dt.Rows[0]["AudioDebugFee"].ToString() : "0";
-                    txtAuMaterialFee.Text = dt.Rows[0]["AuMaterialFee"].ToString() != "" ? dt.Rows[0]["AuMaterialFee"].ToString() : "0";
-
-                    txtRuodiananzhuangDes.Text = dt.Rows[0]["RuodiananzhuangDes"].ToString();
                     txtQicaianzhuangDes.Text = dt.Rows[0]["QicaianzhuangDes"].ToString();
                     txtXitongtiaoshiDes.Text = dt.Rows[0]["XitongtiaoshiDes"].ToString();
                     txtXiangmuguanliDes.Text = dt.Rows[0]["XiangmuguanliDes"].ToString();
-                    txtVideoDebugDes.Text = dt.Rows[0]["VideoDebugDes"].ToString();
-                    txtAudioDebugDes.Text = dt.Rows[0]["AudioDebugDes"].ToString();
-                    txtAuMaterialDes.Text = dt.Rows[0]["AuMaterialDes"].ToString();
-
-                    ddlTag.SelectedValue = dt.Rows[0]["TermpTag"].ToString();
+                    txtRuodiananzhuangDes.Text = dt.Rows[0]["RuodiananzhuangDes"].ToString();
+                    imgQicaianzhuang.ImageUrl = dt.Rows[0]["QicaianzhuangPic"].ToString();
+                    imgXitongtiaoshi.ImageUrl = dt.Rows[0]["XitongtiaoshiPic"].ToString();
+                    imgXiangmuguanli.ImageUrl = dt.Rows[0]["XiangmuguanliPic"].ToString();
+                    imgRuodiananzhuang.ImageUrl = dt.Rows[0]["RuodiananzhuangPic"].ToString();
+                    ddlTag.SelectedValue = dt.Rows[0]["TempTag"].ToString();
                     sql = "select FK_LineId as ID,LineBrand as Brand,LineBrandImg as BrandImg,LineMode as Mode,LineName as Name,LineDescription as Description,LineUnit as Unit,LineUnitPrice as UnitPrice,LinePhoto as Photo,LineTotalcount as totalcount,LineTotalamount as totalamount from Q_QuotationTemplateLine where FK_TemplateId = " + Request.QueryString["id"];
                     DataTable dtLine = DbHelperSQL.Query(sql).Tables[0];
                     rptLine.DataSource = dtLine;
                     rptLine.DataBind();
                 }
-                decimal RuodiananzhuangFee = 0;
-                decimal QicaianzhuangFee = 0;
-                decimal XitongtiaoshiFee = 0;
-                decimal XiangmuguanliFee = 0;
-                decimal VideoDebugFee = 0;
-                decimal AudioDebugFee = 0;
-                decimal AuMaterialFee = 0;
-                for (int i = 0; i < rptList1.Items.Count; i++)
-                {
-                    HiddenField hfdMaterialId = rptList1.Items[i].FindControl("hfdMaterialId") as HiddenField;
-                    TextBox txtQuantity = rptList1.Items[i].FindControl("txtQuantity") as TextBox;
-                    Label lblUnitPrice = rptList1.Items[i].FindControl("lblUnitPrice") as Label;
-
-                    decimal count = txtQuantity.Text != "" ? decimal.Parse(txtQuantity.Text) : 0;
-                    decimal unitprice = lblUnitPrice.Text != "" ? decimal.Parse(lblUnitPrice.Text) : 0;
-                    RuodiananzhuangFee += count * unitprice * (txtRuodiananzhuangFee.Text != "" ? Convert.ToDecimal(txtRuodiananzhuangFee.Text) : 0);
-                    QicaianzhuangFee += count * unitprice * (txtQicaianzhuangFee.Text != "" ? Convert.ToDecimal(txtQicaianzhuangFee.Text) : 0);
-                    XitongtiaoshiFee += count * unitprice * (txtXitongtiaoshiFee.Text != "" ? Convert.ToDecimal(txtXitongtiaoshiFee.Text) : 0);
-                    XiangmuguanliFee += count * unitprice * (txtXiangmuguanliFee.Text != "" ? Convert.ToDecimal(txtXiangmuguanliFee.Text) : 0);
-                    VideoDebugFee += count * unitprice * (txtVideoDebugFee.Text != "" ? Convert.ToDecimal(txtVideoDebugFee.Text) : 0);
-                    AudioDebugFee += count * unitprice * (txtAudioDebugFee.Text != "" ? Convert.ToDecimal(txtAudioDebugFee.Text) : 0);
-                    AuMaterialFee += count * unitprice * (txtAuMaterialFee.Text != "" ? Convert.ToDecimal(txtAuMaterialFee.Text) : 0);
-                }
-                txtRuodiananzhuangTotal.Text = Math.Round(RuodiananzhuangFee, 0).ToString();
-                txtQicaianzhuangTotal.Text = Math.Round(QicaianzhuangFee, 0).ToString();
-                txtXitongtiaoshiTotal.Text = Math.Round(XitongtiaoshiFee, 0).ToString();
-                txtXiangmuguanliTotal.Text = Math.Round(XiangmuguanliFee, 0).ToString();
-                txtVideoDebugTotal.Text = Math.Round(VideoDebugFee, 0).ToString();
-                txtAudioDebugTotal.Text = Math.Round(AudioDebugFee, 0).ToString();
-                txtAuMaterialTotal.Text = Math.Round(AuMaterialFee, 0).ToString();
+                UpdateLine();
+                UpdateLaborFee();
+                decimal TotalGoods = hfdTotalGoods.Value != "" ? Convert.ToDecimal(hfdTotalGoods.Value) : 0;
+                decimal TotalLine = hfdTotalLine.Value != "" ? Convert.ToDecimal(hfdTotalLine.Value) : 0;
+                decimal TotalRengong = hfdTotalRengong.Value != "" ? Convert.ToDecimal(hfdTotalRengong.Value) : 0;
+                lblSystemSubTotal.Text = Math.Round(TotalGoods + TotalLine + TotalRengong, 0).ToString();
             }
-
-
         }
 
         protected void btnSave_Click(object sender, EventArgs e)
@@ -144,23 +110,27 @@ namespace DTcms.Web.admin.Quotation
                     DbHelperSQL.ExecuteSql(sql);
                 }
                 Model.Q_QuotationTemplate model = new BLL.Q_QuotationTemplate().GetModel(int.Parse(Request.QueryString["id"]));
-                model.RuodiananzhuangFee = (txtRuodiananzhuangFee.Text != "" ? Convert.ToDecimal(txtRuodiananzhuangFee.Text) : 0);
                 model.QicaianzhuangFee = (txtQicaianzhuangFee.Text != "" ? Convert.ToDecimal(txtQicaianzhuangFee.Text) : 0);
                 model.XitongtiaoshiFee = (txtXitongtiaoshiFee.Text != "" ? Convert.ToDecimal(txtXitongtiaoshiFee.Text) : 0);
                 model.XiangmuguanliFee = (txtXiangmuguanliFee.Text != "" ? Convert.ToDecimal(txtXiangmuguanliFee.Text) : 0);
-                model.VideoDebugFee = (txtVideoDebugFee.Text != "" ? Convert.ToDecimal(txtVideoDebugFee.Text) : 0);
-                model.AudioDebugFee = (txtAudioDebugFee.Text != "" ? Convert.ToDecimal(txtAudioDebugFee.Text) : 0);
-                model.AuMaterialFee = (txtAuMaterialFee.Text != "" ? Convert.ToDecimal(txtAuMaterialFee.Text) : 0);
-
-                model.RuodiananzhuangDes = txtRuodiananzhuangDes.Text;
                 model.QicaianzhuangDes = txtQicaianzhuangDes.Text;
                 model.XitongtiaoshiDes = txtXitongtiaoshiDes.Text;
                 model.XiangmuguanliDes = txtXiangmuguanliDes.Text;
-                model.VideoDebugDes = txtVideoDebugDes.Text;
-                model.AudioDebugDes = txtAudioDebugDes.Text;
-                model.AuMaterialDes = txtAuMaterialDes.Text;
-
-                model.TermpTag = ddlTag.SelectedItem.Value;
+                model.RuodiananzhuangDes = txtRuodiananzhuangDes.Text;
+                //if (FileUpload1.HasFile)
+                //{
+                //    string fileurl = "";
+                //    string path = "/upload/" + DateTime.Now.ToString("yyyyMMddHHmmss") + "_ruodiananzhuang";
+                //    if (!Directory.Exists(Server.MapPath(path)))
+                //    {
+                //        Directory.CreateDirectory(Server.MapPath(path));
+                //    }
+                //    fileurl = "../.." + path + "/" + FileUpload1.FileName;
+                //    FileUpload1.SaveAs(Server.MapPath(fileurl));
+                //    model.RuodiananzhuangPic = path + "/" + FileUpload1.FileName;
+                //}
+                model.TempTag = ddlTag.SelectedItem.Value;
+                model.TempOrder = txtOrder.Text.Trim() != "" ? int.Parse(txtOrder.Text) : 0;
                 model.QuotationTemplateName = txtName.Text;
                 model.QuotationTemplateMainBrand = txtMainBrand.Text;
                 model.QuotationTemplateDescription = txtDes.Text;
@@ -168,9 +138,6 @@ namespace DTcms.Web.admin.Quotation
                 model.QuotationTemplateNotes = txtNotes.Text;
                 model.QuotationTemplateState = 1;
                 new BLL.Q_QuotationTemplate().Update(model);
-                //string sql2 = "update Q_QuotationTemplate set RuodiananzhuangFee = " + (txtRuodiananzhuangFee.Text != "" ? txtRuodiananzhuangFee.Text : "0") + ",QicaianzhuangFee = " + (txtQicaianzhuangFee.Text != "" ? txtQicaianzhuangFee.Text : "0") + ",XitongtiaoshiFee = " + (txtXitongtiaoshiFee.Text != "" ? txtXitongtiaoshiFee.Text : "0") + ",XiangmuguanliFee = " + (txtXiangmuguanliFee.Text != "" ? txtXiangmuguanliFee.Text : "0") + ",VideoDebugFee = " + (txtVideoDebugFee.Text != "" ? txtVideoDebugFee.Text : "0") + ",AudioDebugFee = " + (txtAudioDebugFee.Text != "" ? txtAudioDebugFee.Text : "0") + ",QuotationTemplateName = '" + txtName.Text + "',QuotationTemplateMainBrand = '" + txtMainBrand.Text + "',QuotationTemplateDescription = '" + txtDes.Text + "',QuotationTemplateScenario = '" + txtScenario.Text + "',QuotationTemplateNotes = '" + txtNotes.Text + "',QuotationTemplateState = 1 where QuotationTemplateId = " + Request.QueryString["id"];
-                //DbHelperSQL.ExecuteSql(sql2);
-
                 for (int i = 0; i < rptLine.Items.Count; i++)
                 {
                     HiddenField hfdMaterialId = rptLine.Items[i].FindControl("hfdMaterialId") as HiddenField;
@@ -188,7 +155,6 @@ namespace DTcms.Web.admin.Quotation
                     string sql2 = "insert into Q_QuotationTemplateLine values(" + Request.QueryString["id"] + "," + hfdMaterialId.Value + ",'" + lblBrand.Text + "','" + imgBrand.ImageUrl.ToString() + "','" + lblMode.Text + "','" + lblName.Text + "','" + lblDescription.Text + "','" + lblUnit.Text + "','" + lblUnitPrice.Text + "','" + imgMaterial.ImageUrl.ToString() + "'," + (lblQuantity.Text != "" ? lblQuantity.Text : "0") + "," + (lblTotalAmount.Text != "" ? lblTotalAmount.Text : "0") + ")";
                     DbHelperSQL.ExecuteSql(sql2);
                 }
-
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "1", "alert('模板创建完成！');window.location.href='QuotationTemplateList.aspx'", true);
             }
             else if (Request.QueryString["action"] == "edit")
@@ -212,31 +178,34 @@ namespace DTcms.Web.admin.Quotation
                     DbHelperSQL.ExecuteSql(sql);
                 }
                 Model.Q_QuotationTemplate model = new BLL.Q_QuotationTemplate().GetModel(int.Parse(Request.QueryString["id"]));
-                model.RuodiananzhuangFee = (txtRuodiananzhuangFee.Text != "" ? Convert.ToDecimal(txtRuodiananzhuangFee.Text) : 0);
                 model.QicaianzhuangFee = (txtQicaianzhuangFee.Text != "" ? Convert.ToDecimal(txtQicaianzhuangFee.Text) : 0);
                 model.XitongtiaoshiFee = (txtXitongtiaoshiFee.Text != "" ? Convert.ToDecimal(txtXitongtiaoshiFee.Text) : 0);
                 model.XiangmuguanliFee = (txtXiangmuguanliFee.Text != "" ? Convert.ToDecimal(txtXiangmuguanliFee.Text) : 0);
-                model.VideoDebugFee = (txtVideoDebugFee.Text != "" ? Convert.ToDecimal(txtVideoDebugFee.Text) : 0);
-                model.AudioDebugFee = (txtAudioDebugFee.Text != "" ? Convert.ToDecimal(txtAudioDebugFee.Text) : 0);
-                model.AuMaterialFee = (txtAuMaterialFee.Text != "" ? Convert.ToDecimal(txtAuMaterialFee.Text) : 0);
-
-                model.RuodiananzhuangDes = txtRuodiananzhuangDes.Text;
                 model.QicaianzhuangDes = txtQicaianzhuangDes.Text;
                 model.XitongtiaoshiDes = txtXitongtiaoshiDes.Text;
                 model.XiangmuguanliDes = txtXiangmuguanliDes.Text;
-                model.VideoDebugDes = txtVideoDebugDes.Text;
-                model.AudioDebugDes = txtAudioDebugDes.Text;
-                model.AuMaterialDes = txtAuMaterialDes.Text;
-
-                model.TermpTag = ddlTag.SelectedItem.Value;
+                model.RuodiananzhuangDes = txtRuodiananzhuangDes.Text;
+                //if (FileUpload1.HasFile)
+                //{
+                //    string fileurl = "";
+                //    string path = "/upload/" + DateTime.Now.ToString("yyyyMMddHHmmss") + "_ruodiananzhuang";
+                //    if (!Directory.Exists(Server.MapPath(path)))
+                //    {
+                //        Directory.CreateDirectory(Server.MapPath(path));
+                //    }
+                //    fileurl = "../.." + path + "/" + FileUpload1.FileName;
+                //    FileUpload1.SaveAs(Server.MapPath(fileurl));
+                //    model.RuodiananzhuangPic = path + "/" + FileUpload1.FileName;
+                //}
+                model.TempTag = ddlTag.SelectedItem.Value;
+                model.TempOrder = txtOrder.Text.Trim() != "" ? int.Parse(txtOrder.Text) : 0;
                 model.QuotationTemplateName = txtName.Text;
                 model.QuotationTemplateMainBrand = txtMainBrand.Text;
                 model.QuotationTemplateDescription = txtDes.Text;
                 model.QuotationTemplateScenario = txtScenario.Text;
                 model.QuotationTemplateNotes = txtNotes.Text;
                 new BLL.Q_QuotationTemplate().Update(model);
-                //sql = "update Q_QuotationTemplate set RuodiananzhuangFee = " + (txtRuodiananzhuangFee.Text != "" ? txtRuodiananzhuangFee.Text : "0") + ",QicaianzhuangFee = " + (txtQicaianzhuangFee.Text != "" ? txtQicaianzhuangFee.Text : "0") + ",XitongtiaoshiFee = " + (txtXitongtiaoshiFee.Text != "" ? txtXitongtiaoshiFee.Text : "0") + ",XiangmuguanliFee = " + (txtXiangmuguanliFee.Text != "" ? txtXiangmuguanliFee.Text : "0") + ",VideoDebugFee = " + (txtVideoDebugFee.Text != "" ? txtVideoDebugFee.Text : "0") + ",AudioDebugFee = " + (txtAudioDebugFee.Text != "" ? txtAudioDebugFee.Text : "0") + ",,QuotationTemplateName = '" + txtName.Text + "',QuotationTemplateMainBrand = '" + txtMainBrand.Text + "',QuotationTemplateDescription = '" + txtDes.Text + "',QuotationTemplateScenario = '" + txtScenario.Text + "',QuotationTemplateNotes = '" + txtNotes.Text + "',TermpTag = '" + ddlTag.SelectedItem.Value + "' where QuotationTemplateId = " + Request.QueryString["id"];
-                //DbHelperSQL.ExecuteSql(sql);
+
                 sql = "delete Q_QuotationTemplateLine where FK_TemplateId = " + Request.QueryString["id"];
                 DbHelperSQL.ExecuteSql(sql);
                 for (int i = 0; i < rptLine.Items.Count; i++)
@@ -256,14 +225,11 @@ namespace DTcms.Web.admin.Quotation
                     sql = "insert into Q_QuotationTemplateLine values(" + Request.QueryString["id"] + "," + hfdMaterialId.Value + ",'" + lblBrand.Text + "','" + imgBrand.ImageUrl.ToString() + "','" + lblMode.Text + "','" + lblName.Text + "','" + lblDescription.Text + "','" + lblUnit.Text + "','" + lblUnitPrice.Text + "','" + imgMaterial.ImageUrl.ToString() + "'," + (lblQuantity.Text != "" ? lblQuantity.Text : "0") + "," + (lblTotalAmount.Text != "" ? lblTotalAmount.Text : "0") + ")";
                     DbHelperSQL.ExecuteSql(sql);
                 }
-
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "1", "alert('模板修改完成！');window.location.href='QuotationTemplateList.aspx'", true);
             }
-
         }
 
         DataTable dtgoods = new DataTable();
-
         private void InitializationDtgoods()
         {
             dtgoods.Columns.Add("OrderIndex", Type.GetType("System.Int32"));
@@ -286,8 +252,17 @@ namespace DTcms.Web.admin.Quotation
             for (int i = 0; i < rptList1.Items.Count; i++)
             {
                 HiddenField hfdIsDel = rptList1.Items[i].FindControl("hfdIsDel") as HiddenField;
+                TextBox txtQuantity = rptList1.Items[i].FindControl("txtQuantity") as TextBox;
                 if (hfdIsDel.Value == "1")//删除
                 {
+                    continue;
+                }
+                if (!string.IsNullOrEmpty(hfdReplaceIndex.Value) && i == int.Parse(hfdReplaceIndex.Value) && hfdTempId.Value != "")//替换
+                {
+                    string sql = "select * from Sy_Material where ID = " + hfdTempId.Value;
+                    DataTable dt = DbHelperSQL.Query(sql).Tables[0];
+                    dtgoods.Rows.Add(new object[] { int.Parse(hfdReplaceIndex.Value), dt.Rows[0]["ID"], dt.Rows[0]["Brand"], dt.Rows[0]["BrandImg"], dt.Rows[0]["Mode"], dt.Rows[0]["Name"], dt.Rows[0]["Description"], dt.Rows[0]["Unit"], dt.Rows[0]["UnitPrice"], dt.Rows[0]["Photo"], txtQuantity.Text });
+                    hfdTempId.Value = hfdReplaceIndex.Value = "";
                     continue;
                 }
                 if (!string.IsNullOrEmpty(hfdInsertIndex.Value) && i == int.Parse(hfdInsertIndex.Value) && hfdTempId.Value != "")//插入
@@ -300,6 +275,7 @@ namespace DTcms.Web.admin.Quotation
                     needadd++;
                     continue;
                 }
+
                 HiddenField hfdMaterialId = rptList1.Items[i].FindControl("hfdMaterialId") as HiddenField;
                 Label lblBrand = rptList1.Items[i].FindControl("lblBrand") as Label;
                 Image imgBrand = rptList1.Items[i].FindControl("imgBrand") as Image;
@@ -309,18 +285,37 @@ namespace DTcms.Web.admin.Quotation
                 Label lblUnit = rptList1.Items[i].FindControl("lblUnit") as Label;
                 Label lblUnitPrice = rptList1.Items[i].FindControl("lblUnitPrice") as Label;
                 Image imgMaterial = rptList1.Items[i].FindControl("imgMaterial") as Image;
-                TextBox txtQuantity = rptList1.Items[i].FindControl("txtQuantity") as TextBox;
                 dtgoods.Rows.Add(new object[] { i + needadd, hfdMaterialId.Value, lblBrand.Text, imgBrand.ImageUrl, lblMode.Text, lblName.Text, lblDescription.Text, lblUnit.Text, lblUnitPrice.Text, imgMaterial.ImageUrl, txtQuantity.Text });
             }
-            if (hfdTempId.Value != "")//添加新一行
+            if (hfdTempId.Value != "" && !hfdTempId.Value.Contains('|'))//添加新一行
             {
                 string sql = "select * from Sy_Material where ID = " + hfdTempId.Value;
                 DataTable dt = DbHelperSQL.Query(sql).Tables[0];
                 dtgoods.Rows.Add(new object[] { rptList1.Items.Count, dt.Rows[0]["ID"], dt.Rows[0]["Brand"], dt.Rows[0]["BrandImg"], dt.Rows[0]["Mode"], dt.Rows[0]["Name"], dt.Rows[0]["Description"], dt.Rows[0]["Unit"], dt.Rows[0]["UnitPrice"], dt.Rows[0]["Photo"], "" });
                 hfdTempId.Value = "";
             }
+            else if (hfdTempId.Value != "" && hfdTempId.Value.Contains('|'))//添加多行
+            {
+                string[] arr = hfdTempId.Value.Split('|');
+                for (int i = 0; i < arr.Length; i++)
+                {
+                    if (arr[i].Trim() != "")
+                    {
+                        string sql = "select * from Sy_Material where ID = " + arr[i].Trim();
+                        DataTable dt = DbHelperSQL.Query(sql).Tables[0];
+                        dtgoods.Rows.Add(new object[] { rptList1.Items.Count + i, dt.Rows[0]["ID"], dt.Rows[0]["Brand"], dt.Rows[0]["BrandImg"], dt.Rows[0]["Mode"], dt.Rows[0]["Name"], dt.Rows[0]["Description"], dt.Rows[0]["Unit"], dt.Rows[0]["UnitPrice"], dt.Rows[0]["Photo"], "" });
+                    }
+                }
+                hfdTempId.Value = "";
+            }
             rptList1.DataSource = dtgoods;
             rptList1.DataBind();
+            UpdateLine();
+            UpdateLaborFee();
+            decimal TotalGoods = hfdTotalGoods.Value != "" ? Convert.ToDecimal(hfdTotalGoods.Value) : 0;
+            decimal TotalLine = hfdTotalLine.Value != "" ? Convert.ToDecimal(hfdTotalLine.Value) : 0;
+            decimal TotalRengong = hfdTotalRengong.Value != "" ? Convert.ToDecimal(hfdTotalRengong.Value) : 0;
+            lblSystemSubTotal.Text = Math.Round(TotalGoods + TotalLine + TotalRengong, 0).ToString();
         }
         protected void btnBind_Click(object sender, EventArgs e)
         {
@@ -413,6 +408,81 @@ namespace DTcms.Web.admin.Quotation
         /// <param name="e"></param>
         protected void btnUpdateLine_Click(object sender, EventArgs e)
         {
+            UpdateLine();
+        }
+        /// <summary>
+        /// 更新人工费用
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void btnUpdateLaborFee_Click(object sender, EventArgs e)
+        {
+            UpdateLaborFee();
+        }
+        /// <summary>
+        /// 更新人工费用
+        /// </summary>
+        private void UpdateLaborFee()
+        {
+            decimal RuodiananzhuangFee = 0;
+            decimal QicaianzhuangFee = 0;
+            decimal XitongtiaoshiFee = 0;
+            decimal XiangmuguanliFee = 0;
+            decimal TotalGoods = 0;
+            for (int i = 0; i < rptList1.Items.Count; i++)
+            {
+                HiddenField hfdMaterialId = rptList1.Items[i].FindControl("hfdMaterialId") as HiddenField;
+                Model.Sy_Material mmodel = new BLL.Sy_Material().GetModel(int.Parse(hfdMaterialId.Value));
+                TextBox txtQuantity = rptList1.Items[i].FindControl("txtQuantity") as TextBox;
+                Label lblUnitPrice = rptList1.Items[i].FindControl("lblUnitPrice") as Label;
+                decimal count = txtQuantity.Text != "" ? decimal.Parse(txtQuantity.Text) : 0;
+                decimal unitprice = lblUnitPrice.Text != "" ? decimal.Parse(lblUnitPrice.Text) : 0;
+                QicaianzhuangFee += count * unitprice * (txtQicaianzhuangFee.Text != "" ? Convert.ToDecimal(txtQicaianzhuangFee.Text) : 0);
+                XitongtiaoshiFee += count * unitprice * (txtXitongtiaoshiFee.Text != "" ? Convert.ToDecimal(txtXitongtiaoshiFee.Text) : 0);
+                XiangmuguanliFee += count * unitprice * (txtXiangmuguanliFee.Text != "" ? Convert.ToDecimal(txtXiangmuguanliFee.Text) : 0);
+                TotalGoods += count * unitprice;
+                if (mmodel != null && mmodel.LaborCost != null && mmodel.LaborCost != 0)
+                {
+                    RuodiananzhuangFee += count * Convert.ToDecimal(mmodel.LaborCost);
+                }
+            }
+            txtQicaianzhuangTotal.Text = Math.Round(QicaianzhuangFee, 0).ToString();
+            txtXitongtiaoshiTotal.Text = Math.Round(XitongtiaoshiFee, 0).ToString();
+            txtXiangmuguanliTotal.Text = Math.Round(XiangmuguanliFee, 0).ToString();
+            txtRuodiananzhuangFee.Text = Math.Round(RuodiananzhuangFee, 0).ToString();
+
+            hfdTotalRengong.Value = (QicaianzhuangFee + XitongtiaoshiFee + XiangmuguanliFee + RuodiananzhuangFee).ToString();
+            hfdTotalGoods.Value = TotalGoods.ToString();
+        }
+        /// <summary>
+        /// 更新线材
+        /// </summary>
+        private void UpdateLine()
+        {
+            Dictionary<string, string> dic = new Dictionary<string, string>();
+            if (hfdLineList.Value != "" && hfdLineList.Value.Contains("|"))
+            {
+                string[] arr = hfdLineList.Value.Split('|');
+                if (arr.Length > 0)
+                {
+                    for (int i = 0; i < arr.Length; i++)
+                    {
+                        if (arr[i] != "")
+                        {
+                            string oldL = arr[i].Split('-')[0];
+                            string newL = arr[i].Split('-')[1];
+                            if (dic.Keys.Contains(oldL))
+                            {
+                                dic[oldL] = newL;
+                            }
+                            else
+                            {
+                                dic.Add(oldL, newL);
+                            }
+                        }
+                    }
+                }
+            }
             string s = "select ID,Brand,BrandImg,Mode,Name,Description,Unit,UnitPrice,Photo,'' as totalcount,'' as totalamount from Sy_Material where 1=2";
             DataTable d = DbHelperSQL.Query(s).Tables[0];
             for (int i = 0; i < rptList1.Items.Count; i++)
@@ -424,11 +494,30 @@ namespace DTcms.Web.admin.Quotation
                 DataTable dt = DbHelperSQL.Query(sql).Tables[0];
                 for (int j = 0; j < dt.Rows.Count; j++)
                 {
+                    if (dic.Keys.Contains(dt.Rows[j]["ID"].ToString()))
+                    {
+                        Model.Sy_Material Lmodel = new BLL.Sy_Material().GetModel(int.Parse(dic[dt.Rows[j]["ID"].ToString()]));
+                        dt.Rows[j]["ID"] = Lmodel.ID;
+                        dt.Rows[j]["Brand"] = Lmodel.Brand;
+                        dt.Rows[j]["BrandImg"] = Lmodel.BrandImg;
+                        dt.Rows[j]["Mode"] = Lmodel.Mode;
+                        dt.Rows[j]["Name"] = Lmodel.Name;
+                        dt.Rows[j]["Unit"] = Lmodel.Unit;
+                        dt.Rows[j]["UnitPrice"] = Lmodel.UnitPrice;
+                        dt.Rows[j]["Photo"] = Lmodel.Photo;
+                        //dt.Rows[j]["totalcount"] = "";
+                        dt.Rows[j]["totalamount"] = (Lmodel.UnitPrice * Convert.ToDecimal(dt.Rows[j]["totalcount"])).ToString();
+                    }
+                }
+                for (int j = 0; j < dt.Rows.Count; j++)
+                {
                     DataRow[] dr = d.Select("ID = " + dt.Rows[j]["ID"]);
                     if (dr.Length > 0)
                     {
+                        decimal sub = 0;
                         dr[0]["totalcount"] = Math.Round(Convert.ToDecimal(dr[0]["totalcount"]) + Convert.ToDecimal(dt.Rows[j]["totalcount"]), 0).ToString();
-                        dr[0]["totalamount"] = Math.Round(Convert.ToDecimal(dr[0]["totalamount"]) + Convert.ToDecimal(dt.Rows[j]["totalamount"]), 0).ToString();
+                        sub = Math.Round(Convert.ToDecimal(dr[0]["totalamount"]) + Convert.ToDecimal(dt.Rows[j]["totalamount"]), 0);
+                        dr[0]["totalamount"] = sub.ToString();
                     }
                     else
                     {
@@ -436,50 +525,24 @@ namespace DTcms.Web.admin.Quotation
                     }
                 }
             }
+
             rptLine.DataSource = d;
             rptLine.DataBind();
 
+            decimal linesum = 0;//线材总价
+            for (int i = 0; i < rptLine.Items.Count; i++)
+            {
+                Label lblTotalAmount = rptLine.Items[i].FindControl("lblTotalAmount") as Label;
+                linesum += lblTotalAmount.Text != "" ? Convert.ToDecimal(lblTotalAmount.Text) : 0;
+            }
+            hfdTotalLine.Value = linesum.ToString();
         }
 
-        /// <summary>
-        /// 更新人工费用
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        protected void btnUpdateLaborFee_Click(object sender, EventArgs e)
+        protected void btnBindLine_Click(object sender, EventArgs e)
         {
-            decimal RuodiananzhuangFee = 0;
-            decimal QicaianzhuangFee = 0;
-            decimal XitongtiaoshiFee = 0;
-            decimal XiangmuguanliFee = 0;
-            decimal VideoDebugFee = 0;
-            decimal AudioDebugFee = 0;
-            decimal AuMaterialFee = 0;
-            for (int i = 0; i < rptList1.Items.Count; i++)
-            {
-                HiddenField hfdMaterialId = rptList1.Items[i].FindControl("hfdMaterialId") as HiddenField;
-                TextBox txtQuantity = rptList1.Items[i].FindControl("txtQuantity") as TextBox;
-                Label lblUnitPrice = rptList1.Items[i].FindControl("lblUnitPrice") as Label;
-
-                decimal count = txtQuantity.Text != "" ? decimal.Parse(txtQuantity.Text) : 0;
-                decimal unitprice = lblUnitPrice.Text != "" ? decimal.Parse(lblUnitPrice.Text) : 0;
-                //Model.Sy_Material model = new BLL.Sy_Material().GetModel(int.Parse(hfdMaterialId.Value));
-                //Model.Q_QuotationTemplate model = new BLL.Q_QuotationTemplate().GetModel(int.Parse(Request.QueryString["id"]));
-                RuodiananzhuangFee += count * unitprice * (txtRuodiananzhuangFee.Text != "" ? Convert.ToDecimal(txtRuodiananzhuangFee.Text) : 0);
-                QicaianzhuangFee += count * unitprice * (txtQicaianzhuangFee.Text != "" ? Convert.ToDecimal(txtQicaianzhuangFee.Text) : 0);
-                XitongtiaoshiFee += count * unitprice * (txtXitongtiaoshiFee.Text != "" ? Convert.ToDecimal(txtXitongtiaoshiFee.Text) : 0);
-                XiangmuguanliFee += count * unitprice * (txtXiangmuguanliFee.Text != "" ? Convert.ToDecimal(txtXiangmuguanliFee.Text) : 0);
-                VideoDebugFee += count * unitprice * (txtVideoDebugFee.Text != "" ? Convert.ToDecimal(txtVideoDebugFee.Text) : 0);
-                AudioDebugFee += count * unitprice * (txtAudioDebugFee.Text != "" ? Convert.ToDecimal(txtAudioDebugFee.Text) : 0);
-                AuMaterialFee += count * unitprice * (txtAuMaterialFee.Text != "" ? Convert.ToDecimal(txtAuMaterialFee.Text) : 0);
-            }
-            txtRuodiananzhuangTotal.Text = Math.Round(RuodiananzhuangFee, 0).ToString();
-            txtQicaianzhuangTotal.Text = Math.Round(QicaianzhuangFee, 0).ToString();
-            txtXitongtiaoshiTotal.Text = Math.Round(XitongtiaoshiFee, 0).ToString();
-            txtXiangmuguanliTotal.Text = Math.Round(XiangmuguanliFee, 0).ToString();
-            txtVideoDebugTotal.Text = Math.Round(VideoDebugFee, 0).ToString();
-            txtAudioDebugTotal.Text = Math.Round(AudioDebugFee, 0).ToString();
-            txtAuMaterialTotal.Text= Math.Round(AuMaterialFee, 0).ToString();
+            hfdLineList.Value += hfdLineReplaceId.Value + "-" + hfdLineTempId.Value + "|";
+            UpdateLine();
+            hfdLineTempId.Value = hfdLineReplaceId.Value = "";
         }
     }
 }

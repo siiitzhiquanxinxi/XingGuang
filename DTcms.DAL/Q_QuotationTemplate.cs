@@ -3,7 +3,6 @@ using System.Data;
 using System.Text;
 using System.Data.SqlClient;
 using DTcms.DBUtility;
-
 namespace DTcms.DAL
 {
     /// <summary>
@@ -38,9 +37,9 @@ namespace DTcms.DAL
         {
             StringBuilder strSql = new StringBuilder();
             strSql.Append("insert into Q_QuotationTemplate(");
-            strSql.Append("QuotationTemplateName,QuotationTemplateType,QuotationTemplateTypeId,QuotationTemplateMainBrand,QuotationTemplateDescription,QuotationTemplateScenario,QuotationTemplateNotes,CreateBy,CreateDate,QuotationTemplateState,RuodiananzhuangFee,QicaianzhuangFee,XitongtiaoshiFee,XiangmuguanliFee,VideoDebugFee,AudioDebugFee,AuMaterialFee,RuodiananzhuangDes,QicaianzhuangDes,XitongtiaoshiDes,XiangmuguanliDes,VideoDebugDes,AudioDebugDes,AuMaterialDes,TermpTag)");
+            strSql.Append("QuotationTemplateName,QuotationTemplateType,QuotationTemplateTypeId,QuotationTemplateMainBrand,QuotationTemplateDescription,QuotationTemplateScenario,QuotationTemplateNotes,CreateBy,CreateDate,QuotationTemplateState,XitongtiaoshiFee,XiangmuguanliFee,QicaianzhuangFee,RuodiananzhuangDes,XitongtiaoshiDes,XiangmuguanliDes,QicaianzhuangDes,RuodiananzhuangPic,XitongtiaoshiPic,XiangmuguanliPic,QicaianzhuangPic,TempTag,TempOrder)");
             strSql.Append(" values (");
-            strSql.Append("@QuotationTemplateName,@QuotationTemplateType,@QuotationTemplateTypeId,@QuotationTemplateMainBrand,@QuotationTemplateDescription,@QuotationTemplateScenario,@QuotationTemplateNotes,@CreateBy,@CreateDate,@QuotationTemplateState,@RuodiananzhuangFee,@QicaianzhuangFee,@XitongtiaoshiFee,@XiangmuguanliFee,@VideoDebugFee,@AudioDebugFee,@AuMaterialFee,@RuodiananzhuangDes,@QicaianzhuangDes,@XitongtiaoshiDes,@XiangmuguanliDes,@VideoDebugDes,@AudioDebugDes,@AuMaterialDes,@TermpTag)");
+            strSql.Append("@QuotationTemplateName,@QuotationTemplateType,@QuotationTemplateTypeId,@QuotationTemplateMainBrand,@QuotationTemplateDescription,@QuotationTemplateScenario,@QuotationTemplateNotes,@CreateBy,@CreateDate,@QuotationTemplateState,@XitongtiaoshiFee,@XiangmuguanliFee,@QicaianzhuangFee,@RuodiananzhuangDes,@XitongtiaoshiDes,@XiangmuguanliDes,@QicaianzhuangDes,@RuodiananzhuangPic,@XitongtiaoshiPic,@XiangmuguanliPic,@QicaianzhuangPic,@TempTag,@TempOrder)");
             strSql.Append(";select @@IDENTITY");
             SqlParameter[] parameters = {
                     new SqlParameter("@QuotationTemplateName", SqlDbType.NVarChar,50),
@@ -53,21 +52,19 @@ namespace DTcms.DAL
                     new SqlParameter("@CreateBy", SqlDbType.Int,4),
                     new SqlParameter("@CreateDate", SqlDbType.DateTime),
                     new SqlParameter("@QuotationTemplateState", SqlDbType.Int,4),
-                    new SqlParameter("@RuodiananzhuangFee", SqlDbType.Decimal,9),
-                    new SqlParameter("@QicaianzhuangFee", SqlDbType.Decimal,9),
                     new SqlParameter("@XitongtiaoshiFee", SqlDbType.Decimal,9),
                     new SqlParameter("@XiangmuguanliFee", SqlDbType.Decimal,9),
-                    new SqlParameter("@VideoDebugFee", SqlDbType.Decimal,9),
-                    new SqlParameter("@AudioDebugFee", SqlDbType.Decimal,9),
-                    new SqlParameter("@AuMaterialFee", SqlDbType.Decimal,9),
+                    new SqlParameter("@QicaianzhuangFee", SqlDbType.Decimal,9),
                     new SqlParameter("@RuodiananzhuangDes", SqlDbType.NVarChar,200),
-                    new SqlParameter("@QicaianzhuangDes", SqlDbType.NVarChar,200),
                     new SqlParameter("@XitongtiaoshiDes", SqlDbType.NVarChar,200),
                     new SqlParameter("@XiangmuguanliDes", SqlDbType.NVarChar,200),
-                    new SqlParameter("@VideoDebugDes", SqlDbType.NVarChar,200),
-                    new SqlParameter("@AudioDebugDes", SqlDbType.NVarChar,200),
-                    new SqlParameter("@AuMaterialDes", SqlDbType.NVarChar,200),
-                    new SqlParameter("@TermpTag", SqlDbType.NVarChar,50)};
+                    new SqlParameter("@QicaianzhuangDes", SqlDbType.NVarChar,200),
+                    new SqlParameter("@RuodiananzhuangPic", SqlDbType.NVarChar,200),
+                    new SqlParameter("@XitongtiaoshiPic", SqlDbType.NVarChar,200),
+                    new SqlParameter("@XiangmuguanliPic", SqlDbType.NVarChar,200),
+                    new SqlParameter("@QicaianzhuangPic", SqlDbType.NVarChar,200),
+                    new SqlParameter("@TempTag", SqlDbType.NVarChar,50),
+                    new SqlParameter("@TempOrder", SqlDbType.Int,4)};
             parameters[0].Value = model.QuotationTemplateName;
             parameters[1].Value = model.QuotationTemplateType;
             parameters[2].Value = model.QuotationTemplateTypeId;
@@ -78,21 +75,19 @@ namespace DTcms.DAL
             parameters[7].Value = model.CreateBy;
             parameters[8].Value = model.CreateDate;
             parameters[9].Value = model.QuotationTemplateState;
-            parameters[10].Value = model.RuodiananzhuangFee;
-            parameters[11].Value = model.QicaianzhuangFee;
-            parameters[12].Value = model.XitongtiaoshiFee;
-            parameters[13].Value = model.XiangmuguanliFee;
-            parameters[14].Value = model.VideoDebugFee;
-            parameters[15].Value = model.AudioDebugFee;
-            parameters[16].Value = model.AuMaterialFee;
-            parameters[17].Value = model.RuodiananzhuangDes;
-            parameters[18].Value = model.QicaianzhuangDes;
-            parameters[19].Value = model.XitongtiaoshiDes;
-            parameters[20].Value = model.XiangmuguanliDes;
-            parameters[21].Value = model.VideoDebugDes;
-            parameters[22].Value = model.AudioDebugDes;
-            parameters[23].Value = model.AuMaterialDes;
-            parameters[24].Value = model.TermpTag;
+            parameters[10].Value = model.XitongtiaoshiFee;
+            parameters[11].Value = model.XiangmuguanliFee;
+            parameters[12].Value = model.QicaianzhuangFee;
+            parameters[13].Value = model.RuodiananzhuangDes;
+            parameters[14].Value = model.XitongtiaoshiDes;
+            parameters[15].Value = model.XiangmuguanliDes;
+            parameters[16].Value = model.QicaianzhuangDes;
+            parameters[17].Value = model.RuodiananzhuangPic;
+            parameters[18].Value = model.XitongtiaoshiPic;
+            parameters[19].Value = model.XiangmuguanliPic;
+            parameters[20].Value = model.QicaianzhuangPic;
+            parameters[21].Value = model.TempTag;
+            parameters[22].Value = model.TempOrder;
 
             object obj = DbHelperSQL.GetSingle(strSql.ToString(), parameters);
             if (obj == null)
@@ -121,21 +116,19 @@ namespace DTcms.DAL
             strSql.Append("CreateBy=@CreateBy,");
             strSql.Append("CreateDate=@CreateDate,");
             strSql.Append("QuotationTemplateState=@QuotationTemplateState,");
-            strSql.Append("RuodiananzhuangFee=@RuodiananzhuangFee,");
-            strSql.Append("QicaianzhuangFee=@QicaianzhuangFee,");
             strSql.Append("XitongtiaoshiFee=@XitongtiaoshiFee,");
             strSql.Append("XiangmuguanliFee=@XiangmuguanliFee,");
-            strSql.Append("VideoDebugFee=@VideoDebugFee,");
-            strSql.Append("AudioDebugFee=@AudioDebugFee,");
-            strSql.Append("AuMaterialFee=@AuMaterialFee,");
+            strSql.Append("QicaianzhuangFee=@QicaianzhuangFee,");
             strSql.Append("RuodiananzhuangDes=@RuodiananzhuangDes,");
-            strSql.Append("QicaianzhuangDes=@QicaianzhuangDes,");
             strSql.Append("XitongtiaoshiDes=@XitongtiaoshiDes,");
             strSql.Append("XiangmuguanliDes=@XiangmuguanliDes,");
-            strSql.Append("VideoDebugDes=@VideoDebugDes,");
-            strSql.Append("AudioDebugDes=@AudioDebugDes,");
-            strSql.Append("AuMaterialDes=@AuMaterialDes,");
-            strSql.Append("TermpTag=@TermpTag");
+            strSql.Append("QicaianzhuangDes=@QicaianzhuangDes,");
+            strSql.Append("RuodiananzhuangPic=@RuodiananzhuangPic,");
+            strSql.Append("XitongtiaoshiPic=@XitongtiaoshiPic,");
+            strSql.Append("XiangmuguanliPic=@XiangmuguanliPic,");
+            strSql.Append("QicaianzhuangPic=@QicaianzhuangPic,");
+            strSql.Append("TempTag=@TempTag,");
+            strSql.Append("TempOrder=@TempOrder");
             strSql.Append(" where QuotationTemplateId=@QuotationTemplateId");
             SqlParameter[] parameters = {
                     new SqlParameter("@QuotationTemplateName", SqlDbType.NVarChar,50),
@@ -148,21 +141,19 @@ namespace DTcms.DAL
                     new SqlParameter("@CreateBy", SqlDbType.Int,4),
                     new SqlParameter("@CreateDate", SqlDbType.DateTime),
                     new SqlParameter("@QuotationTemplateState", SqlDbType.Int,4),
-                    new SqlParameter("@RuodiananzhuangFee", SqlDbType.Decimal,9),
-                    new SqlParameter("@QicaianzhuangFee", SqlDbType.Decimal,9),
                     new SqlParameter("@XitongtiaoshiFee", SqlDbType.Decimal,9),
                     new SqlParameter("@XiangmuguanliFee", SqlDbType.Decimal,9),
-                    new SqlParameter("@VideoDebugFee", SqlDbType.Decimal,9),
-                    new SqlParameter("@AudioDebugFee", SqlDbType.Decimal,9),
-                    new SqlParameter("@AuMaterialFee", SqlDbType.Decimal,9),
+                    new SqlParameter("@QicaianzhuangFee", SqlDbType.Decimal,9),
                     new SqlParameter("@RuodiananzhuangDes", SqlDbType.NVarChar,200),
-                    new SqlParameter("@QicaianzhuangDes", SqlDbType.NVarChar,200),
                     new SqlParameter("@XitongtiaoshiDes", SqlDbType.NVarChar,200),
                     new SqlParameter("@XiangmuguanliDes", SqlDbType.NVarChar,200),
-                    new SqlParameter("@VideoDebugDes", SqlDbType.NVarChar,200),
-                    new SqlParameter("@AudioDebugDes", SqlDbType.NVarChar,200),
-                    new SqlParameter("@AuMaterialDes", SqlDbType.NVarChar,200),
-                    new SqlParameter("@TermpTag", SqlDbType.NVarChar,50),
+                    new SqlParameter("@QicaianzhuangDes", SqlDbType.NVarChar,200),
+                    new SqlParameter("@RuodiananzhuangPic", SqlDbType.NVarChar,200),
+                    new SqlParameter("@XitongtiaoshiPic", SqlDbType.NVarChar,200),
+                    new SqlParameter("@XiangmuguanliPic", SqlDbType.NVarChar,200),
+                    new SqlParameter("@QicaianzhuangPic", SqlDbType.NVarChar,200),
+                    new SqlParameter("@TempTag", SqlDbType.NVarChar,50),
+                    new SqlParameter("@TempOrder", SqlDbType.Int,4),
                     new SqlParameter("@QuotationTemplateId", SqlDbType.Int,4)};
             parameters[0].Value = model.QuotationTemplateName;
             parameters[1].Value = model.QuotationTemplateType;
@@ -174,22 +165,20 @@ namespace DTcms.DAL
             parameters[7].Value = model.CreateBy;
             parameters[8].Value = model.CreateDate;
             parameters[9].Value = model.QuotationTemplateState;
-            parameters[10].Value = model.RuodiananzhuangFee;
-            parameters[11].Value = model.QicaianzhuangFee;
-            parameters[12].Value = model.XitongtiaoshiFee;
-            parameters[13].Value = model.XiangmuguanliFee;
-            parameters[14].Value = model.VideoDebugFee;
-            parameters[15].Value = model.AudioDebugFee;
-            parameters[16].Value = model.AuMaterialFee;
-            parameters[17].Value = model.RuodiananzhuangDes;
-            parameters[18].Value = model.QicaianzhuangDes;
-            parameters[19].Value = model.XitongtiaoshiDes;
-            parameters[20].Value = model.XiangmuguanliDes;
-            parameters[21].Value = model.VideoDebugDes;
-            parameters[22].Value = model.AudioDebugDes;
-            parameters[23].Value = model.AuMaterialDes;
-            parameters[24].Value = model.TermpTag;
-            parameters[25].Value = model.QuotationTemplateId;
+            parameters[10].Value = model.XitongtiaoshiFee;
+            parameters[11].Value = model.XiangmuguanliFee;
+            parameters[12].Value = model.QicaianzhuangFee;
+            parameters[13].Value = model.RuodiananzhuangDes;
+            parameters[14].Value = model.XitongtiaoshiDes;
+            parameters[15].Value = model.XiangmuguanliDes;
+            parameters[16].Value = model.QicaianzhuangDes;
+            parameters[17].Value = model.RuodiananzhuangPic;
+            parameters[18].Value = model.XitongtiaoshiPic;
+            parameters[19].Value = model.XiangmuguanliPic;
+            parameters[20].Value = model.QicaianzhuangPic;
+            parameters[21].Value = model.TempTag;
+            parameters[22].Value = model.TempOrder;
+            parameters[23].Value = model.QuotationTemplateId;
 
             int rows = DbHelperSQL.ExecuteSql(strSql.ToString(), parameters);
             if (rows > 0)
@@ -253,7 +242,7 @@ namespace DTcms.DAL
         {
 
             StringBuilder strSql = new StringBuilder();
-            strSql.Append("select  top 1 QuotationTemplateId,QuotationTemplateName,QuotationTemplateType,QuotationTemplateTypeId,QuotationTemplateMainBrand,QuotationTemplateDescription,QuotationTemplateScenario,QuotationTemplateNotes,CreateBy,CreateDate,QuotationTemplateState,RuodiananzhuangFee,QicaianzhuangFee,XitongtiaoshiFee,XiangmuguanliFee,VideoDebugFee,AudioDebugFee,AuMaterialFee,RuodiananzhuangDes,QicaianzhuangDes,XitongtiaoshiDes,XiangmuguanliDes,VideoDebugDes,AudioDebugDes,AuMaterialDes,TermpTag from Q_QuotationTemplate ");
+            strSql.Append("select  top 1 QuotationTemplateId,QuotationTemplateName,QuotationTemplateType,QuotationTemplateTypeId,QuotationTemplateMainBrand,QuotationTemplateDescription,QuotationTemplateScenario,QuotationTemplateNotes,CreateBy,CreateDate,QuotationTemplateState,XitongtiaoshiFee,XiangmuguanliFee,QicaianzhuangFee,RuodiananzhuangDes,XitongtiaoshiDes,XiangmuguanliDes,QicaianzhuangDes,RuodiananzhuangPic,XitongtiaoshiPic,XiangmuguanliPic,QicaianzhuangPic,TempTag,TempOrder from Q_QuotationTemplate ");
             strSql.Append(" where QuotationTemplateId=@QuotationTemplateId");
             SqlParameter[] parameters = {
                     new SqlParameter("@QuotationTemplateId", SqlDbType.Int,4)
@@ -325,14 +314,6 @@ namespace DTcms.DAL
                 {
                     model.QuotationTemplateState = int.Parse(row["QuotationTemplateState"].ToString());
                 }
-                if (row["RuodiananzhuangFee"] != null && row["RuodiananzhuangFee"].ToString() != "")
-                {
-                    model.RuodiananzhuangFee = decimal.Parse(row["RuodiananzhuangFee"].ToString());
-                }
-                if (row["QicaianzhuangFee"] != null && row["QicaianzhuangFee"].ToString() != "")
-                {
-                    model.QicaianzhuangFee = decimal.Parse(row["QicaianzhuangFee"].ToString());
-                }
                 if (row["XitongtiaoshiFee"] != null && row["XitongtiaoshiFee"].ToString() != "")
                 {
                     model.XitongtiaoshiFee = decimal.Parse(row["XitongtiaoshiFee"].ToString());
@@ -341,25 +322,13 @@ namespace DTcms.DAL
                 {
                     model.XiangmuguanliFee = decimal.Parse(row["XiangmuguanliFee"].ToString());
                 }
-                if (row["VideoDebugFee"] != null && row["VideoDebugFee"].ToString() != "")
+                if (row["QicaianzhuangFee"] != null && row["QicaianzhuangFee"].ToString() != "")
                 {
-                    model.VideoDebugFee = decimal.Parse(row["VideoDebugFee"].ToString());
-                }
-                if (row["AudioDebugFee"] != null && row["AudioDebugFee"].ToString() != "")
-                {
-                    model.AudioDebugFee = decimal.Parse(row["AudioDebugFee"].ToString());
-                }
-                if (row["AuMaterialFee"] != null && row["AuMaterialFee"].ToString() != "")
-                {
-                    model.AuMaterialFee = decimal.Parse(row["AuMaterialFee"].ToString());
+                    model.QicaianzhuangFee = decimal.Parse(row["QicaianzhuangFee"].ToString());
                 }
                 if (row["RuodiananzhuangDes"] != null)
                 {
                     model.RuodiananzhuangDes = row["RuodiananzhuangDes"].ToString();
-                }
-                if (row["QicaianzhuangDes"] != null)
-                {
-                    model.QicaianzhuangDes = row["QicaianzhuangDes"].ToString();
                 }
                 if (row["XitongtiaoshiDes"] != null)
                 {
@@ -369,21 +338,33 @@ namespace DTcms.DAL
                 {
                     model.XiangmuguanliDes = row["XiangmuguanliDes"].ToString();
                 }
-                if (row["VideoDebugDes"] != null)
+                if (row["QicaianzhuangDes"] != null)
                 {
-                    model.VideoDebugDes = row["VideoDebugDes"].ToString();
+                    model.QicaianzhuangDes = row["QicaianzhuangDes"].ToString();
                 }
-                if (row["AudioDebugDes"] != null)
+                if (row["RuodiananzhuangPic"] != null)
                 {
-                    model.AudioDebugDes = row["AudioDebugDes"].ToString();
+                    model.RuodiananzhuangPic = row["RuodiananzhuangPic"].ToString();
                 }
-                if (row["AuMaterialDes"] != null)
+                if (row["XitongtiaoshiPic"] != null)
                 {
-                    model.AuMaterialDes = row["AuMaterialDes"].ToString();
+                    model.XitongtiaoshiPic = row["XitongtiaoshiPic"].ToString();
                 }
-                if (row["TermpTag"] != null)
+                if (row["XiangmuguanliPic"] != null)
                 {
-                    model.TermpTag = row["TermpTag"].ToString();
+                    model.XiangmuguanliPic = row["XiangmuguanliPic"].ToString();
+                }
+                if (row["QicaianzhuangPic"] != null)
+                {
+                    model.QicaianzhuangPic = row["QicaianzhuangPic"].ToString();
+                }
+                if (row["TempTag"] != null)
+                {
+                    model.TempTag = row["TempTag"].ToString();
+                }
+                if (row["TempOrder"] != null && row["TempOrder"].ToString() != "")
+                {
+                    model.TempOrder = int.Parse(row["TempOrder"].ToString());
                 }
             }
             return model;
@@ -395,7 +376,7 @@ namespace DTcms.DAL
         public DataSet GetList(string strWhere)
         {
             StringBuilder strSql = new StringBuilder();
-            strSql.Append("select QuotationTemplateId,QuotationTemplateName,QuotationTemplateType,QuotationTemplateTypeId,QuotationTemplateMainBrand,QuotationTemplateDescription,QuotationTemplateScenario,QuotationTemplateNotes,CreateBy,CreateDate,QuotationTemplateState,RuodiananzhuangFee,QicaianzhuangFee,XitongtiaoshiFee,XiangmuguanliFee,VideoDebugFee,AudioDebugFee,AuMaterialFee,RuodiananzhuangDes,QicaianzhuangDes,XitongtiaoshiDes,XiangmuguanliDes,VideoDebugDes,AudioDebugDes,AuMaterialDes,TermpTag ");
+            strSql.Append("select QuotationTemplateId,QuotationTemplateName,QuotationTemplateType,QuotationTemplateTypeId,QuotationTemplateMainBrand,QuotationTemplateDescription,QuotationTemplateScenario,QuotationTemplateNotes,CreateBy,CreateDate,QuotationTemplateState,XitongtiaoshiFee,XiangmuguanliFee,QicaianzhuangFee,RuodiananzhuangDes,XitongtiaoshiDes,XiangmuguanliDes,QicaianzhuangDes,RuodiananzhuangPic,XitongtiaoshiPic,XiangmuguanliPic,QicaianzhuangPic,TempTag,TempOrder ");
             strSql.Append(" FROM Q_QuotationTemplate ");
             if (strWhere.Trim() != "")
             {
@@ -415,7 +396,7 @@ namespace DTcms.DAL
             {
                 strSql.Append(" top " + Top.ToString());
             }
-            strSql.Append(" QuotationTemplateId,QuotationTemplateName,QuotationTemplateType,QuotationTemplateTypeId,QuotationTemplateMainBrand,QuotationTemplateDescription,QuotationTemplateScenario,QuotationTemplateNotes,CreateBy,CreateDate,QuotationTemplateState,RuodiananzhuangFee,QicaianzhuangFee,XitongtiaoshiFee,XiangmuguanliFee,VideoDebugFee,AudioDebugFee,AuMaterialFee,RuodiananzhuangDes,QicaianzhuangDes,XitongtiaoshiDes,XiangmuguanliDes,VideoDebugDes,AudioDebugDes,AuMaterialDes,TermpTag ");
+            strSql.Append(" QuotationTemplateId,QuotationTemplateName,QuotationTemplateType,QuotationTemplateTypeId,QuotationTemplateMainBrand,QuotationTemplateDescription,QuotationTemplateScenario,QuotationTemplateNotes,CreateBy,CreateDate,QuotationTemplateState,XitongtiaoshiFee,XiangmuguanliFee,QicaianzhuangFee,RuodiananzhuangDes,XitongtiaoshiDes,XiangmuguanliDes,QicaianzhuangDes,RuodiananzhuangPic,XitongtiaoshiPic,XiangmuguanliPic,QicaianzhuangPic,TempTag,TempOrder ");
             strSql.Append(" FROM Q_QuotationTemplate ");
             if (strWhere.Trim() != "")
             {

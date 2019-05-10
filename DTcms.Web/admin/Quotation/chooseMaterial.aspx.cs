@@ -182,5 +182,27 @@ namespace DTcms.Web.admin.Quotation
             BindDDL();
             BindData();
         }
+
+        protected void btnOK_Click(object sender, EventArgs e)
+        {
+            string selectId = "";
+            for (int i = 0; i < rptList1.Items.Count; i++)
+            {
+                CheckBox ckb = rptList1.Items[i].FindControl("chkId") as CheckBox;
+                if (ckb.Checked)
+                {
+                    HiddenField hfdId = rptList1.Items[i].FindControl("hfdId") as HiddenField;
+                    selectId += hfdId.Value + "|";
+                }
+            }
+            if (selectId != "")
+            {
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "1", "okmore('" + selectId + "');", true);
+            }
+            else
+            {
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "1", "alert('至少选择一件商品！');", true);
+            }
+        }
     }
 }

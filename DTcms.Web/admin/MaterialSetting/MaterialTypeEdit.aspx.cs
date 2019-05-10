@@ -90,8 +90,11 @@ namespace DTcms.Web.admin.MaterialSetting
             }
             else
             {   //修改
+                string oldType = new BLL.Sy_MaterialType().GetModel(Convert.ToInt32(hidId.Value)).MaterialType;
                 model.ID = Convert.ToInt32(hidId.Value);
                 Bll.Update(model);
+                string sql = "update Sy_Material set MaterialType = '" + txtMaterialType.Text.Trim() + "' where MaterialType = '" + oldType + "'";
+                DbHelperSQL.ExecuteSql(sql);
                 MessageBox.Show(this, "修改成功！");
             }
         }

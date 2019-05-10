@@ -1,7 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="chooseTemp.aspx.cs" Inherits="DTcms.Web.admin.Quotation.chooseTemp" %>
 
-
-<%@ Register Assembly="AspNetPager" Namespace="Wuqi.Webdiyer" TagPrefix="webdiyer" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -74,9 +72,10 @@
                             <th align="left" style="padding-left: 5px;">系统分类</th>
                             <th align="left">模板名称</th>
                             <th align="left">主要品牌</th>
-                            <th align="left">系统描述</th>
                             <th align="left">使用场景</th>
+                            <th align="left">系统描述</th>
                             <th align="left">系统搭配注意事项</th>
+                            <th align="left">系统总价</th>
                             <th width="10%">操作</th>
                         </tr>
                 </HeaderTemplate>
@@ -87,9 +86,11 @@
                             <%#Eval("QuotationTemplateType") %></td>
                         <td><%#Eval("QuotationTemplateName") %></td>
                         <td><%#Eval("QuotationTemplateMainBrand") %></td>
-                        <td><%#Eval("QuotationTemplateDescription") %></td>
                         <td><%#Eval("QuotationTemplateScenario") %></td>
+                        <td><%#Eval("QuotationTemplateDescription") %></td>
                         <td><%#Eval("QuotationTemplateNotes") %></td>
+                        <td>
+                            <asp:Label ID="lblTotal" runat="server" Text=""></asp:Label></td>
                         <td align="center">
                             <a href="javascript:void(0);" onclick="ok(this)">选择</a>
                         </td>
@@ -106,12 +107,7 @@
 
         <!--内容底部-->
         <div class="line20"></div>
-        <webdiyer:AspNetPager ID="AspNetPager1" runat="server" CustomInfoHTML="当前页:%CurrentPageIndex%/%PageCount% 共有%RecordCount%条记录 %PageCount%/页"
-            FirstPageText="首页" HorizontalAlign="Center" InvalidPageIndexErrorMessage="页索引不是有效的数值！"
-            LastPageText="末页" NextPageText="下一页" PageIndexOutOfRangeErrorMessage="页索引超出范围！"
-            PageSize="8" PrevPageText="上一页" ShowCustomInfoSection="Left" ShowInputBox="Always"
-            Width="100%" OnPageChanged="AspNetPager1_PageChanged" NumericButtonCount="5">
-        </webdiyer:AspNetPager>
+
         <!--/内容底部-->
     </form>
 </body>

@@ -45,10 +45,10 @@ namespace DTcms.Web.admin.MaterialSetting
                     s.Open(path);
                     Aspose.Cells.Worksheet ws = s.Worksheets[0];
                     DataTable dt = new DataTable();
-                    dt = ws.Cells.ExportDataTable(1, 0, ws.Cells.Rows.Count - 1, 21);
+                    dt = ws.Cells.ExportDataTable(1, 0, ws.Cells.Rows.Count - 1, 16);
                     System.IO.File.Delete(path);
 
-                    string str1 = "", str2 = "", str3 = "", str4 = "", str5 = "", str6 = "", str7 = "", str8 = "", str9 = "", str10 = "", str11 = "", str12 = "", str13 = "", str14 = "", str15 = "", str16 = "", str17 = "", str18 = "", str19 = "", str20 = "", str21 = "";
+                    string str1 = "", str2 = "", str3 = "", str4 = "", str5 = "", str6 = "", str7 = "", str8 = "", str9 = "", str10 = "", str11 = "", str12 = "", str13 = "", str14 = "", str15 = "", str16 = "";
 
                     int result = 0;
                     for (int i = 0; i < dt.Rows.Count; i++)
@@ -69,11 +69,6 @@ namespace DTcms.Web.admin.MaterialSetting
                         str14 = dt.Rows[i][13].ToString();
                         str15 = dt.Rows[i][14].ToString();
                         str16 = dt.Rows[i][15].ToString();
-                        str17 = dt.Rows[i][16].ToString();
-                        str18 = dt.Rows[i][17].ToString();
-                        str19 = dt.Rows[i][18].ToString();
-                        str20 = dt.Rows[i][19].ToString();
-                        str21 = dt.Rows[i][20].ToString();
                         //判断行数据是否完整并给出提示
                         if (str1 == "" || str4 == "" || str5 == "" || str6 == "" || str7 == "")
                         {
@@ -83,71 +78,75 @@ namespace DTcms.Web.admin.MaterialSetting
                         }
                         else//数据完整则插入数据库
                         {
-                            DTcms.Model.Sy_Material material = new DTcms.Model.Sy_Material();
+                            Model.Sy_Material material;
+                            List<Model.Sy_Material> lstM = new BLL.Sy_Material().GetModelList("Mode = '" + str4 + "' and MaterialTypeID = " + ddlMaterialType.SelectedValue);
+                            if (lstM.Count > 0)
+                            {
+                                material = lstM[0];
+                            }
+                            else
+                            {
+                                material = new DTcms.Model.Sy_Material();
+                            }
                             material.MaterialTypeID = Convert.ToInt32(ddlMaterialType.SelectedValue);
                             material.MaterialType = ddlMaterialType.SelectedItem.Text;
                             material.Brand = str1;
                             material.BrandEnglish = str2;
-                            material.BrandImg = "/upload/" + str3;
+                            if (str3 != "")
+                            {
+                                material.BrandImg = "/upload/" + str3;
+                            }
                             material.Mode = str4;
                             material.Name = str5;
                             material.Description = str6;
                             material.Unit = str7;
-                            if (str8 == "")
+                            if (str8 == "" && lstM.Count <= 0)//新增时单价为空
                                 material.UnitPrice = 0;
-                            else
+                            else if (str8 != "")//修改时不为空
                                 material.UnitPrice = Convert.ToDecimal(str8);
-                            if (str9 == "")
+                            if (str9 == "" && lstM.Count <= 0)
                                 material.CostPrice = 0;
-                            else
+                            else if (str9 != "")
                                 material.CostPrice = Convert.ToDecimal(str9);
-                            if (str11 == "")
+                            if (str11 == "" && lstM.Count <= 0)
                                 material.LaborCost = 0;
-                            else
+                            else if (str11 != "")
                                 material.LaborCost = Convert.ToDecimal(str11);
-                            if (str12 == "")
-                                material.InstallationFee = 0;
-                            else
-                                material.InstallationFee = Convert.ToDecimal(str12);
-                            if (str13 == "")
-                                material.CommissioningFee = 0;
-                            else
-                                material.CommissioningFee = Convert.ToDecimal(str13);
-                            if (str14 == "")
-                                material.ManagementFee = 0;
-                            else
-                                material.ManagementFee = Convert.ToDecimal(str14);
-
-                            if (str15 == "")
-                                material.VideoDebugFee = 0;
-                            else
-                                material.VideoDebugFee = Convert.ToDecimal(str15);
-                            if (str16 == "")
-                                material.AudioDebugFee = 0;
-                            else
-                                material.AudioDebugFee = Convert.ToDecimal(str16);
-
-                            if (str17 == "")
+                            if (str12 == "" && lstM.Count <= 0)
                                 material.IndoorInstallationFee = 0;
-                            else
-                                material.IndoorInstallationFee = Convert.ToDecimal(str17);
-                            if (str18 == "")
+                            else if (str12 != "")
+                                material.IndoorInstallationFee = Convert.ToDecimal(str12);
+                            if (str13 == "" && lstM.Count <= 0)
                                 material.IndoorLaborCost = 0;
+                            else if (str13 != "")
+                                material.IndoorLaborCost = Convert.ToDecimal(str13);
+                            if (str10 != "")
+                            {
+                                material.Photo = "/upload/" + str10;
+                            }
+                            material.MaterialID = str14;
+                            material.MaterialName = str15;
+                            if (str16 == "")
+                            {
+                                material.Tag = "正常产品";
+                            }
                             else
-                                material.IndoorLaborCost = Convert.ToDecimal(str18);
-                            material.Photo = "/upload/" + str10;
-                            material.MaterialID = str19;
-                            material.MaterialName = str20;
-                            material.Tag = str21;
+                            {
+                                material.Tag = str16;
+                            }
                             material.State = 0;
-                            result = MaterialBll.Add(material);
+                            if (lstM.Count > 0)
+                            {
+                                MaterialBll.Update(material);
+                            }
+                            else
+                            {
+                                result = MaterialBll.Add(material);
+                            }
                         }
                     }
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "JsError", "alert('导入完成。');", true);
 
-                    if (result > 0)
-                    {
-                        ScriptManager.RegisterStartupScript(this, this.GetType(), "JsError", "alert('导入成功。');", true);
-                    }
                 }
             }
         }

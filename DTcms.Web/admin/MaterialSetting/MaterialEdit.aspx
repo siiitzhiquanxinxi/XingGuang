@@ -157,7 +157,7 @@
                     <span class="Validform_checktip">*</span>
                 </dd>
             </dl>
-            <%--<dl>
+            <dl>
                 <dt>弱电布线费：</dt>
                 <dd>
                     <asp:TextBox ID="txtLaborCost" runat="server" CssClass="input normal" sucmsg=" " minlength="1"
@@ -165,7 +165,7 @@
 
                 </dd>
             </dl>
-            <dl>
+            <%--<dl>
                 <dt>器材安装费：</dt>
                 <dd>
                     <asp:TextBox ID="txtInstallationFee" runat="server" CssClass="input normal" sucmsg=" " minlength="1"

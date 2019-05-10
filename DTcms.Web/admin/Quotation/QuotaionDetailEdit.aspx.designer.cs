@@ -67,6 +67,42 @@ namespace DTcms.Web.admin.Quotation {
         protected global::System.Web.UI.WebControls.HiddenField hfdInsertIndex;
         
         /// <summary>
+        /// hfdLineTempId 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hfdLineTempId;
+        
+        /// <summary>
+        /// hfdLineReplaceId 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hfdLineReplaceId;
+        
+        /// <summary>
+        /// hfdLineList 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hfdLineList;
+        
+        /// <summary>
+        /// hfdReplaceIndex 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hfdReplaceIndex;
+        
+        /// <summary>
         /// txtQuotationListNum 控件。
         /// </summary>
         /// <remarks>
@@ -83,24 +119,6 @@ namespace DTcms.Web.admin.Quotation {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlInputButton btnAddGoodsType;
-        
-        /// <summary>
-        /// btnPrintTotal 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnPrintTotal;
-        
-        /// <summary>
-        /// btnShowTotal 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputButton btnShowTotal;
         
         /// <summary>
         /// txtDiscount 控件。
@@ -193,13 +211,13 @@ namespace DTcms.Web.admin.Quotation {
         protected global::System.Web.UI.WebControls.Button btnUpdateLaborFee;
         
         /// <summary>
-        /// btnPrintPreview 控件。
+        /// btnExportSheet 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnPrintPreview;
+        protected global::System.Web.UI.WebControls.Button btnExportSheet;
         
         /// <summary>
         /// btnBind 控件。
@@ -218,6 +236,15 @@ namespace DTcms.Web.admin.Quotation {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnBind2;
+        
+        /// <summary>
+        /// btnBindLine 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnBindLine;
         
         /// <summary>
         /// txtSystemName 控件。
@@ -265,13 +292,13 @@ namespace DTcms.Web.admin.Quotation {
         protected global::System.Web.UI.WebControls.TextBox txtRuodiananzhuangDes;
         
         /// <summary>
-        /// txtRuodiananzhuangRate 控件。
+        /// imgRuodiananzhuang 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtRuodiananzhuangRate;
+        protected global::System.Web.UI.WebControls.Image imgRuodiananzhuang;
         
         /// <summary>
         /// txtRuodiananzhuangFee 控件。
@@ -281,6 +308,42 @@ namespace DTcms.Web.admin.Quotation {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtRuodiananzhuangFee;
+        
+        /// <summary>
+        /// txtXiangmuguanliDes 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtXiangmuguanliDes;
+        
+        /// <summary>
+        /// txtXiangmuguanliRate 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtXiangmuguanliRate;
+        
+        /// <summary>
+        /// imgXiangmuguanli 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Image imgXiangmuguanli;
+        
+        /// <summary>
+        /// txtXiangmuguanliFee 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtXiangmuguanliFee;
         
         /// <summary>
         /// txtQicaianzhuangDes 控件。
@@ -299,6 +362,15 @@ namespace DTcms.Web.admin.Quotation {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtQicaianzhuangRate;
+        
+        /// <summary>
+        /// imgQicaianzhuang 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Image imgQicaianzhuang;
         
         /// <summary>
         /// txtQicaianzhuangFee 控件。
@@ -328,6 +400,15 @@ namespace DTcms.Web.admin.Quotation {
         protected global::System.Web.UI.WebControls.TextBox txtXitongtiaoshiRate;
         
         /// <summary>
+        /// imgXitongtiaoshi 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Image imgXitongtiaoshi;
+        
+        /// <summary>
         /// txtXitongtiaoshiFee 控件。
         /// </summary>
         /// <remarks>
@@ -335,114 +416,6 @@ namespace DTcms.Web.admin.Quotation {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtXitongtiaoshiFee;
-        
-        /// <summary>
-        /// txtXiangmuguanliDes 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtXiangmuguanliDes;
-        
-        /// <summary>
-        /// txtXiangmuguanliRate 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtXiangmuguanliRate;
-        
-        /// <summary>
-        /// txtXiangmuguanliFee 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtXiangmuguanliFee;
-        
-        /// <summary>
-        /// txtVideoDebugDes 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtVideoDebugDes;
-        
-        /// <summary>
-        /// txtVideoDebugRate 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtVideoDebugRate;
-        
-        /// <summary>
-        /// txtVideoDebugFee 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtVideoDebugFee;
-        
-        /// <summary>
-        /// txtAudioDebugDes 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtAudioDebugDes;
-        
-        /// <summary>
-        /// txtAudioDebugRate 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtAudioDebugRate;
-        
-        /// <summary>
-        /// txtAudioDebugFee 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtAudioDebugFee;
-        
-        /// <summary>
-        /// txtAuMaterialDes 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtAuMaterialDes;
-        
-        /// <summary>
-        /// txtAuMaterialRate 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtAuMaterialRate;
-        
-        /// <summary>
-        /// txtAuMaterialFee 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtAuMaterialFee;
         
         /// <summary>
         /// lblRengongTotal 控件。

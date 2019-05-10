@@ -57,6 +57,79 @@
                     </div>
                 </dd>
             </dl>
+            <dl>
+                <dt>弱电布线费-描述：</dt>
+                <dd>
+                    <asp:TextBox ID="txtRuodiananzhuangDes" runat="server" CssClass="input normal" TextMode="MultiLine" Height="60" sucmsg=" "
+                        minlength="1" MaxLength="100"></asp:TextBox>
+                </dd>
+            </dl>
+            <dl>
+                <dt>弱电布线费-图例：</dt>
+                <dd>
+                    <asp:FileUpload ID="FileUpload4" runat="server" />
+                </dd>
+            </dl>
+            <dl>
+                <dt>项目管理费-比例：</dt>
+                <dd>
+                    <asp:TextBox ID="txtXiangmuguanliFee" runat="server" CssClass="input small" sucmsg=" "
+                        minlength="1" MaxLength="100"></asp:TextBox>
+                </dd>
+            </dl>
+            <dl>
+                <dt>项目管理费-描述：</dt>
+                <dd>
+                    <asp:TextBox ID="txtXiangmuguanliDes" runat="server" CssClass="input normal" TextMode="MultiLine" Height="60" sucmsg=" "
+                        minlength="1" MaxLength="100"></asp:TextBox>
+                </dd>
+            </dl>
+            <dl>
+                <dt>项目管理费-图例：</dt>
+                <dd>
+                    <asp:FileUpload ID="FileUpload2" runat="server" />
+                </dd>
+            </dl>
+            <dl>
+                <dt>规划与安装-比例：</dt>
+                <dd>
+                    <asp:TextBox ID="txtQicaianzhuangFee" runat="server" CssClass="input small" sucmsg=" "
+                        minlength="1" MaxLength="100"></asp:TextBox>
+                </dd>
+            </dl>
+            <dl>
+                <dt>规划与安装-描述：</dt>
+                <dd>
+                    <asp:TextBox ID="txtQicaianzhuangDes" runat="server" CssClass="input normal" TextMode="MultiLine" Height="60" sucmsg=" "
+                        minlength="1" MaxLength="100"></asp:TextBox>
+                </dd>
+            </dl>
+            <dl>
+                <dt>规划与安装-图例：</dt>
+                <dd>
+                    <asp:FileUpload ID="FileUpload3" runat="server" />
+                </dd>
+            </dl>
+            <dl>
+                <dt>系统调试费-比例：</dt>
+                <dd>
+                    <asp:TextBox ID="txtXitongtiaoshiFee" runat="server" CssClass="input small" sucmsg=" "
+                        minlength="1" MaxLength="100"></asp:TextBox>
+                </dd>
+            </dl>
+            <dl>
+                <dt>系统调试费-描述：</dt>
+                <dd>
+                    <asp:TextBox ID="txtXitongtiaoshiDes" runat="server" CssClass="input normal" TextMode="MultiLine" Height="60" sucmsg=" "
+                        minlength="1" MaxLength="100"></asp:TextBox>
+                </dd>
+            </dl>
+            <dl>
+                <dt>系统调试费-图例：</dt>
+                <dd>
+                    <asp:FileUpload ID="FileUpload1" runat="server" />
+                </dd>
+            </dl>
         </div>
         <!--/内容-->
         <!--工具栏-->

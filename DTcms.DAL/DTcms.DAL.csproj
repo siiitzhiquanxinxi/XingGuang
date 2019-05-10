@@ -72,6 +72,7 @@
     <Compile Include="Sy_Material.cs" />
     <Compile Include="Sy_MaterialType.cs" />
     <Compile Include="Sy_Material_Detail.cs" />
+    <Compile Include="Sy_SystemType.cs" />
     <Compile Include="url_rewrite.cs" />
     <Compile Include="users.cs" />
     <Compile Include="user_amount_log.cs" />

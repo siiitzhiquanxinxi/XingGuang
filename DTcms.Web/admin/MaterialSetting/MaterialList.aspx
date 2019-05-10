@@ -144,7 +144,6 @@
                     <table width="100%" border="0" cellspacing="0" cellpadding="0" class="ltable">
                         <tr>
                             <th width="6%">选择</th>
-                            <th align="left">类型</th>
                             <th align="left">品牌</th>
                             <th align="center">LOGO</th>
                             <th align="left">型号</th>
@@ -162,7 +161,6 @@
                             <asp:HiddenField ID="hfdId" runat="server" Value='<%#Eval("ID") %>' />
                             <asp:CheckBox ID="chkId" CssClass="checkall" runat="server" Style="vertical-align: middle;" />
                         </td>
-                        <td><%#Eval("MaterialType") %></td>
                         <td><%#Eval("Brand") %></td>
                         <td align="center">
                             <asp:Image ID="imgBrand" runat="server" ImageUrl='<%#Eval("BrandImg") %>' /></td>

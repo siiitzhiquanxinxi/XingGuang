@@ -72,7 +72,7 @@ namespace DTcms.Web.admin.MaterialSetting
             txtUnit.Text = material.Unit;
             txtUnitPrice.Text = material.UnitPrice.ToString();
             //txtCostPrice.Text = material.CostPrice.ToString();
-            //txtLaborCost.Text = material.LaborCost.ToString();
+            txtLaborCost.Text = material.LaborCost.ToString();
             //txtInstallationFee.Text = material.InstallationFee.ToString();
             //txtCommissioningFee.Text = material.CommissioningFee.ToString();
             //txtManagementFee.Text = material.ManagementFee.ToString();
@@ -116,10 +116,10 @@ namespace DTcms.Web.admin.MaterialSetting
             {
                 this.txtUnitPrice.Text = "0";
             }
-            //if (this.txtLaborCost.Text.Trim() == "")
-            //{
-            //    this.txtLaborCost.Text = "0";
-            //}
+            if (this.txtLaborCost.Text.Trim() == "")
+            {
+                this.txtLaborCost.Text = "0";
+            }
             //if (this.txtInstallationFee.Text.Trim() == "")
             //{
             //    this.txtInstallationFee.Text = "0";
@@ -181,14 +181,14 @@ namespace DTcms.Web.admin.MaterialSetting
             material.Unit = txtUnit.Text.Trim();
             material.UnitPrice = Convert.ToDecimal(txtUnitPrice.Text.Trim());
             material.CostPrice = 0;
-            material.LaborCost = 0;
+            material.LaborCost = Convert.ToDecimal(txtLaborCost.Text);
             material.InstallationFee = 0;
             material.CommissioningFee = 0;
-            material.ManagementFee =0;
+            material.ManagementFee = 0;
             material.IndoorInstallationFee = 0;
             material.IndoorLaborCost = 0;
-            material.VideoDebugFee= 0;
-            material.AudioDebugFee=0;
+            material.VideoDebugFee = 0;
+            material.AudioDebugFee = 0;
             if (FileUpload2.HasFile)
             {
                 string fileurl = "";
@@ -231,7 +231,7 @@ namespace DTcms.Web.admin.MaterialSetting
                         MaterialDetailBll.Add(dtdatail);
                     }
                 }
-                ScriptManager.RegisterStartupScript(this, this.GetType(), "1", "alert('添加成功！');window.location.href='MaterialList.aspx?MaterialType="+ ddlMaterialType.SelectedItem.Text + "';", true);
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "1", "alert('添加成功！');window.location.href='MaterialList.aspx?MaterialType=" + ddlMaterialType.SelectedItem.Value + "';", true);
                 //MessageBox.Show(this, "添加成功！");
                 //Response.Redirect("MaterialList.aspx");
             }
@@ -244,7 +244,7 @@ namespace DTcms.Web.admin.MaterialSetting
                     dtdatail.TableName = "Sy_Material_Detail";
                     MaterialDetailBll.Add(dtdatail);
                 }
-                ScriptManager.RegisterStartupScript(this, this.GetType(), "1", "alert('修改成功！');window.location.href='MaterialList.aspx?MaterialType=" + ddlMaterialType.SelectedItem.Text + "';", true);
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "1", "alert('修改成功！');window.location.href='MaterialList.aspx?MaterialType=" + ddlMaterialType.SelectedItem.Value + "';", true);
                 //MessageBox.Show(this, "修改成功！");
                 //Response.Redirect("MaterialList.aspx");
             }

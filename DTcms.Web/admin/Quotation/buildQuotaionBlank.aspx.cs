@@ -15,14 +15,29 @@ namespace DTcms.Web.admin.Quotation
             if (!IsPostBack)
             {
                 Model.manager mo = Session["dt_session_admin_info"] as Model.manager;
-                if (mo != null)
+                if (!string.IsNullOrEmpty(Request.QueryString["action"]) && Request.QueryString["action"] == "createsecond" && !string.IsNullOrEmpty(Request.QueryString["cid"]))
+                {
+                    Model.C_CustomerProgram mc = new BLL.C_CustomerProgram().GetModel(int.Parse(Request.QueryString["cid"]));
+                    txtCustomerNum.Text = mc.CustomerNum;
+                    txtCustomerName.Text = mc.CustomerName;
+                    txtCustomerTel.Text = mc.CustomerTel;
+                    txtCustomerAddress.Text = mc.CustomerAddress;
+                    txtProgramAreaNum.Text = mc.ProgramAreaNum;
+                    txtSalePeople.Text = mc.SalePeople;
+                    txtBussinessPeople.Text = mc.BussinessPeople;
+                    txtCustomerSource.Text = mc.CustomerSource;
+
+                    txtCustomerNum.Enabled = txtCustomerName.Enabled = txtCustomerTel.Enabled = txtCustomerAddress.Enabled = txtProgramAreaNum.Enabled = txtSalePeople.Enabled = txtBussinessPeople.Enabled = txtCustomerSource.Enabled = false;
+
+                }
+                else if (mo != null)
                 {
                     txtSalePeople.Text = mo.real_name;
                     txtCustomerNum.Text = GetSpellCode(mo.real_name) + DateTime.Now.ToString("yyyyMMdd") + GetCustomerNum();
                 }
             }
         }
-        
+
         private string GetCustomerNum()
         {
             string sql = "select CustomerId from C_CustomerProgram where 1=1";
@@ -278,21 +293,29 @@ namespace DTcms.Web.admin.Quotation
         {
             if (checkTxt())
             {
-                Model.C_CustomerProgram cmodel = new Model.C_CustomerProgram();
-                cmodel.CustomerName = txtCustomerName.Text;
-                cmodel.CustomerTel = txtCustomerTel.Text;
-                cmodel.CustomerAddress = txtCustomerAddress.Text;
-                cmodel.ProgramAreaNum = txtProgramAreaNum.Text;
-                cmodel.CreateDate = DateTime.Now;
-                Model.manager mo = Session["dt_session_admin_info"] as Model.manager;
-                cmodel.CreateBy = mo != null ? mo.id : -1;
-                cmodel.CustomerNum = mo != null ? (GetSpellCode(mo.real_name) + DateTime.Now.ToString("yyyyMMdd") + GetCustomerNum()) : DateTime.Now.ToString("yyyyMMdd") + GetCustomerNum();
-                cmodel.SalePeople = txtSalePeople.Text;
-                cmodel.BussinessPeople = txtBussinessPeople.Text;
-                cmodel.CustomerSource = txtCustomerSource.Text;
-                cmodel.CustomerState = 0;
-                int cid = new BLL.C_CustomerProgram().Add(cmodel);
-                Response.Redirect("QuotaionDetailEdit.aspx?action=add&cid=" + cid.ToString());
+                if (!string.IsNullOrEmpty(Request.QueryString["action"]) && Request.QueryString["action"] == "createsecond" && !string.IsNullOrEmpty(Request.QueryString["cid"]))
+                {
+                    Response.Redirect("QuotaionDetailEdit.aspx?action=add&cid=" + Request.QueryString["cid"].ToString());
+                }
+                else
+                {
+                    Model.C_CustomerProgram cmodel = new Model.C_CustomerProgram();
+                    cmodel.CustomerName = txtCustomerName.Text;
+                    cmodel.CustomerTel = txtCustomerTel.Text;
+                    cmodel.CustomerAddress = txtCustomerAddress.Text;
+                    cmodel.ProgramAreaNum = txtProgramAreaNum.Text;
+                    cmodel.CreateDate = DateTime.Now;
+                    Model.manager mo = Session["dt_session_admin_info"] as Model.manager;
+                    cmodel.CreateBy = mo != null ? mo.id : -1;
+                    cmodel.CustomerNum = mo != null ? (GetSpellCode(mo.real_name) + DateTime.Now.ToString("yyyyMMdd") + GetCustomerNum()) : DateTime.Now.ToString("yyyyMMdd") + GetCustomerNum();
+                    cmodel.SalePeople = txtSalePeople.Text;
+                    cmodel.BussinessPeople = txtBussinessPeople.Text;
+                    cmodel.CustomerSource = txtCustomerSource.Text;
+                    cmodel.CustomerState = 0;
+                    int cid = new BLL.C_CustomerProgram().Add(cmodel);
+                    Response.Redirect("QuotaionDetailEdit.aspx?action=add&cid=" + cid.ToString());
+                }
+
             }
         }
     }

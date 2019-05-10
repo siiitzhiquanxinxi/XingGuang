@@ -64,9 +64,7 @@ namespace DTcms.Web.admin.Quotation
                             Q_total += sub + Convert.ToDecimal(lstType[k].RuodiananzhuangFee)
                                 + Convert.ToDecimal(lstType[k].QicaianzhuangFee)
                                 + Convert.ToDecimal(lstType[k].XitongtiaoshiFee)
-                                + Convert.ToDecimal(lstType[k].XiangmuguanliFee)
-                                + Convert.ToDecimal(lstType[k].VideoDebugFee)
-                                + Convert.ToDecimal(lstType[k].AudioDebugFee);
+                                + Convert.ToDecimal(lstType[k].XiangmuguanliFee);
                         }
                     }
                     Label lblTotal = rptQuotation.Items[j].FindControl("lblTotal") as Label;
