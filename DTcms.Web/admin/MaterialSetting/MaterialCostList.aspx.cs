@@ -68,5 +68,21 @@ namespace DTcms.Web.admin.MaterialSetting
         {
             BindData();
         }
+
+        protected void rptList1_ItemCommand(object source, RepeaterCommandEventArgs e)
+        {
+            if (e.CommandName == "Update")  
+            {
+                TextBox txtUnitPrice = e.Item.FindControl("txtUnitPrice") as TextBox;
+                TextBox txtCostPrice = e.Item.FindControl("txtCostPrice") as TextBox;
+                BLL.Sy_Material bll = new BLL.Sy_Material();
+                int id = Convert.ToInt32(e.CommandArgument);
+                Model.Sy_Material model = bll.GetModel(id);
+                model.UnitPrice = Convert.ToDecimal( txtUnitPrice.Text.Trim());
+                model.CostPrice = Convert.ToDecimal(txtCostPrice.Text.Trim());
+                bll.Update(model);
+
+            }
+        }
     }
 }

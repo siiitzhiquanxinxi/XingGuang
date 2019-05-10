@@ -8,7 +8,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,initial-scale=1.0,user-scalable=no" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
-    <title>产品成本价设置</title>
+    <title>产品价格设置</title>
     <link href="../../scripts/artdialog/ui-dialog.css" rel="stylesheet" type="text/css" />
     <link href="../skin/default/style.css" rel="stylesheet" type="text/css" />
     <link href="../../css/pagination.css" rel="stylesheet" type="text/css" />
@@ -99,7 +99,7 @@
             <a href="javascript:history.back(-1);" class="back"><i></i><span>返回上一页</span></a>
             <a href="../center.aspx" class="home"><i></i><span>首页</span></a>
             <i class="arrow"></i>
-            <span>产品成本价设置</span>
+            <span>产品价格设置</span>
         </div>
         <!--/导航栏-->
 
@@ -139,7 +139,7 @@
         <!--列表-->
         <div class="table-container">
             <!--文字列表-->
-            <asp:Repeater ID="rptList1" runat="server">
+            <asp:Repeater ID="rptList1" runat="server" OnItemCommand="rptList1_ItemCommand">
                 <HeaderTemplate>
                     <table width="100%" border="0" cellspacing="0" cellpadding="0" class="ltable">
                         <tr>
@@ -166,16 +166,20 @@
                         <td><%#Eval("Mode") %></td>
                         <td><%#Eval("Name") %></td>
                         <td><%#Eval("Description").ToString().Replace("\n","<br />") %></td>
-                        <%--<td>
-                            <asp:TextBox ID="TextBox1" runat="server" TextMode="MultiLine" Text='<%#Eval("Description") %>' BorderStyle="None" Width="350px" Height="80px" ReadOnly="true"></asp:TextBox></td>--%>
+                        
                         <td><%#Eval("Unit") %></td>
                         
                         <td align="center">
                             <asp:Image ID="imgMaterial" runat="server" ImageUrl='<%#Eval("Photo") %>' Height="50" /></td>
-                        <td><%#Eval("UnitPrice") %></td>
-                        <td><%#Eval("CostPrice") %></td>
+                        <%--<td><%#Eval("UnitPrice") %></td>--%>
+                        <td>
+                            <asp:TextBox ID="txtUnitPrice" runat="server"  Text='<%#Eval("UnitPrice") %>' BorderStyle="None" Width="60px"></asp:TextBox></td>
+                        <%--<td><%#Eval("CostPrice") %></td>--%>
+                        <td>
+                        <asp:TextBox ID="txtCostPrice" runat="server"  Text='<%#Eval("CostPrice") %>' BorderStyle="None" Width="60px"></asp:TextBox></td>
                         <td align="center">
-                            <a href='MaterialCostEdit.aspx?action=Edit&id=<%#Eval("ID") %>'>编辑</a>
+                            <%--<a href='MaterialCostEdit.aspx?action=Edit&id=<%#Eval("ID") %>'></a>--%>
+                            <asp:LinkButton ID="lbtnUpdate" runat="server" CommandArgument='<%#Eval("ID") %>'  CommandName="Update">修改</asp:LinkButton>
                         </td>
                     </tr>
                 </ItemTemplate>
